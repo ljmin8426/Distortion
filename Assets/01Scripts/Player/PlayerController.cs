@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
@@ -13,11 +12,10 @@ public class PlayerController : MonoBehaviour
     private Camera cam;
 
     private float verticalVelocity;
-    private bool isJumping;
 
-    private float smoothMoveSpeed = 0f;      // 부드럽게 변화하는 값
+    private float smoothMoveSpeed = 0f; 
     private float moveSpeedSmoothTime = 0.1f;
-    private float moveSpeedVelocity;         // 내부적으로 Lerp에 사용될 velocity
+    private float moveSpeedVelocity;         
 
     void Start()
     {
@@ -50,12 +48,10 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                isJumping = true;
             }
             else
             {
-                verticalVelocity = -1f;  // 땅에 붙이기
-                isJumping = false;
+                verticalVelocity = -1f;
             }
         }
         else
