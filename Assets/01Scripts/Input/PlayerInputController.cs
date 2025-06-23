@@ -1,44 +1,64 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInputController : MonoBehaviour
 {
-    [SerializeField] private Vector2 move;
-    [SerializeField] private bool isJump;
-    [SerializeField] private bool isSprint;
+    private InputMapping _controls;
 
-    public Vector2 Move => move;
-    public bool IsJump => isJump;
-    public bool IsSprint => isSprint;
+    public Vector2 MoveInput { get; private set; }
 
+    public static event Action OnJump;
+    public static event Action OnUtil;
+    public static event Action OnDefense;
+    public static event Action OnUltimate;
+    public static event Action OnSkill;
+    public static event Action OnAttack;
+    public static event Action OnPause;
 
-    public void OnMove(InputValue inputValue)
+    public static event Action OnF1;
+    public static event Action OnF2;
+    public static event Action OnF3;
+    public static event Action OnF4;
+    public static event Action OnF5;
+    public static event Action OnF6;
+    public static event Action OnF7;
+    public static event Action OnF8;
+
+    private void Awake()
     {
-        InputMove(inputValue.Get<Vector2>());
+        _controls = new InputMapping();
+
+        // Move
+        _controls.Player.Move.performed += ctx => MoveInput = ctx.ReadValue<Vector2>();
+        _controls.Player.Move.canceled += ctx => MoveInput = Vector2.zero;
+
+        // Button Inputs
+        _controls.Player.Jump.performed += _ => OnJump?.Invoke();
+        _controls.Player.Util.performed += _ => OnUtil?.Invoke();
+        _controls.Player.Defense.performed += _ => OnDefense?.Invoke();
+        _controls.Player.Ultimate.performed += _ => OnUltimate?.Invoke();
+        _controls.Player.Skill.performed += _ => OnSkill?.Invoke();
+        _controls.Player.Attack.performed += _ => OnAttack?.Invoke();
+        _controls.Player.Pause.performed += _ => OnPause?.Invoke();
+
+        _controls.Player.F1.performed += _ => OnF1?.Invoke();
+        _controls.Player.F2.performed += _ => OnF2?.Invoke();
+        _controls.Player.F3.performed += _ => OnF3?.Invoke();
+        _controls.Player.F4.performed += _ => OnF4?.Invoke();
+        _controls.Player.F5.performed += _ => OnF5?.Invoke();
+        _controls.Player.F6.performed += _ => OnF6?.Invoke();
+        _controls.Player.F7.performed += _ => OnF7?.Invoke();
+        _controls.Player.F8.performed += _ => OnF8?.Invoke();
     }
 
-    public void OnJump(InputValue inputValue)
+    private void OnEnable()
     {
-        InputJump(inputValue.isPressed);
+        _controls.Player.Enable();
     }
 
-    public void OnSprint(InputValue inputValue)
+    private void OnDisable()
     {
-        InputSprint(inputValue.isPressed);
-    }
-
-    private void InputMove(Vector2 newMoveDirection)
-    {
-        move = newMoveDirection;
-    }
-
-    private void InputJump(bool newJumpState)
-    {
-        isJump = newJumpState;
-    }
-
-    private void InputSprint(bool newSprintState)
-    {
-        isSprint = newSprintState;
+        _controls.Player.Disable();
     }
 }
