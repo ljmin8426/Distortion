@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GrenadeSkill : BaseSkill
+public class GrenadeSkill : SkillBase
 {
     [SerializeField] private GameObject grenadePrefab;
     [SerializeField] private float launchForce = 10f;

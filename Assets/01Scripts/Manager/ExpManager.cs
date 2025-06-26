@@ -23,7 +23,7 @@ public class ExpManager : Singleton<ExpManager>
         OnChangeExp?.Invoke(currentExp, expToNextLevel);
     }
 
-    public void GainExp(float amount)
+    public void GetExp(float amount)
     {
         currentExp += amount;
         while (currentExp >= expToNextLevel)

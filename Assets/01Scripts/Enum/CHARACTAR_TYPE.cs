@@ -1,4 +1,4 @@
-public enum CharacterType
+public enum CHARACTAR_TYPE
 {
     None = -1,
     Warrior,

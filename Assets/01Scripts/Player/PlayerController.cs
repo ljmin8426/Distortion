@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInputController))]
@@ -16,44 +17,75 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController _controller;
     private PlayerInputController _input;
-    private PlayerAnimatorController _skillAnimator;
     private Animator _animator;
     private Transform _mainCamera;
-    private IPlayerSkill _skill;
-
-    private float _speed;
-    private float _animationBlend;
-    private const float SpeedChangeRate = 10.0f;
-    private const float speedThreshold = 0.01f;
-    private int _moveSpeedHash = Animator.StringToHash("MoveSpeed");
+    private WeaponManager _weaponManager;
 
     private float _verticalVelocity;
     private float _terminalVelocity = -53f;
-
     private bool _isGrounded;
+
+    private IPlayerState _currentState;
 
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
         _input = GetComponent<PlayerInputController>();
-        _skillAnimator = GetComponent<PlayerAnimatorController>();
         _animator = GetComponentInChildren<Animator>();
         _mainCamera = Camera.main.transform;
-        _skill = GetComponent<IPlayerSkill>();
+        _weaponManager = GetComponent<WeaponManager>();
+    }
+
+    private void OnEnable()
+    {
+        PlayerInputController.OnAttack += OnAttackInput;
+        PlayerInputController.OnUtil += OnDashInput;
+    }
+
+    private void OnDisable()
+    {
+        PlayerInputController.OnAttack -= OnAttackInput;
+        PlayerInputController.OnUtil -= OnDashInput;
+    }
+
+    public void TryAttack()
+    {
+        _weaponManager?.TryAttack();  // 무기 기반 공격 실행
+    }
+
+    private void Start()
+    {
+        ChangeState(new PlayerMoveState());
     }
 
     private void Update()
     {
-        GroundCheck();
+        _isGrounded = _controller.isGrounded;
         ApplyGravity();
-        _skill?.TryUseSkill(_input, _skillAnimator, _mainCamera, transform, _controller);
-        Move();
+        _currentState?.Update();
     }
 
-    private void GroundCheck()
+    private void OnAttackInput()
     {
-        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y + groundedOffset, transform.position.z);
-        _isGrounded = Physics.CheckSphere(spherePosition, groundedCheckRadius, groundLayers, QueryTriggerInteraction.Ignore);
+        if (_currentState is PlayerMoveState)
+        {
+            ChangeState(new PlayerAttackState());
+        }
+    }
+
+    private void OnDashInput()
+    {
+        if (_currentState is PlayerMoveState)
+        {
+            ChangeState(new PlayerDashState());
+        }
+    }
+
+    public void ChangeState(IPlayerState newState)
+    {
+        _currentState?.Exit();
+        _currentState = newState;
+        _currentState.Enter(this);
     }
 
     private void ApplyGravity()
@@ -69,50 +101,39 @@ public class PlayerController : MonoBehaviour
                 _verticalVelocity = _terminalVelocity;
         }
     }
-
-    private void Move()
+    public void TryLook(Vector3 direction)
     {
-        Vector2 moveInput = _input.MoveInput;
-        Vector3 inputDir = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
-
-        float targetSpeed = moveInput == Vector2.zero ? 0f : moveSpeed;
-
-        // 속도 보간
-        if (Mathf.Abs(_speed - targetSpeed) > speedThreshold)
+        if (direction.sqrMagnitude > 0.01f)
         {
-            _speed = Mathf.Lerp(_speed, targetSpeed, Time.deltaTime * SpeedChangeRate);
-        }
-        else
-        {
-            _speed = targetSpeed;
-        }
-
-        Vector3 move = Vector3.zero;
-
-        if (inputDir.magnitude >= 0.1f)
-        {
-            Vector3 camForward = _mainCamera.forward; camForward.y = 0f;
-            Vector3 camRight = _mainCamera.right; camRight.y = 0f;
-            Vector3 moveDir = camForward.normalized * inputDir.z + camRight.normalized * inputDir.x;
-
-            Quaternion targetRot = Quaternion.LookRotation(moveDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
-
-            move = moveDir.normalized * _speed;
-        }
-
-        // 이동 + 중력 적용
-        move.y = _verticalVelocity;
-        _controller.Move(move * Time.deltaTime);
-
-        // 애니메이션 블렌딩
-        float targetBlend = moveInput.magnitude;
-        _animationBlend = Mathf.Lerp(_animationBlend, targetBlend, Time.deltaTime * SpeedChangeRate);
-        if (_animationBlend < 0.01f) _animationBlend = 0f;
-
-        if (Mathf.Abs(_animator.GetFloat(_moveSpeedHash) - _animationBlend) > speedThreshold)
-        {
-            _animator.SetFloat(_moveSpeedHash, _animationBlend);
+            Quaternion lookRot = Quaternion.LookRotation(direction);
+            transform.rotation = lookRot;
         }
     }
+
+    public Vector3 GetMouseWorldDirection()
+    {
+        Vector3 mousePosition = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        {
+            Vector3 target = hit.point;
+            Vector3 myPos = transform.position;
+            target.y = myPos.y; // 수평만 고려
+            return (target - myPos).normalized;
+        }
+
+        return transform.forward; // 실패 시 전방 유지
+    }
+
+    // 상태에서 접근할 수 있도록 public getter 제공
+    public CharacterController Controller => _controller;
+    public Animator Animator => _animator;
+    public Transform MainCamera => _mainCamera;
+    public Vector2 MoveInput => _input.MoveInput;
+    public float MoveSpeed => moveSpeed;
+    public float RotationSpeed => rotationSpeed;
+    public float VerticalVelocity => _verticalVelocity;
+    public void SetVerticalVelocity(float v) => _verticalVelocity = v;
+    public bool IsGrounded => _isGrounded;
 }

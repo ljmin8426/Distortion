@@ -7,20 +7,18 @@ using UnityEngine.InputSystem;
 public class PlayerSkillController : MonoBehaviour
 {
     private BaseSkillManager skillManager;
+    private WeaponManager weaponManager;
 
     private void OnEnable()
     {
         PlayerInputController.OnSkill += HandleSkill;
-        PlayerInputController.OnUltimate += HandleUltimate;
-        PlayerInputController.OnUtil += HandleUtil;
         PlayerInputController.OnDefense += HandleDefense;
-        PlayerInputController.OnAttack += HandleAttack;
+        PlayerInputController.OnUltimate += HandleUltimate;
     }
 
     private void OnDisable()
     {
         PlayerInputController.OnSkill -= HandleSkill;
-        PlayerInputController.OnUtil -= HandleUtil;
         PlayerInputController.OnDefense -= HandleDefense;
         PlayerInputController.OnUltimate -= HandleUltimate;
     }
@@ -30,10 +28,6 @@ public class PlayerSkillController : MonoBehaviour
         skillManager = GetComponent<BaseSkillManager>();
     }
 
-    private void HandleAttack()
-    {
-        AnimationEvents.OnAttack?.Invoke();
-    }
 
     private void HandleSkill()
     {
@@ -41,11 +35,6 @@ public class PlayerSkillController : MonoBehaviour
     }
 
     private void HandleUltimate()
-    {
-
-    }
-
-    private void HandleUtil()
     {
 
     }

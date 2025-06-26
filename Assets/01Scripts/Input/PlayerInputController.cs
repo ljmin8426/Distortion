@@ -8,8 +8,8 @@ public class PlayerInputController : MonoBehaviour
 
     public Vector2 MoveInput { get; private set; }
 
-    public static event Action OnJump;
     public static event Action OnUtil;
+    public static event Action OnSwap;
     public static event Action OnDefense;
     public static event Action OnUltimate;
     public static event Action OnSkill;
@@ -34,8 +34,8 @@ public class PlayerInputController : MonoBehaviour
         _controls.Player.Move.canceled += ctx => MoveInput = Vector2.zero;
 
         // Button Inputs
-        _controls.Player.Jump.performed += _ => OnJump?.Invoke();
-        _controls.Player.Util.performed += _ => OnUtil?.Invoke();
+        _controls.Player.Jump.performed += _ => OnUtil?.Invoke();
+        _controls.Player.Util.performed += _ => OnSwap?.Invoke();
         _controls.Player.Defense.performed += _ => OnDefense?.Invoke();
         _controls.Player.Ultimate.performed += _ => OnUltimate?.Invoke();
         _controls.Player.Skill.performed += _ => OnSkill?.Invoke();

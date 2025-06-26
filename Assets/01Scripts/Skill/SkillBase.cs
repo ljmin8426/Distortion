@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseSkill : MonoBehaviour, IActiveSkill
+public abstract class SkillBase : MonoBehaviour, IActiveSkill
 {
     [SerializeField] protected SkillData skillData;
 
     protected bool isCooldown = false;
+    protected SkillCooldownUI cooldownUI;
 
     public abstract void Activate(GameObject attacker);
     
@@ -30,10 +31,20 @@ public abstract class BaseSkill : MonoBehaviour, IActiveSkill
         return false;
     }
 
+    public void SetCooldownUI(SkillCooldownUI ui)
+    {
+        cooldownUI = ui;
+    }
+
     protected IEnumerator CooldownRoutine()
     {
         isCooldown = true;
+
+        if (cooldownUI != null)
+            cooldownUI.StartCooldown(skillData.cooldown);
+
         yield return YieldInstructionCache.WaitForSeconds(skillData.cooldown);
         isCooldown = false;
     }
+
 }

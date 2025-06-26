@@ -4,7 +4,7 @@ public class GrenadeProjectile : MonoBehaviour
 {
     public float explosionDelay = 2f;
     public float explosionRadius = 3f;
-    public float damage = 30f;
+    public int damage = 30;
     public GameObject explosionEffect;
 
     private void Start()
