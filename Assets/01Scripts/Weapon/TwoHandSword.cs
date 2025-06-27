@@ -1,27 +1,16 @@
 using System.Collections;
 using UnityEngine;
 
-public class TwoHandSword : WeaponBase
+public class TwoHandSword : BaseWeapon
 {
     [SerializeField] private BoxCollider meleeArea;
     [SerializeField] private TrailRenderer trailRenderer;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-
         meleeArea.enabled = false;
         trailRenderer.enabled = false;
     }
-
-    public override void Attack()
-    {
-        if (TryAttack())
-        {
-            StartCoroutine(DoAttack());
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (!meleeArea.enabled) return;
@@ -34,6 +23,10 @@ public class TwoHandSword : WeaponBase
         }
     }
 
+    public override void Attack()
+    {
+        StartCoroutine(DoAttack());
+    }
 
     private IEnumerator DoAttack()
     {
@@ -45,7 +38,5 @@ public class TwoHandSword : WeaponBase
 
         meleeArea.enabled = false;
         trailRenderer.enabled = false;
-
-        yield return StartCoroutine(AttackDelay());
     }
 }

@@ -10,12 +10,11 @@ public class WeaponPickup : MonoBehaviour
         WeaponManager wm = other.GetComponentInChildren<WeaponManager>();
         if (wm == null) return;
 
-        WeaponBase weapon = GetComponent<WeaponBase>();
-        if (weapon == null) return;
+        GameObject obj = gameObject;
+        if (obj == null) return;
 
-        wm.PickupAndEquip(weapon);
+        wm.PickupAndEquip(obj);
 
-        // 이 무기 오브젝트는 플레이어 손으로 옮겨졌으니, Pickup 스크립트는 제거
         Destroy(this);
     }
 }

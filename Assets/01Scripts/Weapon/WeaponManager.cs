@@ -1,65 +1,97 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    public Transform weaponHolder; // 오른손 위치 연결
+    private List<GameObject> weapons = new List<GameObject>();
+    public BaseWeapon CurWeapon {  get; private set; }
 
-    private IWeapon equippedWeapon;
-    private GameObject equippedWeaponObj;
+    private GameObject curWeaponObject;
+    private Transform weaponHolder; 
 
-    private IWeapon backupWeapon;
-    private GameObject backupWeaponObj;
+    public Action<GameObject> OnDeleteWeapon { get; set; }
 
-    public void PickupAndEquip(IWeapon newWeapon)
+    public void Initialized(Transform weaponHolder)
     {
-        GameObject newWeaponObj = ((MonoBehaviour)newWeapon).gameObject;
+        this.weaponHolder = weaponHolder;
+    }
 
-        // 백업 무기 저장
-        if (equippedWeapon != null)
+    public void PickupAndEquip(GameObject newWeapon)
+    {
+        if (!weapons.Contains(newWeapon))
         {
-            if (backupWeaponObj != null)
-                Destroy(backupWeaponObj); // 기존 백업 무기는 제거
+            BaseWeapon weaponInfo = newWeapon.GetComponent<BaseWeapon>();
 
-            backupWeapon = equippedWeapon;
-            backupWeaponObj = equippedWeaponObj;
+            newWeapon.transform.SetParent(weaponHolder);
+            newWeapon.transform.localPosition = Vector3.zero;
+            newWeapon.transform.localRotation = Quaternion.identity;
+            weapons.Add(newWeapon);
+            newWeapon.SetActive(false);
+
+            Equip(weaponInfo, newWeapon);
         }
 
-        Equip(newWeapon, newWeaponObj);
     }
 
-    public void SwapWeapon()
+    public void DeleteWeapon(GameObject weapon)
     {
-        if (backupWeapon == null || backupWeaponObj == null) return;
-
-        // 현재 무기 ↔ 백업 무기 스왑
-        IWeapon tempWeapon = equippedWeapon;
-        GameObject tempObj = equippedWeaponObj;
-
-        Equip(backupWeapon, backupWeaponObj);
-
-        backupWeapon = tempWeapon;
-        backupWeaponObj = tempObj;
+        if(weapons.Contains(weapon))
+        {
+            weapons.Remove(weapon);
+            OnDeleteWeapon.Invoke(weapon);
+        }
     }
 
-    private void Equip(IWeapon weapon, GameObject obj)
+    private void Equip(BaseWeapon weapon, GameObject obj)
     {
-        equippedWeapon?.OnUnequip();
-
         obj.transform.SetParent(weaponHolder);
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localRotation = Quaternion.identity;
 
-        equippedWeapon = weapon;
-        equippedWeaponObj = obj;
-        equippedWeapon.OnEquip();
+        CurWeapon = weapon;
+        curWeaponObject = obj;
+
+        curWeaponObject.SetActive(true);
+    }
+
+    public void SwapWeapon(GameObject weapon)
+    {
+        if(CurWeapon == null)
+        {
+            curWeaponObject = weapon;
+            CurWeapon = weapon.GetComponent<BaseWeapon>();
+            curWeaponObject.SetActive(true) ;
+
+            PlayerController pc = GetComponentInParent<PlayerController>();
+            pc.Animator.runtimeAnimatorController = CurWeapon.WeaponAnimator;
+
+            return;
+        }
+
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            if (weapons[i].Equals(weapon))
+            {
+                curWeaponObject = weapon;
+                curWeaponObject.SetActive(true);
+                CurWeapon = weapon.GetComponent<BaseWeapon> ();
+
+                PlayerController pc = GetComponentInParent<PlayerController>();
+                pc.Animator.runtimeAnimatorController = CurWeapon.WeaponAnimator;
+
+                continue;
+            }
+            weapons[i].SetActive(false);
+        }
     }
 
 
     public void TryAttack()
     {
-        if (equippedWeapon != null && equippedWeapon.CanAttack)
+        if (CurWeapon != null)
         {
-            equippedWeapon.Attack();
+            CurWeapon.Attack();
         }
     }
 }

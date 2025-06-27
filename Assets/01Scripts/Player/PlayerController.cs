@@ -5,15 +5,15 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInputController))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    public float moveSpeed = 8.0f;
-    public float rotationSpeed = 10.0f;
+    [Header("Movement Setting")]
+    private float moveSpeed = 8.0f;
+    private float rotationSpeed = 10.0f;
 
-    [Header("Gravity Settings")]
-    public float gravity = -9.81f;
-    public float groundedOffset = -0.1f;
-    public float groundedCheckRadius = 0.3f;
-    public LayerMask groundLayers;
+    [Header("Gravity Setting")]
+    private float gravity = -9.81f;
+
+    [Header("Weapon Handler")]
+    [SerializeField] private Transform weaponHolder;
 
     private CharacterController _controller;
     private PlayerInputController _input;
@@ -27,13 +27,25 @@ public class PlayerController : MonoBehaviour
 
     private IPlayerState _currentState;
 
+    public CharacterController Controller => _controller;
+    public Animator Animator { get { return _animator; } set { _animator = value; } }
+
+    public Transform MainCamera => _mainCamera;
+    public Vector2 MoveInput => _input.MoveInput;
+    public float MoveSpeed => moveSpeed;
+    public float RotationSpeed => rotationSpeed;
+    public float VerticalVelocity => _verticalVelocity;
+    public void SetVerticalVelocity(float v) => _verticalVelocity = v;
+
+
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
         _input = GetComponent<PlayerInputController>();
         _animator = GetComponentInChildren<Animator>();
-        _mainCamera = Camera.main.transform;
         _weaponManager = GetComponent<WeaponManager>();
+
+        _mainCamera = Camera.main.transform;
     }
 
     private void OnEnable()
@@ -53,8 +65,10 @@ public class PlayerController : MonoBehaviour
         _weaponManager?.TryAttack();  // 무기 기반 공격 실행
     }
 
+
     private void Start()
     {
+        _weaponManager.Initialized(weaponHolder);
         ChangeState(new PlayerMoveState());
     }
 
@@ -125,15 +139,4 @@ public class PlayerController : MonoBehaviour
 
         return transform.forward; // 실패 시 전방 유지
     }
-
-    // 상태에서 접근할 수 있도록 public getter 제공
-    public CharacterController Controller => _controller;
-    public Animator Animator => _animator;
-    public Transform MainCamera => _mainCamera;
-    public Vector2 MoveInput => _input.MoveInput;
-    public float MoveSpeed => moveSpeed;
-    public float RotationSpeed => rotationSpeed;
-    public float VerticalVelocity => _verticalVelocity;
-    public void SetVerticalVelocity(float v) => _verticalVelocity = v;
-    public bool IsGrounded => _isGrounded;
 }

@@ -4,7 +4,7 @@ public class PlayerAttackState : IPlayerState
 {
     private PlayerController _player;
     private float _timer;
-    private readonly float _attackDuration = 0.5f;
+    private readonly float _attackDuration = 1f;
 
     public void Enter(PlayerController player)
     {
