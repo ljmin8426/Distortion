@@ -11,16 +11,16 @@ public class PlayerSkillController : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerInputController.OnSkill += HandleSkill;
-        PlayerInputController.OnDefense += HandleDefense;
-        PlayerInputController.OnUltimate += HandleUltimate;
+        InputManager.OnSkill += HandleSkill;
+        InputManager.OnDefense += HandleDefense;
+        InputManager.OnUltimate += HandleUltimate;
     }
 
     private void OnDisable()
     {
-        PlayerInputController.OnSkill -= HandleSkill;
-        PlayerInputController.OnDefense -= HandleDefense;
-        PlayerInputController.OnUltimate -= HandleUltimate;
+        InputManager.OnSkill -= HandleSkill;
+        InputManager.OnDefense -= HandleDefense;
+        InputManager.OnUltimate -= HandleUltimate;
     }
 
     private void Awake()

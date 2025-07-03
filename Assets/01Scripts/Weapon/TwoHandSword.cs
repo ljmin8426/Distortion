@@ -1,23 +1,24 @@
-using System.Collections;
 using UnityEngine;
 
-public class TwoHandSword : BaseWeapon
+public class TwoHandSword : BaseWeapon, IMeleeWeapon
 {
-    [SerializeField] private BoxCollider meleeArea;
-    [SerializeField] private TrailRenderer trailRenderer;
+    private BoxCollider meleeArea;
+    private TrailRenderer trailRenderer;
 
     private void Awake()
     {
+        meleeArea = GetComponentInChildren<BoxCollider>();
+        trailRenderer = GetComponentInChildren<TrailRenderer>();
+
         meleeArea.enabled = false;
         trailRenderer.enabled = false;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!meleeArea.enabled) return;
 
-        // 적이 IDamageable 인터페이스를 구현한 경우
-        IDamaged damaged = other.GetComponent<IDamaged>();
-        if (damaged != null)
+        if (other.TryGetComponent(out IDamaged damaged))
         {
             damaged.TakeDamage(weaponData.attackDamage);
         }
@@ -25,17 +26,17 @@ public class TwoHandSword : BaseWeapon
 
     public override void Attack()
     {
-        StartCoroutine(DoAttack());
+        // 기존 공격 로직 (필요 시)
     }
 
-    private IEnumerator DoAttack()
+    public void EnableMelee()
     {
-        AnimationEvents.OnAttack?.Invoke();
         meleeArea.enabled = true;
         trailRenderer.enabled = true;
+    }
 
-        yield return new WaitForSeconds(0.5f);
-
+    public void DisableMelee()
+    {
         meleeArea.enabled = false;
         trailRenderer.enabled = false;
     }

@@ -4,94 +4,65 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    private List<GameObject> weapons = new List<GameObject>();
-    public BaseWeapon CurWeapon {  get; private set; }
+    [Header("Weapon Prefab")]
+    [SerializeField] private GameObject meleeWeaponPrefab;
+    [SerializeField] private GameObject rangedWeaponPrefab;
 
-    private GameObject curWeaponObject;
-    private Transform weaponHolder; 
+    [Header("Weapon Animator")]
+    [SerializeField] private RuntimeAnimatorController meleeAnimator;
+    [SerializeField] private RuntimeAnimatorController rangedAnimator;
 
-    public Action<GameObject> OnDeleteWeapon { get; set; }
+    private BaseWeapon meleeWeapon;
+    private BaseWeapon rangedWeapon;
 
-    public void Initialized(Transform weaponHolder)
+    private Transform weaponHolder;
+    private Animator playerAnimator;
+
+    public BaseWeapon CurWeapon { get; private set; }
+    public WEAPON_TYPE CurrentWeaponType { get; private set; }
+
+    public void Initialized(Transform weaponHolder, Animator animator)
     {
         this.weaponHolder = weaponHolder;
+        this.playerAnimator = animator;
+
+        meleeWeapon = Instantiate(meleeWeaponPrefab, this.weaponHolder).GetComponent<BaseWeapon>();
+        rangedWeapon = Instantiate(rangedWeaponPrefab, this.weaponHolder).GetComponent<BaseWeapon>();
+
+        meleeWeapon.gameObject.SetActive(false);
+        rangedWeapon.gameObject.SetActive(false);
+
+        EquipWeapon(WEAPON_TYPE.Melee);
     }
 
-    public void PickupAndEquip(GameObject newWeapon)
+    public void EquipWeapon(WEAPON_TYPE type)
     {
-        if (!weapons.Contains(newWeapon))
+        CurrentWeaponType = type;
+
+        switch (type)
         {
-            BaseWeapon weaponInfo = newWeapon.GetComponent<BaseWeapon>();
+            case WEAPON_TYPE.Melee:
+                meleeWeapon.gameObject.SetActive(true);
+                rangedWeapon.gameObject.SetActive(false);
+                CurWeapon = meleeWeapon;
+                playerAnimator.runtimeAnimatorController = meleeAnimator;
+                break;
 
-            newWeapon.transform.SetParent(weaponHolder);
-            newWeapon.transform.localPosition = Vector3.zero;
-            newWeapon.transform.localRotation = Quaternion.identity;
-            weapons.Add(newWeapon);
-            newWeapon.SetActive(false);
-
-            Equip(weaponInfo, newWeapon);
-        }
-
-    }
-
-    public void DeleteWeapon(GameObject weapon)
-    {
-        if(weapons.Contains(weapon))
-        {
-            weapons.Remove(weapon);
-            OnDeleteWeapon.Invoke(weapon);
-        }
-    }
-
-    private void Equip(BaseWeapon weapon, GameObject obj)
-    {
-        obj.transform.SetParent(weaponHolder);
-        obj.transform.localPosition = Vector3.zero;
-        obj.transform.localRotation = Quaternion.identity;
-
-        CurWeapon = weapon;
-        curWeaponObject = obj;
-
-        curWeaponObject.SetActive(true);
-    }
-
-    public void SwapWeapon(GameObject weapon)
-    {
-        if(CurWeapon == null)
-        {
-            curWeaponObject = weapon;
-            CurWeapon = weapon.GetComponent<BaseWeapon>();
-            curWeaponObject.SetActive(true) ;
-
-            PlayerController pc = GetComponentInParent<PlayerController>();
-            pc.Animator.runtimeAnimatorController = CurWeapon.WeaponAnimator;
-
-            return;
-        }
-
-        for (int i = 0; i < weapons.Count; i++)
-        {
-            if (weapons[i].Equals(weapon))
-            {
-                curWeaponObject = weapon;
-                curWeaponObject.SetActive(true);
-                CurWeapon = weapon.GetComponent<BaseWeapon> ();
-
-                PlayerController pc = GetComponentInParent<PlayerController>();
-                pc.Animator.runtimeAnimatorController = CurWeapon.WeaponAnimator;
-
-                continue;
-            }
-            weapons[i].SetActive(false);
+            case WEAPON_TYPE.Range:
+                meleeWeapon.gameObject.SetActive(false);
+                rangedWeapon.gameObject.SetActive(true);
+                CurWeapon = rangedWeapon;
+                playerAnimator.runtimeAnimatorController = rangedAnimator;
+                break;
         }
     }
-
+    public void SwapWeapon()
+    {
+        EquipWeapon(CurrentWeaponType == WEAPON_TYPE.Melee ? WEAPON_TYPE.Range : WEAPON_TYPE.Melee);
+    }
 
     public void TryAttack()
     {
-        if (CurWeapon != null)
-        {
-            CurWeapon.Attack();
-        }
+        CurWeapon?.Attack();
     }
 }

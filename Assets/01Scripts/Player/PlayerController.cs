@@ -1,106 +1,146 @@
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(PlayerInputController))]
+[RequireComponent(typeof(InputManager))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Setting")]
-    private float moveSpeed = 8.0f;
-    private float rotationSpeed = 10.0f;
+    [SerializeField] private float moveSpeed = 8.0f;
+    [SerializeField] private float rotationSpeed = 10.0f;
 
     [Header("Gravity Setting")]
-    private float gravity = -9.81f;
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float _terminalVelocity = -53f;
 
     [Header("Weapon Handler")]
     [SerializeField] private Transform weaponHolder;
 
+    [Header("Dash Settings")]
+    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 1.0f;
+
+    private float _dashCooldownTimer = 0f;
+
+    public float DashSpeed => dashSpeed;
+    public float DashDuration => dashDuration;
+    public float DashCooldown => dashCooldown;
+
+
     private CharacterController _controller;
-    private PlayerInputController _input;
     private Animator _animator;
-    private Transform _mainCamera;
+    private InputManager _input;
     private WeaponManager _weaponManager;
+    private Transform _mainCamera;
+
+    private StateMachine _stateMachine;
 
     private float _verticalVelocity;
-    private float _terminalVelocity = -53f;
     private bool _isGrounded;
 
-    private IPlayerState _currentState;
-
+    public BaseWeapon CurrentWeapon => _weaponManager.CurWeapon;
     public CharacterController Controller => _controller;
-    public Animator Animator { get { return _animator; } set { _animator = value; } }
-
+    public Animator Animator { get => _animator; set => _animator = value; }
     public Transform MainCamera => _mainCamera;
     public Vector2 MoveInput => _input.MoveInput;
+    public float VerticalVelocity => _verticalVelocity;
     public float MoveSpeed => moveSpeed;
     public float RotationSpeed => rotationSpeed;
-    public float VerticalVelocity => _verticalVelocity;
-    public void SetVerticalVelocity(float v) => _verticalVelocity = v;
+    public WEAPON_TYPE CurrentWeaponType => _weaponManager.CurrentWeaponType;
 
+    public void SetVerticalVelocity(float v) => _verticalVelocity = v;
 
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
-        _input = GetComponent<PlayerInputController>();
+        _input = GetComponent<InputManager>();
         _animator = GetComponentInChildren<Animator>();
         _weaponManager = GetComponent<WeaponManager>();
-
         _mainCamera = Camera.main.transform;
-    }
 
-    private void OnEnable()
-    {
-        PlayerInputController.OnAttack += OnAttackInput;
-        PlayerInputController.OnUtil += OnDashInput;
+        _stateMachine = new StateMachine(PLAYER_STATE.Move, new MoveState(this));
+        _stateMachine.AddState(PLAYER_STATE.Attack, new AttackState(this));
+        _stateMachine.AddState(PLAYER_STATE.Dash, new DashState(this));
     }
-
-    private void OnDisable()
-    {
-        PlayerInputController.OnAttack -= OnAttackInput;
-        PlayerInputController.OnUtil -= OnDashInput;
-    }
-
-    public void TryAttack()
-    {
-        _weaponManager?.TryAttack();  // 무기 기반 공격 실행
-    }
-
 
     private void Start()
     {
-        _weaponManager.Initialized(weaponHolder);
-        ChangeState(new PlayerMoveState());
+        _weaponManager.Initialized(weaponHolder, _animator);
     }
 
     private void Update()
     {
         _isGrounded = _controller.isGrounded;
         ApplyGravity();
-        _currentState?.Update();
+
+        // 쿨타임 감소
+        if (_dashCooldownTimer > 0f)
+            _dashCooldownTimer -= Time.deltaTime;
+
+        _stateMachine.UpdateState();
     }
 
-    private void OnAttackInput()
+
+    private void FixedUpdate()
     {
-        if (_currentState is PlayerMoveState)
-        {
-            ChangeState(new PlayerAttackState());
-        }
+        _stateMachine.FixedUpdateState();
+    }
+
+    private void OnEnable()
+    {
+        InputManager.OnAttack += OnAttackInput;
+        InputManager.OnUtil += OnDashInput;
+        InputManager.OnSwap += OnSwapInput;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.OnAttack -= OnAttackInput;
+        InputManager.OnUtil -= OnDashInput;
+        InputManager.OnSwap -= OnSwapInput;
     }
 
     private void OnDashInput()
     {
-        if (_currentState is PlayerMoveState)
+        // 쿨타임 중이면 무시
+        if (_dashCooldownTimer > 0f) return;
+
+        // 대시 중이면 무시
+        if (_stateMachine.CurrentState is DashState) return;
+
+        // 대시 시작 + 쿨타임 초기화
+        _dashCooldownTimer = dashCooldown;
+        ChangeToState(PLAYER_STATE.Dash);
+    }
+
+    private void OnAttackInput()
+    {
+        // 대시 중에는 공격 못 함
+        if (_stateMachine.CurrentState is DashState) return;
+
+        ChangeToState(PLAYER_STATE.Attack);
+    }
+    private void OnSwapInput() => _weaponManager.SwapWeapon();
+
+    public void TryAttack() => _weaponManager.TryAttack();
+
+    public void LookAtCursor()
+    {
+        Vector3 mousePosition = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
         {
-            ChangeState(new PlayerDashState());
+            Vector3 target = hit.point;
+            target.y = transform.position.y;
+            Vector3 dir = (target - transform.position).normalized;
+            if (dir.sqrMagnitude > 0.01f)
+                transform.rotation = Quaternion.LookRotation(dir);
         }
     }
 
-    public void ChangeState(IPlayerState newState)
-    {
-        _currentState?.Exit();
-        _currentState = newState;
-        _currentState.Enter(this);
-    }
+    public void ChangeToState(PLAYER_STATE next) => _stateMachine.ChangeState(next);
 
     private void ApplyGravity()
     {
@@ -111,32 +151,13 @@ public class PlayerController : MonoBehaviour
         else
         {
             _verticalVelocity += gravity * Time.deltaTime;
-            if (_verticalVelocity < _terminalVelocity)
-                _verticalVelocity = _terminalVelocity;
+            _verticalVelocity = Mathf.Max(_verticalVelocity, _terminalVelocity);
         }
     }
-    public void TryLook(Vector3 direction)
+
+    public T GetState<T>(PLAYER_STATE stateName) where T : BaseState
     {
-        if (direction.sqrMagnitude > 0.01f)
-        {
-            Quaternion lookRot = Quaternion.LookRotation(direction);
-            transform.rotation = lookRot;
-        }
+        return _stateMachine.GetState(stateName) as T;
     }
 
-    public Vector3 GetMouseWorldDirection()
-    {
-        Vector3 mousePosition = Mouse.current.position.ReadValue();
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
-        {
-            Vector3 target = hit.point;
-            Vector3 myPos = transform.position;
-            target.y = myPos.y; // 수평만 고려
-            return (target - myPos).normalized;
-        }
-
-        return transform.forward; // 실패 시 전방 유지
-    }
 }
