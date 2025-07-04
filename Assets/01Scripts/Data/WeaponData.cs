@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "WeaponData", menuName = "Weaopns/Weaopn Data")]

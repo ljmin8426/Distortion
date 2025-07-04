@@ -10,11 +10,12 @@ public class DashState : BaseState
 
     public override void OnEnterState()
     {
+        Controller.Animator.SetTrigger("IsDash");
+        Controller.Animator.SetFloat("DashSpeed", 3);
+        float curAnimTime = Controller.Animator.GetCurrentAnimatorStateInfo(0).length;
         _dashDirection = Controller.transform.forward;
-        _dashTimer = Controller.DashDuration;  // 설정 가능하게 만들자
+        _dashTimer = curAnimTime;
         _isDashing = true;
-
-        AnimationEvents.OnDash?.Invoke();  // 애니메이션 재생용
     }
 
     public override void OnUpdateState()

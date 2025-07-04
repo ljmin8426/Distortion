@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 390d30113a59d3a4d86eabbd2bc72a42, type: 2}
+  weaponAnimator: {fileID: 9100000, guid: e8012692ba1351a4a878ece636a1c651, type: 2}
   firePoint: {fileID: 6415497806840755473}
   fireRange: 100
   hitLayers:

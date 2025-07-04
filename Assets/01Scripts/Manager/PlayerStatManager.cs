@@ -18,28 +18,23 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
     private int level;
 
     // Base stats
-    private float maxHP;
-    private float maxEP;
-    private float attackPower;
-    private float moveSpeed;
+    [SerializeField] private float maxHP;
+    [SerializeField] private float maxEP;
+    [SerializeField] private float attackPower;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float attackSpeed;
 
-    // Modifiers (장비, 버프 등)
-    private float bonusMaxHP;
-    private float bonusMaxEP;
-    private float bonusAttackPower;
-    private float bonusMoveSpeed;
-
-    // Runtime stats
     private float currentHP;
     private float currentEP;
 
     public int Level => level;
-    public float MaxHP => maxHP + bonusMaxHP;
+    public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
-    public float MaxEP => maxEP + bonusMaxEP;
+    public float MaxEP => maxEP;
     public float CurrentEP => currentEP;
-    public float AttackPower => attackPower + bonusAttackPower;
-    public float MoveSpeed => moveSpeed + bonusMoveSpeed;
+    public float AttackPower => attackPower;
+    public float MoveSpeed => moveSpeed;
+    public float AttackSpeed => attackSpeed;    
 
     private Coroutine recoverCoroutine;
 
@@ -56,11 +51,6 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
         maxEP = GameManager.instance.playerData.baseMaxEP;
         attackPower = GameManager.instance.playerData.baseAttack;
         moveSpeed = GameManager.instance.playerData.baseMoveSpeed;
-
-        bonusMaxHP = 0;
-        bonusMaxEP = 0;
-        bonusAttackPower = 0;
-        bonusMoveSpeed = 0;
 
         currentHP = MaxHP;
         currentEP = MaxEP;
@@ -149,10 +139,10 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
     // 장비/아이템 관련 메서드
     public void AddStatModifier(float hp = 0, float ep = 0, float atk = 0, float move = 0)
     {
-        bonusMaxHP += hp;
-        bonusMaxEP += ep;
-        bonusAttackPower += atk;
-        bonusMoveSpeed += move;
+        maxHP += hp;
+        maxEP += ep;
+        attackPower += atk;
+        moveSpeed += move;
 
         OnHpChange?.Invoke(currentHP, MaxHP);
         OnEpChange?.Invoke(currentEP, MaxEP);
@@ -162,10 +152,10 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
 
     public void RemoveStatModifier(float hp = 0, float ep = 0, float atk = 0, float move = 0)
     {
-        bonusMaxHP -= hp;
-        bonusMaxEP -= ep;
-        bonusAttackPower -= atk;
-        bonusMoveSpeed -= move;
+        maxHP -= hp;
+        maxEP -= ep;
+        attackPower -= atk;
+        moveSpeed -= move;
 
         OnHpChange?.Invoke(currentHP, MaxHP);
         OnEpChange?.Invoke(currentEP, MaxEP);

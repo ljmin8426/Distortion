@@ -4,11 +4,13 @@ using UnityEngine;
 public class SkillData : ScriptableObject
 {
     public string skillName;
+    public string skillDescription;
     public int cooldown;
     public int manaCost;
 
     public GameObject effectPrefab;
     public AudioClip soundEffect;
     public AnimationClip animationClip;
+    public Sprite SkillIcon;
 }
 

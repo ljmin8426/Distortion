@@ -45,8 +45,13 @@ public class Gun : BaseWeapon
 
         // TODO: 총알 발사 이펙트 / 사운드
 
-        yield return new WaitForSeconds(1f / AttackSpeed); // 예: 2이면 초당 2발
+        yield return new WaitForSeconds(1f / 0); // 예: 2이면 초당 2발
 
         isFiring = false;
+    }
+
+    public override void Skill()
+    {
+        throw new System.NotImplementedException();
     }
 }

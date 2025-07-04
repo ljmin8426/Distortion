@@ -8,23 +8,24 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private GameObject meleeWeaponPrefab;
     [SerializeField] private GameObject rangedWeaponPrefab;
 
-    [Header("Weapon Animator")]
-    [SerializeField] private RuntimeAnimatorController meleeAnimator;
-    [SerializeField] private RuntimeAnimatorController rangedAnimator;
-
     private BaseWeapon meleeWeapon;
     private BaseWeapon rangedWeapon;
 
+    private PlayerController playerController;
     private Transform weaponHolder;
-    private Animator playerAnimator;
 
     public BaseWeapon CurWeapon { get; private set; }
     public WEAPON_TYPE CurrentWeaponType { get; private set; }
 
-    public void Initialized(Transform weaponHolder, Animator animator)
+
+    private void Awake()
     {
-        this.weaponHolder = weaponHolder;
-        this.playerAnimator = animator;
+        playerController = GetComponent<PlayerController>();
+    }
+
+    public void Initialized(Transform hand)
+    {
+        weaponHolder = hand;
 
         meleeWeapon = Instantiate(meleeWeaponPrefab, this.weaponHolder).GetComponent<BaseWeapon>();
         rangedWeapon = Instantiate(rangedWeaponPrefab, this.weaponHolder).GetComponent<BaseWeapon>();
@@ -45,14 +46,14 @@ public class WeaponManager : MonoBehaviour
                 meleeWeapon.gameObject.SetActive(true);
                 rangedWeapon.gameObject.SetActive(false);
                 CurWeapon = meleeWeapon;
-                playerAnimator.runtimeAnimatorController = meleeAnimator;
+                playerController.Animator.runtimeAnimatorController = CurWeapon.WeaponAnimator;
                 break;
 
             case WEAPON_TYPE.Range:
                 meleeWeapon.gameObject.SetActive(false);
                 rangedWeapon.gameObject.SetActive(true);
                 CurWeapon = rangedWeapon;
-                playerAnimator.runtimeAnimatorController = rangedAnimator;
+                playerController.Animator.runtimeAnimatorController = CurWeapon.WeaponAnimator;
                 break;
         }
     }

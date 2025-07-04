@@ -5,9 +5,10 @@ public class TwoHandSword : BaseWeapon, IMeleeWeapon
     private BoxCollider meleeArea;
     private TrailRenderer trailRenderer;
 
+
     private void Awake()
     {
-        meleeArea = GetComponentInChildren<BoxCollider>();
+        meleeArea = GetComponent<BoxCollider>();
         trailRenderer = GetComponentInChildren<TrailRenderer>();
 
         meleeArea.enabled = false;
@@ -24,11 +25,6 @@ public class TwoHandSword : BaseWeapon, IMeleeWeapon
         }
     }
 
-    public override void Attack()
-    {
-        // 기존 공격 로직 (필요 시)
-    }
-
     public void EnableMelee()
     {
         meleeArea.enabled = true;
@@ -40,4 +36,7 @@ public class TwoHandSword : BaseWeapon, IMeleeWeapon
         meleeArea.enabled = false;
         trailRenderer.enabled = false;
     }
+
+    public override void Skill() { }
+    public override void Attack() { }
 }

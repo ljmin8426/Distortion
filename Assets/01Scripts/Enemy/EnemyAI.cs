@@ -4,33 +4,35 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour, IDamaged
 {
-    public EnemyData stats;
+    [SerializeField] private EnemyData stats;
 
-    private Transform player;
-    private NavMeshAgent agent;
+    private Transform targetPlayer;
+    private NavMeshAgent navAgent;
+
     private ENEMY_STATE currentState = ENEMY_STATE.Idle;
 
     private float lastAttackTime;
-    public int maxHealth = 100;
     private int currentHealth;
+
 
     private void Awake()
     {
-        currentHealth = maxHealth;
+        currentHealth = stats.maxHP;
     }
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        agent = GetComponent<NavMeshAgent>();
-        agent.speed = stats.moveSpeed;
+        targetPlayer = GameObject.FindGameObjectWithTag("Player")?.transform;
+        navAgent = GetComponent<NavMeshAgent>();
+        navAgent.speed = stats.moveSpeed;
+        navAgent.updateRotation = false;
     }
 
     void Update()
     {
-        if (player == null) return;
+        if (targetPlayer == null) return;
 
-        float distance = Vector3.Distance(transform.position, player.position);
+        float distance = Vector3.Distance(transform.position, targetPlayer.position);
 
         switch (currentState)
         {
@@ -50,7 +52,7 @@ public class EnemyAI : MonoBehaviour, IDamaged
                 }
                 else
                 {
-                    agent.SetDestination(player.position);
+                    navAgent.SetDestination(targetPlayer.position);
                 }
                 break;
 
@@ -76,15 +78,15 @@ public class EnemyAI : MonoBehaviour, IDamaged
         switch (newState)
         {
             case ENEMY_STATE.Idle:
-                agent.ResetPath();
+                navAgent.ResetPath();
                 break;
 
             case ENEMY_STATE.Chase:
-                agent.isStopped = false;
+                navAgent.isStopped = false;
                 break;
 
             case ENEMY_STATE.Attack:
-                agent.isStopped = true;
+                navAgent.isStopped = true;
                 break;
         }
     }
@@ -94,8 +96,7 @@ public class EnemyAI : MonoBehaviour, IDamaged
         if (Time.time - lastAttackTime >= stats.attackCooldown)
         {
             lastAttackTime = Time.time;
-            // 애니메이션 재생 또는 이벤트 기반 공격
-            Debug.Log($"{stats.enemyName}이(가) 공격합니다!");
+            // 이벤트 기반 공격
         }
     }
 
@@ -103,14 +104,13 @@ public class EnemyAI : MonoBehaviour, IDamaged
     {
         Debug.Log("적 사망");
         ExpManager.instance.GetExp(100);
-        // 사망 애니메이션, 제거 등 처리
         Destroy(gameObject);
     }
 
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
-        Debug.Log($"적이 {amount}의 피해를 입음! 현재 체력: {currentHealth}");
+        Debug.Log($"적이 {amount}의 피해를 입음 현재 체력: {currentHealth}");
 
         if (currentHealth <= 0)
         {

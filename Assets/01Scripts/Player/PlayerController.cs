@@ -12,80 +12,81 @@ public class PlayerController : MonoBehaviour
 
     [Header("Gravity Setting")]
     [SerializeField] private float gravity = -9.81f;
-    [SerializeField] private float _terminalVelocity = -53f;
+    [SerializeField] private float terminalVelocity = -53f;
 
     [Header("Weapon Handler")]
     [SerializeField] private Transform weaponHolder;
 
     [Header("Dash Settings")]
     [SerializeField] private float dashSpeed = 20f;
-    [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1.0f;
 
-    private float _dashCooldownTimer = 0f;
 
-    public float DashSpeed => dashSpeed;
-    public float DashDuration => dashDuration;
-    public float DashCooldown => dashCooldown;
+    private CharacterController controller;
+    private Animator animator;
+    private Transform mainCamera;
 
+    private InputManager input;
+    private WeaponManager weaponManager;
 
-    private CharacterController _controller;
-    private Animator _animator;
-    private InputManager _input;
-    private WeaponManager _weaponManager;
-    private Transform _mainCamera;
+    private StateMachine stateMachine;
 
-    private StateMachine _stateMachine;
-
+    private float dashCooldownTimer = 0f;
     private float _verticalVelocity;
     private bool _isGrounded;
 
-    public BaseWeapon CurrentWeapon => _weaponManager.CurWeapon;
-    public CharacterController Controller => _controller;
-    public Animator Animator { get => _animator; set => _animator = value; }
-    public Transform MainCamera => _mainCamera;
-    public Vector2 MoveInput => _input.MoveInput;
+    public BaseWeapon CurrentWeapon => weaponManager.CurWeapon;
+    public CharacterController Controller => controller;
+    public Animator Animator { get => animator; set => animator = value; }
+    public Transform MainCamera => mainCamera;
+    public StateMachine StateMachine => stateMachine;
+
+    public Vector2 MoveInput => input.MoveInput;
+    public WEAPON_TYPE CurrentWeaponType => weaponManager.CurrentWeaponType;
+
     public float VerticalVelocity => _verticalVelocity;
     public float MoveSpeed => moveSpeed;
     public float RotationSpeed => rotationSpeed;
-    public WEAPON_TYPE CurrentWeaponType => _weaponManager.CurrentWeaponType;
+    public float DashSpeed => dashSpeed;
 
     public void SetVerticalVelocity(float v) => _verticalVelocity = v;
 
     private void Awake()
     {
-        _controller = GetComponent<CharacterController>();
-        _input = GetComponent<InputManager>();
-        _animator = GetComponentInChildren<Animator>();
-        _weaponManager = GetComponent<WeaponManager>();
-        _mainCamera = Camera.main.transform;
 
-        _stateMachine = new StateMachine(PLAYER_STATE.Move, new MoveState(this));
-        _stateMachine.AddState(PLAYER_STATE.Attack, new AttackState(this));
-        _stateMachine.AddState(PLAYER_STATE.Dash, new DashState(this));
+        controller = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
+        mainCamera = Camera.main.transform;
+
+        input = GetComponent<InputManager>();
+        weaponManager = GetComponent<WeaponManager>();
+
+        stateMachine = new StateMachine(PLAYER_STATE.Move, new MoveState(this));
+        stateMachine.AddState(PLAYER_STATE.Attack, new AttackState(this));
+        stateMachine.AddState(PLAYER_STATE.Dash, new DashState(this));
     }
 
     private void Start()
     {
-        _weaponManager.Initialized(weaponHolder, _animator);
+        weaponManager.Initialized(weaponHolder);
     }
 
     private void Update()
     {
-        _isGrounded = _controller.isGrounded;
+        _isGrounded = controller.isGrounded;
         ApplyGravity();
 
         // 쿨타임 감소
-        if (_dashCooldownTimer > 0f)
-            _dashCooldownTimer -= Time.deltaTime;
+        if (dashCooldownTimer > 0f)
+            dashCooldownTimer -= Time.deltaTime;
 
-        _stateMachine.UpdateState();
+        stateMachine.UpdateState();
     }
 
 
     private void FixedUpdate()
     {
-        _stateMachine.FixedUpdateState();
+        stateMachine.FixedUpdateState();
     }
 
     private void OnEnable()
@@ -105,26 +106,26 @@ public class PlayerController : MonoBehaviour
     private void OnDashInput()
     {
         // 쿨타임 중이면 무시
-        if (_dashCooldownTimer > 0f) return;
+        if (dashCooldownTimer > 0f) return;
 
         // 대시 중이면 무시
-        if (_stateMachine.CurrentState is DashState) return;
+        if (stateMachine.CurrentState is DashState) return;
 
         // 대시 시작 + 쿨타임 초기화
-        _dashCooldownTimer = dashCooldown;
+        dashCooldownTimer = dashCooldown;
         ChangeToState(PLAYER_STATE.Dash);
     }
 
     private void OnAttackInput()
     {
         // 대시 중에는 공격 못 함
-        if (_stateMachine.CurrentState is DashState) return;
+        if (stateMachine.CurrentState is DashState) return;
 
         ChangeToState(PLAYER_STATE.Attack);
     }
-    private void OnSwapInput() => _weaponManager.SwapWeapon();
+    private void OnSwapInput() => weaponManager.SwapWeapon();
 
-    public void TryAttack() => _weaponManager.TryAttack();
+    public void TryAttack() => weaponManager.TryAttack();
 
     public void LookAtCursor()
     {
@@ -140,7 +141,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ChangeToState(PLAYER_STATE next) => _stateMachine.ChangeState(next);
+    public void ChangeToState(PLAYER_STATE next) => stateMachine.ChangeState(next);
 
     private void ApplyGravity()
     {
@@ -151,13 +152,12 @@ public class PlayerController : MonoBehaviour
         else
         {
             _verticalVelocity += gravity * Time.deltaTime;
-            _verticalVelocity = Mathf.Max(_verticalVelocity, _terminalVelocity);
+            _verticalVelocity = Mathf.Max(_verticalVelocity, terminalVelocity);
         }
     }
 
     public T GetState<T>(PLAYER_STATE stateName) where T : BaseState
     {
-        return _stateMachine.GetState(stateName) as T;
+        return stateMachine.GetState(stateName) as T;
     }
-
 }

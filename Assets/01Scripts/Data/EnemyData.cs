@@ -5,7 +5,7 @@ public class EnemyData : ScriptableObject
 {
     [Header("Basic Info")]
     public string enemyName;
-    public int maxHealth;
+    public int maxHP;
     public float moveSpeed;
 
     [Header("Combat")]

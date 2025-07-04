@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Cyborg
   m_EditorClassIdentifier: 
   enemyName: Cyborg
-  maxHealth: 100
-  moveSpeed: 5
+  maxHP: 100
+  moveSpeed: 7.41
   attackPower: 10
   attackRange: 3
   attackCooldown: 1

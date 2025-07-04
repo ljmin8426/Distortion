@@ -12,10 +12,10 @@ public class PlayerAnimationEvents : MonoBehaviour
 
     public void OnDash()
     {
-        var dashState = _controller.GetState<DashState>(PLAYER_STATE.Dash);
+        var dashState = _controller.StateMachine.GetState(PLAYER_STATE.Dash);
     }
 
-    public void EndDash() // 애니메이션 마지막에 호출
+    public void EndDash()
     {
         _controller.ChangeToState(PLAYER_STATE.Move);
     }

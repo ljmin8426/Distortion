@@ -15,4 +15,4 @@ MonoBehaviour:
   weaponName: TwoHandSword
   weaponType: 0
   attackDamage: 20
-  attackSpeed: 0.3
+  attackSpeed: 1.2
