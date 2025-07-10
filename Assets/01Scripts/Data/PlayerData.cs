@@ -10,6 +10,7 @@ public class PlayerData : ScriptableObject
     public float baseMaxEP = 50f;
     public float baseAttack = 10f;
     public float baseMoveSpeed = 5f;
+    public float baseAttackSpeed;
 
     [Header("레벨 조건")]
     public int initialExpToLevelUp = 100;

@@ -117,4 +117,9 @@ public class EnemyAI : MonoBehaviour, IDamaged
             Die();
         }
     }
+
+    public bool IsAlive()
+    {
+        return currentHealth > 0;
+    }
 }

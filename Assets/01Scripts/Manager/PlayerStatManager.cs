@@ -17,24 +17,30 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
 
     private int level;
 
-    // Base stats
-    [SerializeField] private float maxHP;
-    [SerializeField] private float maxEP;
-    [SerializeField] private float attackPower;
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float attackSpeed;
+    [Header("Base Stats")]
+    [SerializeField] private float baseMaxHP;
+    [SerializeField] private float baseMaxEP;
+    [SerializeField] private float baseAttackPower;
+    [SerializeField] private float baseAttackSpeed;
+    [SerializeField] private float baseMoveSpeed;
+
+    private float bonusMaxHP;
+    private float bonusMaxEP;
+    private float bonusAttackPower;
+    private float bonusMoveSpeed;
+    private float bonusAttackSpeed;
 
     private float currentHP;
     private float currentEP;
 
     public int Level => level;
-    public float MaxHP => maxHP;
+    public float MaxHP => baseMaxHP + bonusMaxHP;
+    public float MaxEP => baseMaxEP + bonusMaxEP;
     public float CurrentHP => currentHP;
-    public float MaxEP => maxEP;
     public float CurrentEP => currentEP;
-    public float AttackPower => attackPower;
-    public float MoveSpeed => moveSpeed;
-    public float AttackSpeed => attackSpeed;    
+    public float AttackPower => baseAttackPower + bonusAttackPower;
+    public float MoveSpeed => baseMoveSpeed + bonusMoveSpeed;
+    public float AttackSpeed => baseAttackSpeed + bonusAttackSpeed;
 
     private Coroutine recoverCoroutine;
 
@@ -47,19 +53,17 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
     {
         level = 1;
 
-        maxHP = GameManager.instance.playerData.baseMaxHP;
-        maxEP = GameManager.instance.playerData.baseMaxEP;
-        attackPower = GameManager.instance.playerData.baseAttack;
-        moveSpeed = GameManager.instance.playerData.baseMoveSpeed;
+        var data = GameManager.instance.playerData;
+        baseMaxHP = data.baseMaxHP;
+        baseMaxEP = data.baseMaxEP;
+        baseAttackPower = data.baseAttack;
+        baseMoveSpeed = data.baseMoveSpeed;
+        baseAttackSpeed = data.baseAttackSpeed;
 
         currentHP = MaxHP;
         currentEP = MaxEP;
 
-        OnLevelChange?.Invoke(level);
-        OnHpChange?.Invoke(currentHP, MaxHP);
-        OnEpChange?.Invoke(currentEP, MaxEP);
-        OnAttackPowerChange?.Invoke(AttackPower);
-        OnMoveSpeedChange?.Invoke(moveSpeed);
+        InvokeAllEvents();
 
         if (recoverCoroutine != null)
             StopCoroutine(recoverCoroutine);
@@ -71,17 +75,19 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
         float interval = 0.1f;
         WaitForSeconds wait = new WaitForSeconds(interval);
 
+        var data = GameManager.instance.playerData;
+
         while (true)
         {
             if (currentHP < MaxHP)
             {
-                currentHP = Mathf.Min(currentHP + GameManager.instance.playerData.hpRegenRate * interval, MaxHP);
+                currentHP = Mathf.Min(currentHP + data.hpRegenRate * interval, MaxHP);
                 OnHpChange?.Invoke(currentHP, MaxHP);
             }
 
             if (currentEP < MaxEP)
             {
-                currentEP = Mathf.Min(currentEP + GameManager.instance.playerData.epRegenRate * interval, MaxEP);
+                currentEP = Mathf.Min(currentEP + data.epRegenRate * interval, MaxEP);
                 OnEpChange?.Invoke(currentEP, MaxEP);
             }
 
@@ -92,30 +98,28 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
     public void ApplyLevelUp()
     {
         level++;
-        maxHP *= GameManager.instance.playerData.hpGrowth;
-        maxEP *= GameManager.instance.playerData.epGrowth;
-        attackPower *= GameManager.instance.playerData.atkGrowth;
+        var data = GameManager.instance.playerData;
+
+        baseMaxHP *= data.hpGrowth;
+        baseMaxEP *= data.epGrowth;
+        baseAttackPower *= data.atkGrowth;
+
         currentHP = MaxHP;
         currentEP = MaxEP;
 
+        InvokeAllEvents();
         OnLevelChange?.Invoke(level);
-        OnHpChange?.Invoke(currentHP, MaxHP);
-        OnEpChange?.Invoke(currentEP, MaxEP);
-        OnAttackPowerChange?.Invoke(AttackPower);
-        OnMoveSpeedChange?.Invoke(moveSpeed);
     }
 
     public void TakeDamage(float amount)
     {
         currentHP = Mathf.Max(0, currentHP - amount);
+        OnHpChange?.Invoke(currentHP, MaxHP);
 
-        if(currentHP < 1)
+        if (currentHP <= 0f)
         {
-            currentHP = 0;
             OnDiePlayer?.Invoke();
         }
-
-        OnHpChange?.Invoke(currentHP, MaxHP);
     }
 
     public void ConsumeEP(float amount)
@@ -136,30 +140,76 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
         OnEpChange?.Invoke(currentEP, MaxEP);
     }
 
-    // 장비/아이템 관련 메서드
-    public void AddStatModifier(float hp = 0, float ep = 0, float atk = 0, float move = 0)
+    public void Equip(EquipmentItemT equipment)
     {
-        maxHP += hp;
-        maxEP += ep;
-        attackPower += atk;
-        moveSpeed += move;
+        foreach (var stat in equipment.statList)
+        {
+            switch (stat.statType)
+            {
+                case ITEM_STAT_TYPE.MaxHP:
+                    bonusMaxHP += stat.value;
+                    break;
+                case ITEM_STAT_TYPE.MaxEP:
+                    bonusMaxEP += stat.value;
+                    break;
+                case ITEM_STAT_TYPE.Attack:
+                    bonusAttackPower += stat.value;
+                    break;
+                case ITEM_STAT_TYPE.MoveSpeed:
+                    bonusMoveSpeed += stat.value;
+                    break;
+                case ITEM_STAT_TYPE.AttackSpeed:
+                    bonusAttackSpeed += stat.value;
+                    break;
+            }
+        }
 
-        OnHpChange?.Invoke(currentHP, MaxHP);
-        OnEpChange?.Invoke(currentEP, MaxEP);
-        OnAttackPowerChange?.Invoke(AttackPower);
-        OnMoveSpeedChange?.Invoke(moveSpeed);
+        ClampCurrentStat();
+        InvokeAllEvents();
     }
 
-    public void RemoveStatModifier(float hp = 0, float ep = 0, float atk = 0, float move = 0)
-    {
-        maxHP -= hp;
-        maxEP -= ep;
-        attackPower -= atk;
-        moveSpeed -= move;
 
+    public void Unequip(EquipmentItemT equipment)
+    {
+        foreach (var stat in equipment.statList)
+        {
+            switch (stat.statType)
+            {
+                case ITEM_STAT_TYPE.MaxHP:
+                    bonusMaxHP -= stat.value;
+                    break;
+                case ITEM_STAT_TYPE.MaxEP:
+                    bonusMaxEP -= stat.value;
+                    break;
+                case ITEM_STAT_TYPE.Attack:
+                    bonusAttackPower -= stat.value;
+                    break;
+                case ITEM_STAT_TYPE.MoveSpeed:
+                    bonusMoveSpeed -= stat.value;
+                    break;
+                case ITEM_STAT_TYPE.AttackSpeed:
+                    bonusAttackSpeed -= stat.value;
+                    break;
+            }
+        }
+
+        ClampCurrentStat();
+        InvokeAllEvents();
+    }
+
+
+
+    private void ClampCurrentStat()
+    {
+        currentHP = Mathf.Min(currentHP, MaxHP);
+        currentEP = Mathf.Min(currentEP, MaxEP);
+    }
+
+    private void InvokeAllEvents()
+    {
         OnHpChange?.Invoke(currentHP, MaxHP);
         OnEpChange?.Invoke(currentEP, MaxEP);
         OnAttackPowerChange?.Invoke(AttackPower);
-        OnMoveSpeedChange?.Invoke(moveSpeed);
+        OnMoveSpeedChange?.Invoke(MoveSpeed);
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [Header("Dash Settings")]
     [SerializeField] private float dashSpeed = 20f;
     [SerializeField] private float dashCooldown = 1.0f;
+    [SerializeField] private float dashEpAmount = 5.0f;
 
 
     private CharacterController controller;
@@ -34,6 +36,8 @@ public class PlayerController : MonoBehaviour
     private float dashCooldownTimer = 0f;
     private float _verticalVelocity;
     private bool _isGrounded;
+
+    public static event Action<float> OnDashCooldownStart;
 
     public BaseWeapon CurrentWeapon => weaponManager.CurWeapon;
     public CharacterController Controller => controller;
@@ -105,16 +109,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnDashInput()
     {
-        // 쿨타임 중이면 무시
         if (dashCooldownTimer > 0f) return;
-
-        // 대시 중이면 무시
         if (stateMachine.CurrentState is DashState) return;
+        PlayerStatManager.instance.ConsumeEP(dashEpAmount);
 
-        // 대시 시작 + 쿨타임 초기화
         dashCooldownTimer = dashCooldown;
+
+        OnDashCooldownStart?.Invoke(dashCooldown); // UI에게 알림
+
         ChangeToState(PLAYER_STATE.Dash);
     }
+
 
     private void OnAttackInput()
     {

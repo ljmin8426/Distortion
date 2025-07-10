@@ -8,8 +8,8 @@ public abstract class SkillBase : MonoBehaviour, IActiveSkill
     [SerializeField] protected SkillData skillData;
 
     protected bool isCooldown = false;
-    protected SkillCooldownUI cooldownUI;
-
+    public event Action<float> OnCooldownStart; // 쿨다운 시작 이벤트
+    public SkillData SkillData => skillData;
     public abstract void Activate(GameObject attacker);
     
     protected bool TryUseSkill()
@@ -31,17 +31,12 @@ public abstract class SkillBase : MonoBehaviour, IActiveSkill
         return false;
     }
 
-    public void SetCooldownUI(SkillCooldownUI ui)
-    {
-        cooldownUI = ui;
-    }
-
     protected IEnumerator CooldownRoutine()
     {
         isCooldown = true;
 
-        if (cooldownUI != null)
-            cooldownUI.StartCooldown(skillData.cooldown);
+        // UI가 아닌 외부 구독자에게 알림
+        OnCooldownStart?.Invoke(skillData.cooldown);
 
         yield return YieldInstructionCache.WaitForSeconds(skillData.cooldown);
         isCooldown = false;

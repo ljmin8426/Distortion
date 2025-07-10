@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 5820977053007963986}
   - component: {fileID: 917467293962051222}
   - component: {fileID: 4871095105131907219}
-  - component: {fileID: 8617925380515390514}
+  - component: {fileID: 9122010438522568359}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Player
@@ -177,12 +177,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   rotationSpeed: 10
-  gravity: -9.81
-  terminalVelocity: -53
+  gravity: -30
+  terminalVelocity: -40
   weaponHolder: {fileID: 5140428776712710211}
   dashSpeed: 20
-  dashDuration: 0.2
   dashCooldown: 1
+  dashEpAmount: 5
 --- !u!114 &5820977053007963986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,9 +221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b45fb852d41d645b1ccbda211b3467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grenadeSkill: {fileID: 8617925380515390514}
-  grenadeSkillUI: {fileID: 0}
---- !u!114 &8617925380515390514
+  attackSkill: {fileID: 9122010438522568359}
+--- !u!114 &9122010438522568359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -232,13 +231,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7125308187309734796}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a81298606e013614aa963b9ef2efef41, type: 3}
+  m_Script: {fileID: 11500000, guid: c2b09ff09c57ee743bf27f9a58b6bca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillData: {fileID: 11400000, guid: dc05f3e204d41b74eb8accd8b8a4ed43, type: 2}
-  grenadePrefab: {fileID: 7677698342774902107, guid: 863b0e2e0be977d4a981233908562384, type: 3}
-  launchForce: 10
-  upwardForce: 5
+  skillData: {fileID: 11400000, guid: d20f8b40540537b4e9a669e2af3460b8, type: 2}
+  missileCount: 3
+  missileSpreadAngle: 15
+  missileSpawnInterval: 0.1
 --- !u!1 &9146180213775705780
 GameObject:
   m_ObjectHideFlags: 0

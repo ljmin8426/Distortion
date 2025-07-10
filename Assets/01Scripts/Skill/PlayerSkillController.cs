@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 public class PlayerSkillController : MonoBehaviour
 {
     private BaseSkillManager skillManager;
-    private WeaponManager weaponManager;
 
     private void OnEnable()
     {

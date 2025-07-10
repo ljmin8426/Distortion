@@ -26,8 +26,7 @@ public class DashState : BaseState
 
         Vector3 move = _dashDirection * Controller.DashSpeed;
         move.y = Controller.VerticalVelocity;
-
-        Controller.Controller.Move(move * Time.deltaTime); //실제로 매 프레임 이동
+        Controller.Controller.Move(move * Time.deltaTime);
 
         if (_dashTimer <= 0f)
         {
@@ -36,10 +35,7 @@ public class DashState : BaseState
         }
     }
 
-    public override void OnExitState()
-    {
-        _isDashing = false;
-    }
+    public override void OnExitState() => _isDashing = false;
 
     public override void OnFixedUpdateState() { }
 }
