@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MoveState : BaseState
+public class MoveState : BaseState<PlayerController>
 {
     public MoveState(PlayerController controller) : base(controller) { }
 
@@ -10,24 +10,24 @@ public class MoveState : BaseState
 
     public override void OnUpdateState()
     {
-        Vector2 input = Controller.MoveInput;
+        Vector2 input = Owner.MoveInput;
         Vector3 inputDir = new Vector3(input.x, 0f, input.y).normalized;
 
-        Vector3 camForward = Controller.MainCamera.forward; camForward.y = 0;
-        Vector3 camRight = Controller.MainCamera.right; camRight.y = 0;
+        Vector3 camForward = Owner.MainCamera.forward; camForward.y = 0;
+        Vector3 camRight = Owner.MainCamera.right; camRight.y = 0;
         Vector3 moveDir = camForward * inputDir.z + camRight * inputDir.x;
 
         if (moveDir.magnitude >= 0.1f)
         {
             Quaternion rot = Quaternion.LookRotation(moveDir);
-            Controller.transform.rotation = Quaternion.Slerp(Controller.transform.rotation, rot, Controller.RotationSpeed * Time.deltaTime);
+            Owner.transform.rotation = Quaternion.Slerp(Owner.transform.rotation, rot, Owner.RotationSpeed * Time.deltaTime);
         }
 
-        Vector3 move = moveDir * Controller.MoveSpeed;
-        move.y = Controller.VerticalVelocity;
-        Controller.Controller.Move(move * Time.deltaTime);
+        Vector3 move = moveDir * Owner.MoveSpeed;
+        move.y = Owner.VerticalVelocity;
+        Owner.Controller.Move(move * Time.deltaTime);
 
-        Controller.Animator.SetFloat("MoveSpeed", input.magnitude);
+        Owner.Animator.SetFloat("Movespeed", input.magnitude);
     }
 
     public override void OnFixedUpdateState() { }

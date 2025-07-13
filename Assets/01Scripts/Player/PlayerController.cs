@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(InputManager))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamaged
 {
     [Header("Movement Setting")]
     [SerializeField] private float moveSpeed = 8.0f;
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     private InputManager input;
     private WeaponManager weaponManager;
 
-    private StateMachine stateMachine;
+    private StateMachine<PLAYER_STATE, PlayerController> stateMachine;
 
     private float dashCooldownTimer = 0f;
     private float _verticalVelocity;
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     public CharacterController Controller => controller;
     public Animator Animator { get => animator; set => animator = value; }
     public Transform MainCamera => mainCamera;
-    public StateMachine StateMachine => stateMachine;
+    public StateMachine<PLAYER_STATE, PlayerController> StateMachine => stateMachine;
 
     public Vector2 MoveInput => input.MoveInput;
     public WEAPON_TYPE CurrentWeaponType => weaponManager.CurrentWeaponType;
@@ -65,9 +65,10 @@ public class PlayerController : MonoBehaviour
         input = GetComponent<InputManager>();
         weaponManager = GetComponent<WeaponManager>();
 
-        stateMachine = new StateMachine(PLAYER_STATE.Move, new MoveState(this));
+        stateMachine = new StateMachine<PLAYER_STATE, PlayerController>(PLAYER_STATE.Move, new MoveState(this));
         stateMachine.AddState(PLAYER_STATE.Attack, new AttackState(this));
         stateMachine.AddState(PLAYER_STATE.Dash, new DashState(this));
+        stateMachine.AddState(PLAYER_STATE.Hit, new HitState(this)); // 추가
     }
 
     private void Start()
@@ -120,11 +121,28 @@ public class PlayerController : MonoBehaviour
         ChangeToState(PLAYER_STATE.Dash);
     }
 
+    public void TakeDamage(int amount)
+    {
+        var shield = GetComponent<Shield>();
+        if (shield != null && shield.IsShieldActive())
+        {
+            int remaining = shield.AbsorbDamage(amount);
+            if (remaining <= 0)
+            {
+                return;
+            }
+
+            amount = remaining;
+        }
+
+        PlayerStatManager.instance.TakeDamage(amount);
+
+        ChangeToState(PLAYER_STATE.Hit);
+    }
 
     private void OnAttackInput()
     {
-        // 대시 중에는 공격 못 함
-        if (stateMachine.CurrentState is DashState) return;
+        if (stateMachine.CurrentState is DashState || stateMachine.CurrentState is HitState) return;
 
         ChangeToState(PLAYER_STATE.Attack);
     }
@@ -161,7 +179,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public T GetState<T>(PLAYER_STATE stateName) where T : BaseState
+    public T GetState<T>(PLAYER_STATE stateName) where T : BaseState<PlayerController>
     {
         return stateMachine.GetState(stateName) as T;
     }

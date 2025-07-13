@@ -31,7 +31,6 @@ public class ExpManager : Singleton<ExpManager>
             currentExp -= expToNextLevel;
             LevelUp();
         }
-        Debug.Log($"경험치 획득 {amount}+ 현재 경험치 {currentExp} / {expToNextLevel}");
 
         OnChangeExp?.Invoke(currentExp, expToNextLevel);
     }

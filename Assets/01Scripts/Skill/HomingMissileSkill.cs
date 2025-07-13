@@ -22,6 +22,7 @@ public class HomingMissileSkill : SkillBase
         if (!TryUseSkill())
             return;
 
+        AudioManager.instance.PlaySFX("Homing");
         StartCoroutine(FireMultipleMissiles(attacker));
         StartCoroutine(CooldownRoutine());
     }

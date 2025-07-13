@@ -27,6 +27,17 @@ public abstract class BaseSkillManager : MonoBehaviour
             Debug.Log("스킬이 존재하지않습니다");
         }
     }
+    protected int GetSkillSlotIndexByType(SKILL_TYPE type)
+    {
+        switch (type)
+        {
+            case SKILL_TYPE.Defense: return 1;   // 방어: 1번
+            case SKILL_TYPE.Normal: return 2;   // 공격: 2번
+            case SKILL_TYPE.Ultimate: return 3;   // 궁극기: 3번
+            default: return skills.Count;
+        }
+    }
+
 
     protected abstract void InitializeSkills();
 }

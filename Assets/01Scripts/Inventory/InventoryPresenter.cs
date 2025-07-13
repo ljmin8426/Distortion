@@ -37,12 +37,9 @@ public class InventoryPresenter
         }
         else
         {
-            view.itemInfoPanelView.Hide(); // 정보창 초기화 필요시
+            view.itemInfoPanelView.Hide();
         }
-
-        // 4. 스탯 패널 등 추가 갱신 필요시 여기에
     }
-
 
     public void OnItemClick(ItemSO item, InventoryItemSlotView slotView)
     {
@@ -56,16 +53,17 @@ public class InventoryPresenter
         model.ownedItems.Add(item);
         RefreshUI();
     }
+
     public void OnItemEquip(ItemSO item, EquipSlotView slot)
     {
-        if (item is not EquipmentItemT equipment)
+        if (item is not EquipmentItem equipment)
             return;
 
         // 기존 장비 해제
-        if (slot.CurItem is EquipmentItemT oldEquip)
+        if (slot.CurItem is EquipmentItem oldEquip)
         {
             model.AddItem(oldEquip);
-            PlayerStatManager.instance.Unequip(oldEquip);
+            PlayerStatManager.instance.UnEquip(oldEquip);
         }
 
         slot.SetItem(equipment);
@@ -84,8 +82,8 @@ public class InventoryPresenter
         model.UnequipItem(itemType);
         model.AddItem(item);
 
-        if (item is EquipmentItemT equipment)
-            PlayerStatManager.instance.Unequip(equipment);
+        if (item is EquipmentItem equipment)
+            PlayerStatManager.instance.UnEquip(equipment);
 
         RefreshUI();
     }
@@ -95,37 +93,4 @@ public class InventoryPresenter
         model.ownedItems.Remove(item);
         RefreshUI();
     }
-
-
-    public void OnItemDroppedToEquipSlot(ItemSO item, EquipSlotView slotView)
-    {
-        // 1. 장비 타입이 맞는지 검사
-        if (item is EquipmentItemT equipment && equipment.itemType == slotView.itemType)
-        {
-            // 2. 기존 장비 있으면 우선 해제
-            var prevItem = slotView.CurItem;
-            if (prevItem is EquipmentItemT prevEquip)
-            {
-                model.ownedItems.Add(prevEquip);
-                PlayerStatManager.instance.Unequip(prevEquip);
-            }
-
-            // 3. 슬롯에 장착
-            slotView.SetItem(equipment);
-
-            // 4. 인벤토리에서 제거
-            model.ownedItems.Remove(equipment);
-
-            // 5. 스탯 적용
-            PlayerStatManager.instance.Equip(equipment);
-
-            RefreshUI();
-        }
-        else
-        {
-            Debug.Log("타입이 맞지 않아 장착할 수 없습니다.");
-        }
-    }
-
 }
-

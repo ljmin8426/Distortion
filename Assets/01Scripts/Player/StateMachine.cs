@@ -1,25 +1,27 @@
+using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 
-public class StateMachine
+public class StateMachine<TState, TController>
+    where TState : Enum
+    where TController : class
 {
-    public BaseState CurrentState { get; private set; }
-    private Dictionary<PLAYER_STATE, BaseState> states = new();
+    public BaseState<TController> CurrentState { get; private set; }
+    private Dictionary<TState, BaseState<TController>> states = new();
 
-    public StateMachine(PLAYER_STATE defaultState, BaseState initialState)
+    public StateMachine(TState defaultState, BaseState<TController> initialState)
     {
         AddState(defaultState, initialState);
         CurrentState = initialState;
         CurrentState.OnEnterState();
     }
 
-    public void AddState(PLAYER_STATE stateName, BaseState state)
+    public void AddState(TState stateName, BaseState<TController> state)
     {
         if (!states.ContainsKey(stateName))
             states[stateName] = state;
     }
 
-    public void ChangeState(PLAYER_STATE nextState)
+    public void ChangeState(TState nextState)
     {
         if (!states.TryGetValue(nextState, out var newState))
             return;
@@ -39,10 +41,9 @@ public class StateMachine
         CurrentState?.OnFixedUpdateState();
     }
 
-    public BaseState GetState(PLAYER_STATE state)
+    public BaseState<TController> GetState(TState state)
     {
         states.TryGetValue(state, out var result);
         return result;
     }
-
 }

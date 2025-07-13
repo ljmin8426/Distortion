@@ -6,6 +6,7 @@ public class InventoryItemSlotView : MonoBehaviour,
     IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     public Image itemImage;
+    public Image backgroundImage;
     public GameObject selectHighlight;
 
     public ItemSO Item { get; private set; }
@@ -25,6 +26,15 @@ public class InventoryItemSlotView : MonoBehaviour,
         Item = item;
         itemImage.sprite = item.icon;
         itemImage.enabled = true;
+
+        if (item is EquipmentItem equipment)
+        {
+            backgroundImage.sprite = ItemRaritySpriteUtility.GetBackgroundSprite(equipment.rarity);
+        }
+        else
+        {
+            backgroundImage.sprite = ItemRaritySpriteUtility.GetBackgroundSprite(ITEM_RARITY.Common);
+        }
     }
 
     public void Highlight(bool isOn)

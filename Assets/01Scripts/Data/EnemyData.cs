@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Enemy/Datas", order = 1)]
 public class EnemyData : ScriptableObject
@@ -15,7 +15,6 @@ public class EnemyData : ScriptableObject
 
     [Header("Detection")]
     public float detectionRange = 10f;
-    public float chaseStopRange = 15f;
 
     [Header("Reward")]
     public int expReward;

@@ -9,20 +9,24 @@ public class SkillCooldownUI : MonoBehaviour
     [SerializeField] private Image iconImage;
     [SerializeField] private TextMeshProUGUI epCostText;
 
+    private SkillBase boundSkill;
+
+    public bool IsBound => boundSkill != null;
+
     public void Bind(SkillBase skill)
     {
         if (skill == null) return;
 
-        // 스킬 아이콘 초기화
+        boundSkill = skill;
+
+        // 아이콘 설정
         if (iconImage != null)
             iconImage.sprite = skill.SkillData.SkillIcon;
 
-        if (skill != null && skill.SkillData != null && epCostText != null)
-        {
+        if (skill.SkillData != null && epCostText != null)
             epCostText.text = $"{skill.SkillData.manaCost}";
-        }
 
-        // 쿨다운 시작 이벤트 구독
+        // 쿨다운 이벤트 연결
         skill.OnCooldownStart += StartCooldown;
     }
 
@@ -55,12 +59,19 @@ public class SkillCooldownUI : MonoBehaviour
 
     public void Clear()
     {
+        // 이벤트 해제
+        if (boundSkill != null)
+            boundSkill.OnCooldownStart -= StartCooldown;
+
+        boundSkill = null;
+
         if (cooldownOverlay != null)
             cooldownOverlay.fillAmount = 0f;
+
         if (iconImage != null)
             iconImage.sprite = null;
+
         if (epCostText != null)
             epCostText.text = "";
     }
-
 }

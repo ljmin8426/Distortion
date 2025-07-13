@@ -1,25 +1,20 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerSkillUIManager : MonoBehaviour
 {
-    [SerializeField] private SkillCooldownUI utilityUI;
-    [SerializeField] private SkillCooldownUI attackUI;
-    [SerializeField] private SkillCooldownUI ultimateUI;
-    [SerializeField] private SkillCooldownUI deffenseUI;
+    [Header("Skill UI Slots")]
+    [SerializeField] private List<SkillCooldownUI> skillUISlots;
 
-    [SerializeField] private SkillBase attackSkill;
-    [SerializeField] private SkillBase ultimateSkill;
-    [SerializeField] private SkillBase deffenseSkill;
+    private List<SkillBase> acquiredSkills = new List<SkillBase>();
+
+    [Header("Utility Skill UI (e.g. Dash)")]
+    [SerializeField] private SkillCooldownUI utilityUI;
 
     private void Start()
     {
-        if (attackSkill != null) attackUI.Bind(attackSkill);
-        if (ultimateSkill != null) ultimateUI.Bind(ultimateSkill);
-        if (deffenseSkill != null) deffenseUI.Bind(deffenseSkill);
-
-        // Dash 쿨타임 이벤트 바인딩
-        PlayerController.OnDashCooldownStart += utilityUI.StartCooldown;
-        utilityUI.SetEpCost(2);
+        PlayerController.OnDashCooldownStart += skillUISlots[0].StartCooldown;
+        skillUISlots[0].SetEpCost(2); // 유틸기 고정
     }
 
     private void OnDestroy()
@@ -27,13 +22,30 @@ public class PlayerSkillUIManager : MonoBehaviour
         PlayerController.OnDashCooldownStart -= utilityUI.StartCooldown;
     }
 
-    public void SetAttackSkill(SkillBase newSkill)
+    private int GetSkillSlotIndexByType(SKILL_TYPE type)
     {
-        attackSkill = newSkill;
+        switch (type)
+        {
+            case SKILL_TYPE.Defense: return 1;
+            case SKILL_TYPE.Normal: return 2;
+            case SKILL_TYPE.Ultimate: return 3;
+            default: return -1;
+        }
+    }
 
-        if (newSkill != null)
-            attackUI.Bind(newSkill);
-        else
-            attackUI.Clear(); // UI에서 아이콘 제거
+    public void SetEquipmentSkill(SkillBase newSkill)
+    {
+        if (newSkill == null) return;
+
+        int index = GetSkillSlotIndexByType(newSkill.SkillData.skillType);
+
+        if (index < 1 || index >= skillUISlots.Count)
+        {
+            Debug.LogWarning("스킬 타입에 맞는 UI 슬롯이 없습니다.");
+            return;
+        }
+
+        skillUISlots[index].Clear();         // 기존 UI 정리
+        skillUISlots[index].Bind(newSkill);  // 새 UI 등록
     }
 }

@@ -19,21 +19,23 @@ public class ItemInfoPanelView : MonoBehaviour
         }
 
         itemImage.sprite = item.icon;
+        itemImage.enabled = true;
 
-        if (item is EquipmentItemT equip && equip.statList != null)
+        if (item is EquipmentItem equip)
         {
+            var modifiedStats = equip.GetModifiedStats();
+
+            Debug.Log($"[INFO] Showing stats for {equip.name} with rarity {equip.rarity}. Stats count: {modifiedStats.Count}");
+
             for (int i = 0; i < statElements.Count; i++)
             {
-                if (i < equip.statList.Count)
+                if (i < modifiedStats.Count)
                 {
-                    var stat = equip.statList[i];
-                    if (statElements[i] != null)
-                    {
-                        statElements[i].Set(stat.statType.ToString(), stat.value.ToString());
-                        statElements[i].gameObject.SetActive(true);
-                    }
+                    var stat = modifiedStats[i];
+                    statElements[i].Set(stat.statType.ToString(), stat.value.ToString());
+                    statElements[i].gameObject.SetActive(true);
                 }
-                else if (statElements[i] != null)
+                else
                 {
                     statElements[i].gameObject.SetActive(false);
                 }

@@ -17,12 +17,11 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
 
     private int level;
 
-    [Header("Base Stats")]
-    [SerializeField] private float baseMaxHP;
-    [SerializeField] private float baseMaxEP;
-    [SerializeField] private float baseAttackPower;
-    [SerializeField] private float baseAttackSpeed;
-    [SerializeField] private float baseMoveSpeed;
+    private float baseMaxHP;
+    private float baseMaxEP;
+    private float baseAttackPower;
+    private float baseAttackSpeed;
+    private float baseMoveSpeed;
 
     private float bonusMaxHP;
     private float bonusMaxEP;
@@ -64,6 +63,7 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
         currentEP = MaxEP;
 
         InvokeAllEvents();
+        OnLevelChange?.Invoke(level);
 
         if (recoverCoroutine != null)
             StopCoroutine(recoverCoroutine);
@@ -118,6 +118,7 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
 
         if (currentHP <= 0f)
         {
+            Debug.Log("<color=red>[Player] »ç¸Á</color>");
             OnDiePlayer?.Invoke();
         }
     }
@@ -140,9 +141,9 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
         OnEpChange?.Invoke(currentEP, MaxEP);
     }
 
-    public void Equip(EquipmentItemT equipment)
+    public void Equip(EquipmentItem equipment)
     {
-        foreach (var stat in equipment.statList)
+        foreach (var stat in equipment.GetModifiedStats())
         {
             switch (stat.statType)
             {
@@ -168,10 +169,9 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
         InvokeAllEvents();
     }
 
-
-    public void Unequip(EquipmentItemT equipment)
+    public void UnEquip(EquipmentItem equipment)
     {
-        foreach (var stat in equipment.statList)
+        foreach (var stat in equipment.GetModifiedStats())
         {
             switch (stat.statType)
             {
@@ -196,8 +196,6 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
         ClampCurrentStat();
         InvokeAllEvents();
     }
-
-
 
     private void ClampCurrentStat()
     {

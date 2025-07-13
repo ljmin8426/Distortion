@@ -1,7 +1,10 @@
 public enum ENEMY_STATE
 {
-    None = -1,
     Idle,
+    Patrol,
     Chase,
-    Attack
+    Attack,
+    Skill,
+    Hit,
+    Die
 }

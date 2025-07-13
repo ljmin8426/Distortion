@@ -8,6 +8,8 @@ public class SkillData : ScriptableObject
     public int cooldown;
     public int manaCost;
 
+    public SKILL_TYPE skillType;
+
     public GameObject effectPrefab;
     public AudioClip soundEffect;
     public AnimationClip animationClip;

@@ -1,28 +1,46 @@
 using UnityEngine;
 
-public class AttackState : BaseState
+public class AttackState : BaseState<PlayerController>
 {
+    private float exitDelay = 0.2f; // 공격 후 이동 상태로 넘어가기 전 딜레이
+    private float exitTimer = 0f;
+    private bool fired = false;
+
     public AttackState(PlayerController controller) : base(controller) { }
 
     public override void OnEnterState()
     {
-        Controller.LookAtCursor();
+        Owner.LookAtCursor();
 
-        switch (Controller.CurrentWeaponType)
+        switch (Owner.CurrentWeaponType)
         {
             case WEAPON_TYPE.Melee:
-                Controller.Animator.SetTrigger("IsAttack");
-                Controller.Animator.SetFloat("AttackSpeed", Controller.CurrentWeapon.WeaponData.attackSpeed + PlayerStatManager.instance.AttackSpeed);
+                Owner.Animator.SetTrigger("IsAttack");
+                Owner.Animator.SetFloat("AttackSpeed", Owner.CurrentWeapon.WeaponData.attackSpeed + PlayerStatManager.instance.AttackSpeed);
                 break;
+
             case WEAPON_TYPE.Range:
-                Controller.Animator.SetTrigger("IsFire");
+                Owner.Animator.SetTrigger("IsFire");
                 break;
         }
 
-        Controller.TryAttack();  // 애니메이션 재생과 함께 발동
+        Owner.TryAttack();  // 무기 발사
+        fired = true;
+        exitTimer = 0f;
     }
 
-    public override void OnUpdateState() { }
+    public override void OnUpdateState()
+    {
+        if (Owner.CurrentWeaponType == WEAPON_TYPE.Range && fired)
+        {
+            exitTimer += Time.deltaTime;
+            if (exitTimer >= exitDelay)
+            {
+                Owner.ChangeToState(PLAYER_STATE.Move);
+            }
+        }
+    }
+
     public override void OnFixedUpdateState() { }
     public override void OnExitState() { }
 }

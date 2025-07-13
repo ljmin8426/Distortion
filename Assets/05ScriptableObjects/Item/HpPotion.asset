@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Hp Potion
   icon: {fileID: 21300000, guid: c3aab7237df394c4890e647a4ae580ea, type: 3}
   itemType: 3
-  description: This is HP Potion Recover HP
+  description: 
   restoreHP: 1
   restoreAmount: 100

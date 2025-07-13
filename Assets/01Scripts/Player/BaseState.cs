@@ -1,10 +1,10 @@
-public abstract class BaseState
+public abstract class BaseState<TOwner>
 {
-    protected PlayerController Controller { get; private set; }
+    protected TOwner Owner { get; private set; }
 
-    public BaseState(PlayerController controller)
+    public BaseState(TOwner controller)
     {
-        Controller = controller;
+        Owner = controller;
     }
 
     public abstract void OnEnterState();

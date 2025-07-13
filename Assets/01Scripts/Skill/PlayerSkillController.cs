@@ -10,14 +10,14 @@ public class PlayerSkillController : MonoBehaviour
 
     private void OnEnable()
     {
-        InputManager.OnSkill += HandleSkill;
+        InputManager.OnSkill += AttackSkill;
         InputManager.OnDefense += HandleDefense;
         InputManager.OnUltimate += HandleUltimate;
     }
 
     private void OnDisable()
     {
-        InputManager.OnSkill -= HandleSkill;
+        InputManager.OnSkill -= AttackSkill;
         InputManager.OnDefense -= HandleDefense;
         InputManager.OnUltimate -= HandleUltimate;
     }
@@ -27,19 +27,19 @@ public class PlayerSkillController : MonoBehaviour
         skillManager = GetComponent<BaseSkillManager>();
     }
 
-
-    private void HandleSkill()
+    private void HandleDefense()
     {
-        skillManager.UseSkill(0);
+        skillManager.UseSkill(1);
+    }
+
+    private void AttackSkill()
+    {
+        skillManager.UseSkill(2);
     }
 
     private void HandleUltimate()
     {
-
+        skillManager.UseSkill(3);
     }
-    
-    private void HandleDefense()
-    {
 
-    }
 }

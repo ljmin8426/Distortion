@@ -2,25 +2,25 @@ using UnityEngine;
 
 public class HomingMissile : MonoBehaviour
 {
+    // 데미지
+    private int damage = 100;
+
+    // 상승
+    private float riseHeight = 40f;
+    private float riseDuration = 0.5f;
+
+    // 추적
+    private float homingSpeed = 30f;
+    private float rotationSpeed = 10f;
+    private float maxLifetime = 5f;
+
     private Transform target;
-
-    [SerializeField] private int damage = 100;
-
-    [Header("Phase 1: Rising")]
-    public float riseHeight = 3f;
-    public float riseDuration = 0.5f;
-
-    [Header("Phase 2: Homing")]
-    public float homingSpeed = 10f;
-    public float rotationSpeed = 10f;
-    public float maxLifetime = 5f;
+    private TrailRenderer trail;
 
     private Vector3 startPos;
     private Vector3 riseTargetPos;
     private float timer;
     private bool isHoming = false;
-
-    private TrailRenderer trail;
 
     public void Initialize(Transform target)
     {
@@ -51,12 +51,11 @@ public class HomingMissile : MonoBehaviour
         }
 
         // 타겟이 없거나 죽었으면 재탐색
-        if (target == null || !IsTargetAlive(target))
+        if ( target == null )
         {
             target = FindPriorityTarget(transform.position, 20f);
             if (target == null)
             {
-                // 재탐색 실패하면 직진하거나 삭제할 수도 있음
                 Destroy(gameObject);
                 return;
             }
@@ -81,21 +80,6 @@ public class HomingMissile : MonoBehaviour
             transform.forward = Vector3.Lerp(transform.forward, dir, Time.deltaTime * rotationSpeed);
         }
     }
-    private bool IsTargetAlive(Transform targetTransform)
-    {
-        if (targetTransform == null)
-            return false;
-
-        var enemyAI = targetTransform.GetComponent<EnemyAI>();
-        if (enemyAI != null)
-            return enemyAI.IsAlive();
-
-        //var bossAI = targetTransform.GetComponent<BossAI>(); // 보스 AI도 비슷하게 구현했다고 가정
-        //if (bossAI != null)
-        //    return bossAI.IsAlive();
-
-        return false; // 컴포넌트가 없으면 안전하게 죽은걸로 간주
-    }
 
     private Transform FindPriorityTarget(Vector3 position, float radius)
     {
@@ -119,7 +103,7 @@ public class HomingMissile : MonoBehaviour
                 }
             }
             // 그 다음 Enemy 찾기
-            else if (col.CompareTag("Enemy"))
+            else if (col.CompareTag("EnemyHead"))
             {
                 float dist = Vector3.Distance(position, col.transform.position);
                 if (dist < enemyDist)
@@ -140,11 +124,10 @@ public class HomingMissile : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            // TODO: 데미지 처리 또는 폭발 이펙트
-            Destroy(gameObject);
             if (other.TryGetComponent(out IDamaged damaged))
             {
                 damaged.TakeDamage(damage);
+                Destroy(gameObject);
             }
         }
     }

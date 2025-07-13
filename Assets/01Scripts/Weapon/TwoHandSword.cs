@@ -19,9 +19,13 @@ public class TwoHandSword : BaseWeapon, IMeleeWeapon
     {
         if (!meleeArea.enabled) return;
 
+        // 적 또는 보스 태그만 허용
+        if (!other.CompareTag("Enemy") && !other.CompareTag("Boss"))
+            return;
+
         if (other.TryGetComponent(out IDamaged damaged))
         {
-            damaged.TakeDamage(weaponData.attackDamage);
+            damaged.TakeDamage(weaponData.attackDamage + (int)PlayerStatManager.instance.AttackPower);
         }
     }
 
@@ -29,6 +33,7 @@ public class TwoHandSword : BaseWeapon, IMeleeWeapon
     {
         meleeArea.enabled = true;
         trailRenderer.enabled = true;
+        AudioManager.instance.PlaySFX("Attack");
     }
 
     public void DisableMelee()
