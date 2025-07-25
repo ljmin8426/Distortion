@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
 
 public class PlayerAnimationEvents : MonoBehaviour
 {
@@ -17,7 +16,7 @@ public class PlayerAnimationEvents : MonoBehaviour
 
     public void EndDash()
     {
-        _controller.ChangeToState(PLAYER_STATE.Move);
+        _controller.StateMachine.ChangeState(PLAYER_STATE.Move);
     }
 
 
@@ -35,7 +34,7 @@ public class PlayerAnimationEvents : MonoBehaviour
         {
             meleeWeapon.DisableMelee();
         }
-        _controller.ChangeToState(PLAYER_STATE.Move);
+        _controller.StateMachine.ChangeState(PLAYER_STATE.Move);
     }
 
 }

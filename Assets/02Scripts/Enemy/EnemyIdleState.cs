@@ -9,7 +9,7 @@ public class EnemyIdleState : BaseState<EnemyBase>
 
     public override void OnEnterState()
     {
-        Owner.agent.isStopped = true;
+        controller.agent.isStopped = true;
         idleTimer = 0f;
     }
 
@@ -17,11 +17,11 @@ public class EnemyIdleState : BaseState<EnemyBase>
     {
         idleTimer += Time.deltaTime;
 
-        float dist = Vector3.Distance(Owner.transform.position, Owner.player.position);
+        float dist = Vector3.Distance(controller.transform.position, controller.player.position);
 
-        if (dist < Owner.EnemyData.detectionRange)
+        if (dist < controller.EnemyData.detectionRange)
         {
-            Owner.ChangeState(ENEMY_STATE.Chase);
+            controller.ChangeState(ENEMY_STATE.Chase);
         }
         else if (idleTimer > idleDuration)
         {

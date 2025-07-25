@@ -1,13 +1,10 @@
 using System;
 using UnityEngine;
 
-public class ExpManager : Singleton<ExpManager>
+public class ExpManager : SingletonDestroy<ExpManager>
 {
     private float currentExp;
     private float expToNextLevel;
-
-    public float CurrentExp => currentExp;
-    public float ExpToNextLevel => expToNextLevel;
 
     public static event Action<float, float> OnChangeExp;
 

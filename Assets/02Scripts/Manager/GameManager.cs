@@ -2,5 +2,5 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    public PlayerData playerData;
+    public PlayerSO playerData;
 }

@@ -8,9 +8,9 @@ public class EnemyHitState : BaseState<EnemyBase>
 
     public override void OnEnterState()
     {
-        Owner.agent.isStopped = true;
-        Owner.animator.SetTrigger("IsHit");
-        AudioManager.instance.PlaySFX("Hit");
+        controller.agent.isStopped = true;
+        controller.animator.SetTrigger("IsHit");
+        //AudioManager.instance.PlaySFX("Hit");
         hitTimer = 0f;
     }
 
@@ -20,7 +20,7 @@ public class EnemyHitState : BaseState<EnemyBase>
         hitTimer += Time.deltaTime;
         if (hitTimer >= 0.3f)
         {
-            Owner.ChangeState(ENEMY_STATE.Idle);
+            controller.ChangeState(ENEMY_STATE.Idle);
         }
     }
 

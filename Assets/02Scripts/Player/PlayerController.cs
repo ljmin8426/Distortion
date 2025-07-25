@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(InputManager))]
-public class PlayerController : MonoBehaviour, IDamaged
+public class PlayerController : MonoBehaviour
 {
     [Header("Movement Setting")]
     [SerializeField] private float moveSpeed = 8.0f;
@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour, IDamaged
 
     private float dashCooldownTimer = 0f;
     private float _verticalVelocity;
-    private bool _isGrounded;
 
     public static event Action<float> OnDashCooldownStart;
 
@@ -53,11 +52,10 @@ public class PlayerController : MonoBehaviour, IDamaged
     public float RotationSpeed => rotationSpeed;
     public float DashSpeed => dashSpeed;
 
-    public void SetVerticalVelocity(float v) => _verticalVelocity = v;
 
+    #region Unity
     private void Awake()
     {
-
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         mainCamera = Camera.main.transform;
@@ -65,20 +63,16 @@ public class PlayerController : MonoBehaviour, IDamaged
         input = GetComponent<InputManager>();
         weaponManager = GetComponent<WeaponManager>();
 
-        stateMachine = new StateMachine<PLAYER_STATE, PlayerController>(PLAYER_STATE.Move, new MoveState(this));
-        stateMachine.AddState(PLAYER_STATE.Attack, new AttackState(this));
-        stateMachine.AddState(PLAYER_STATE.Dash, new DashState(this));
-        stateMachine.AddState(PLAYER_STATE.Hit, new HitState(this)); // 추가
-    }
 
+    }
     private void Start()
     {
         weaponManager.Initialized(weaponHolder);
+        AddStates();
     }
 
     private void Update()
     {
-        _isGrounded = controller.isGrounded;
         ApplyGravity();
 
         // 쿨타임 감소
@@ -87,7 +81,6 @@ public class PlayerController : MonoBehaviour, IDamaged
 
         stateMachine.UpdateState();
     }
-
 
     private void FixedUpdate()
     {
@@ -107,48 +100,28 @@ public class PlayerController : MonoBehaviour, IDamaged
         InputManager.OnUtil -= OnDashInput;
         InputManager.OnSwap -= OnSwapInput;
     }
+    #endregion
 
-    private void OnDashInput()
+    private void AddStates()
     {
-        if (dashCooldownTimer > 0f) return;
-        if (stateMachine.CurrentState is DashState) return;
-        PlayerStatManager.instance.ConsumeEP(dashEpAmount);
-
-        dashCooldownTimer = dashCooldown;
-
-        OnDashCooldownStart?.Invoke(dashCooldown); // UI에게 알림
-
-        ChangeToState(PLAYER_STATE.Dash);
+        stateMachine = new StateMachine<PLAYER_STATE, PlayerController>(PLAYER_STATE.Move, new MoveState(this));
+        stateMachine.AddState(PLAYER_STATE.Attack, new AttackState(this));
+        stateMachine.AddState(PLAYER_STATE.Dash, new DashState(this));
+        stateMachine.AddState(PLAYER_STATE.Hit, new HitState(this));
     }
 
-    public void TakeDamage(int amount)
+    private void ApplyGravity()
     {
-        var shield = GetComponent<Shield>();
-        if (shield != null && shield.IsShieldActive())
+        if (controller.isGrounded)
         {
-            int remaining = shield.AbsorbDamage(amount);
-            if (remaining <= 0)
-            {
-                return;
-            }
-
-            amount = remaining;
+            _verticalVelocity = -2f;
         }
-
-        PlayerStatManager.instance.TakeDamage(amount);
-
-        ChangeToState(PLAYER_STATE.Hit);
+        else
+        {
+            _verticalVelocity += gravity * Time.deltaTime;
+            _verticalVelocity = Mathf.Max(_verticalVelocity, terminalVelocity);
+        }
     }
-
-    private void OnAttackInput()
-    {
-        if (stateMachine.CurrentState is DashState || stateMachine.CurrentState is HitState) return;
-
-        ChangeToState(PLAYER_STATE.Attack);
-    }
-    private void OnSwapInput() => weaponManager.SwapWeapon();
-
-    public void TryAttack() => weaponManager.TryAttack();
 
     public void LookAtCursor()
     {
@@ -164,23 +137,28 @@ public class PlayerController : MonoBehaviour, IDamaged
         }
     }
 
-    public void ChangeToState(PLAYER_STATE next) => stateMachine.ChangeState(next);
-
-    private void ApplyGravity()
+    private void OnDashInput()
     {
-        if (_isGrounded)
-        {
-            _verticalVelocity = -2f;
-        }
-        else
-        {
-            _verticalVelocity += gravity * Time.deltaTime;
-            _verticalVelocity = Mathf.Max(_verticalVelocity, terminalVelocity);
-        }
+        if (dashCooldownTimer > 0f) return;
+        if (stateMachine.CurrentState is DashState) return;
+        PlayerStatManager.instance.ConsumeEP(dashEpAmount);
+
+        dashCooldownTimer = dashCooldown;
+
+        OnDashCooldownStart?.Invoke(dashCooldown); // UI에게 알림
+
+        StateMachine.ChangeState(PLAYER_STATE.Dash);
     }
 
-    public T GetState<T>(PLAYER_STATE stateName) where T : BaseState<PlayerController>
+    private void OnAttackInput()
     {
-        return stateMachine.GetState(stateName) as T;
+        if (stateMachine.CurrentState is DashState || stateMachine.CurrentState is HitState) return;
+
+        StateMachine.ChangeState(PLAYER_STATE.Attack);
+    }
+
+    private void OnSwapInput()
+    {
+        weaponManager.SwapWeapon();
     }
 }

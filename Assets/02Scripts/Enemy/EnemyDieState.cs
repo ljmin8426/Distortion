@@ -6,15 +6,15 @@ public class EnemyDieState : BaseState<EnemyBase>
 
     public override void OnEnterState()
     {
-        Owner.agent.isStopped = true;
-        Owner.animator.SetTrigger("IsDie");
+        controller.agent.isStopped = true;
+        controller.animator.SetTrigger("IsDie");
 
-        AudioManager.instance.PlaySFX("Die");
+        //AudioManager.instance.PlaySFX("Die");
 
-        Owner.GetComponent<Collider>().enabled = false;
-        Owner.enabled = false;
+        controller.GetComponent<Collider>().enabled = false; 
+        controller.enabled = false;
 
-        ExpManager.instance.GetExp(Owner.EnemyData.expReward);
+        ExpManager.instance.GetExp(controller.EnemyData.expReward);
     }
 
     public override void OnUpdateState() { }

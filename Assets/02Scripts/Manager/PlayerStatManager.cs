@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class PlayerStatManager : Singleton<PlayerStatManager>
+public class PlayerStatManager : SingletonDestroy<PlayerStatManager>
 {
     public delegate void StatsChange(float value);
     public static event StatsChange OnAttackPowerChange;
@@ -15,20 +15,23 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
     public static event Action<int> OnLevelChange;
     public static event Action OnDiePlayer;
 
-    private int level;
 
+    // 기본 스탯
     private float baseMaxHP;
     private float baseMaxEP;
     private float baseAttackPower;
     private float baseAttackSpeed;
     private float baseMoveSpeed;
 
+    // 장비 스탯
     private float bonusMaxHP;
     private float bonusMaxEP;
     private float bonusAttackPower;
     private float bonusMoveSpeed;
     private float bonusAttackSpeed;
 
+    // 현재 상태
+    private int level;
     private float currentHP;
     private float currentEP;
 

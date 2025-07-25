@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 다이나믹 프로그래밍
-
 internal static class YieldInstructionCache
 {
     public static readonly WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();

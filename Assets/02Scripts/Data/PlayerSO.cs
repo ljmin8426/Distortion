@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewPlayerData", menuName = "Game Data/Player Data")]
-public class PlayerData : ScriptableObject
+public class PlayerSO : ScriptableObject
 {
     public string characterName;
 
@@ -10,7 +10,7 @@ public class PlayerData : ScriptableObject
     public float baseMaxEP = 50f;
     public float baseAttack = 10f;
     public float baseMoveSpeed = 5f;
-    public float baseAttackSpeed;
+    public float baseAttackSpeed = 1f;
 
     [Header("레벨 조건")]
     public int initialExpToLevelUp = 100;
@@ -22,6 +22,6 @@ public class PlayerData : ScriptableObject
     public float atkGrowth = 1.1f;
 
     [Header("회복량")]
-    public float hpRegenRate = 5f; 
+    public float hpRegenRate = 5f;
     public float epRegenRate = 10f;
 }

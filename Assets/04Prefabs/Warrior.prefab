@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 3304512216678563154}
   - component: {fileID: 5844840775348433259}
   - component: {fileID: 842373764546799512}
+  - component: {fileID: 4737284155649454819}
   - component: {fileID: 3825734174987369963}
   - component: {fileID: 5820977053007963986}
-  - component: {fileID: 4737284155649454819}
   - component: {fileID: 917467293962051222}
   - component: {fileID: 4871095105131907219}
   m_Layer: 0
@@ -150,6 +150,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4737284155649454819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7125308187309734796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c41a5072e64bb514aa4a4b2fadb8c3fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3825734174987369963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,18 +196,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meleeWeaponPrefab: {fileID: 1466260392983395848, guid: cb12220899f40444693de3f0c8fbb426, type: 3}
   rangedWeaponPrefab: {fileID: 1466260392983395848, guid: cb12220899f40444693de3f0c8fbb426, type: 3}
---- !u!114 &4737284155649454819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7125308187309734796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c41a5072e64bb514aa4a4b2fadb8c3fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &917467293962051222
 MonoBehaviour:
   m_ObjectHideFlags: 0

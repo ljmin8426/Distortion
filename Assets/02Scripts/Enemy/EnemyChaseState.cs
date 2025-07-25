@@ -6,42 +6,42 @@ public class EnemyChaseState : BaseState<EnemyBase>
 
     public override void OnEnterState()
     {
-        Owner.agent.isStopped = false;
+        controller.agent.isStopped = false;
     }
 
     public override void OnUpdateState()
     {
-        float distance = Vector3.Distance(Owner.transform.position, Owner.player.position);
+        float distance = Vector3.Distance(controller.transform.position, controller.player.position);
 
-        if (distance <= Owner.EnemyData.attackRange)
+        if (distance <= controller.EnemyData.attackRange)
         {
-            Owner.ChangeState(ENEMY_STATE.Attack);
+            controller.ChangeState(ENEMY_STATE.Attack);
             return;
         }
 
-        Owner.agent.SetDestination(Owner.player.position);
+        controller.agent.SetDestination(controller.player.position);
         LookAtTarget();
     }
 
     private void LookAtTarget()
     {
-        Vector3 direction = Owner.player.position - Owner.transform.position;
+        Vector3 direction = controller.player.position - controller.transform.position;
         direction.y = 0;
 
         if (direction.sqrMagnitude > 0.01f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            Owner.transform.rotation = Quaternion.Slerp(
-                Owner.transform.rotation,
+            controller.transform.rotation = Quaternion.Slerp(
+                controller.transform.rotation,
                 targetRotation,
-                Time.deltaTime * Owner.RotationSpeed
+                Time.deltaTime * controller.RotationSpeed
             );
         }
     }
 
     public override void OnExitState()
     {
-        Owner.agent.ResetPath();
+        controller.agent.ResetPath();
     }
     public override void OnFixedUpdateState() { }
 }

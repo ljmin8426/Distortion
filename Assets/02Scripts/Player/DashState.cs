@@ -10,11 +10,12 @@ public class DashState : BaseState<PlayerController>
 
     public override void OnEnterState()
     {
-        Owner.Animator.SetTrigger("IsDash");
-        AudioManager.instance.PlaySFX("Dash");
-        Owner.Animator.SetFloat("DashSpeed", 3);
-        float curAnimTime = Owner.Animator.GetCurrentAnimatorStateInfo(0).length;
-        dashDir = Owner.transform.forward;
+        controller.Animator.SetTrigger("IsDash");
+        controller.Animator.SetFloat("DashSpeed", 3);
+
+        float curAnimTime = controller.Animator.GetCurrentAnimatorStateInfo(0).length;
+
+        dashDir = controller.transform.forward;
         dashTimer = curAnimTime;
         isDashing = true;
     }
@@ -25,18 +26,21 @@ public class DashState : BaseState<PlayerController>
 
         dashTimer -= Time.deltaTime;
 
-        Vector3 move = dashDir * Owner.DashSpeed;
-        move.y = Owner.VerticalVelocity;
-        Owner.Controller.Move(move * Time.deltaTime);
+        Vector3 move = dashDir * controller.DashSpeed;
+        move.y = controller.VerticalVelocity;
+        controller.Controller.Move(move * Time.deltaTime);
 
         if (dashTimer <= 0f)
         {
             isDashing = false;
-            Owner.ChangeToState(PLAYER_STATE.Move);
+            controller.StateMachine.ChangeState(PLAYER_STATE.Move);
         }
     }
 
-    public override void OnExitState() => isDashing = false;
+    public override void OnExitState()
+    {
+        isDashing = false;
+    }
 
     public override void OnFixedUpdateState() { }
 }
