@@ -1,0 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+// 다이나믹 프로그래밍
+
+internal static class YieldInstructionCache
+{
+    public static readonly WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
+    public static readonly WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
+
+    public static readonly Dictionary<float, WaitForSeconds> waitForSeconds = new Dictionary<float, WaitForSeconds>();
+    public static WaitForSeconds WaitForSeconds(float seconds)
+    {
+        WaitForSeconds wfs;
+        if (!waitForSeconds.TryGetValue(seconds, out wfs))
+        {
+            waitForSeconds.Add(seconds, wfs = new WaitForSeconds(seconds));
+        }
+        return wfs;
+    }
+}
