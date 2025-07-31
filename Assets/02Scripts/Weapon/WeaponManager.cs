@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
+    [Header("Weapon Handler")]
+    [SerializeField] private Transform weaponHolder;
+
     [Header("Weapon Prefab")]
     [SerializeField] private GameObject meleeWeaponPrefab;
     [SerializeField] private GameObject rangedWeaponPrefab;
@@ -12,7 +15,6 @@ public class WeaponManager : MonoBehaviour
     private BaseWeapon rangedWeapon;
 
     private PlayerController playerController;
-    private Transform weaponHolder;
 
     public BaseWeapon CurWeapon { get; private set; }
     public WEAPON_TYPE CurrentWeaponType { get; private set; }
@@ -23,12 +25,15 @@ public class WeaponManager : MonoBehaviour
         playerController = GetComponent<PlayerController>();
     }
 
-    public void Initialized(Transform hand)
+    private void Start()
     {
-        weaponHolder = hand;
+        Initialized();
+    }
 
-        meleeWeapon = Instantiate(meleeWeaponPrefab, this.weaponHolder).GetComponent<BaseWeapon>();
-        rangedWeapon = Instantiate(rangedWeaponPrefab, this.weaponHolder).GetComponent<BaseWeapon>();
+    public void Initialized()
+    {
+        meleeWeapon = Instantiate(meleeWeaponPrefab, weaponHolder).GetComponent<BaseWeapon>();
+        rangedWeapon = Instantiate(rangedWeaponPrefab, weaponHolder).GetComponent<BaseWeapon>();
 
         meleeWeapon.gameObject.SetActive(false);
         rangedWeapon.gameObject.SetActive(false);

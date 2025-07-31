@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(InputManager))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Setting")]
@@ -14,9 +13,6 @@ public class PlayerController : MonoBehaviour
     [Header("Gravity Setting")]
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float terminalVelocity = -53f;
-
-    [Header("Weapon Handler")]
-    [SerializeField] private Transform weaponHolder;
 
     [Header("Dash Settings")]
     [SerializeField] private float dashSpeed = 20f;
@@ -58,16 +54,13 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
-        mainCamera = Camera.main.transform;
-
-        input = GetComponent<InputManager>();
+        input = FindAnyObjectByType<InputManager>();
         weaponManager = GetComponent<WeaponManager>();
 
-
+        mainCamera = Camera.main.transform;
     }
     private void Start()
     {
-        weaponManager.Initialized(weaponHolder);
         AddStates();
     }
 

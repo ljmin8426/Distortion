@@ -25,8 +25,6 @@ public class ItemInfoPanelView : MonoBehaviour
         {
             var modifiedStats = equip.GetModifiedStats();
 
-            Debug.Log($"[INFO] Showing stats for {equip.name} with rarity {equip.rarity}. Stats count: {modifiedStats.Count}");
-
             for (int i = 0; i < statElements.Count; i++)
             {
                 if (i < modifiedStats.Count)

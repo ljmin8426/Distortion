@@ -15,10 +15,34 @@ public class DashState : BaseState<PlayerController>
 
         float curAnimTime = controller.Animator.GetCurrentAnimatorStateInfo(0).length;
 
-        dashDir = controller.transform.forward;
+        // 카메라 기준 입력 방향을 dashDir로 사용
+        Vector2 input = controller.MoveInput;
+        Vector3 inputDir = new Vector3(input.x, 0f, input.y).normalized;
+
+        Vector3 camForward = controller.MainCamera.forward;
+        camForward.y = 0;
+        camForward.Normalize();
+
+        Vector3 camRight = controller.MainCamera.right;
+        camRight.y = 0;
+        camRight.Normalize();
+
+        Vector3 moveDir = camForward * inputDir.z + camRight * inputDir.x;
+
+        if (moveDir.magnitude >= 0.1f)
+        {
+            dashDir = moveDir.normalized;
+        }
+        else
+        {
+            // 입력이 없으면 정면
+            dashDir = controller.transform.forward;
+        }
+
         dashTimer = curAnimTime;
         isDashing = true;
     }
+
 
     public override void OnUpdateState()
     {

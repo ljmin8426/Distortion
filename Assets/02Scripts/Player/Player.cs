@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : SingletonDestroy<Player>, IDamaged
+public class Player : MonoBehaviour, IDamaged
 {
     public StateMachine<PLAYER_STATE, PlayerController> StateMachine { get; private set; }
 
