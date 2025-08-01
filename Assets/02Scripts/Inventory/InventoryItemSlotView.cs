@@ -52,7 +52,7 @@ public class InventoryItemSlotView : MonoBehaviour,
         {
             if (Item.itemType == ITEM_TYPE.Potion)
             {
-                PlayerStatManager stat = PlayerStatManager.instance;
+                PlayerStatManager stat = PlayerStatManager.Instance;
                 if (Item is PotionItem potion)
                 {
                     if (potion.restoreHP)

@@ -5,13 +5,23 @@ public class StateMachine<TStateName, TOwner>
     where TStateName : Enum
     where TOwner : class
 {
-    public BaseState<TOwner> CurrentState { get; private set; } // ว๖ ป๓ลย
+    public BaseState<TOwner> CurrentState { get; private set; }
     private Dictionary<TStateName, BaseState<TOwner>> states = new();
 
     public StateMachine(TStateName stateName, BaseState<TOwner> state)
     {
         AddState(stateName, state);
         CurrentState = GetState(stateName);
+    }
+
+    public void UpdateState()
+    {
+        CurrentState?.OnUpdateState();
+    }
+
+    public void FixedUpdateState()
+    {
+        CurrentState?.OnFixedUpdateState();
     }
 
     public void AddState(TStateName stateName, BaseState<TOwner> state)
@@ -29,14 +39,6 @@ public class StateMachine<TStateName, TOwner>
         return null;
     }
 
-    public void DeleteState(TStateName deleteStateName)
-    {
-        if(states.ContainsKey(deleteStateName))
-        {
-            states.Remove(deleteStateName);
-        }
-    }
-
     public void ChangeState(TStateName nextStateName)
     {
         CurrentState?.OnExitState();
@@ -48,15 +50,11 @@ public class StateMachine<TStateName, TOwner>
 
         CurrentState?.OnEnterState();
     }
-
-    public void UpdateState()
+    public void DeleteState(TStateName deleteStateName)
     {
-        CurrentState?.OnUpdateState();
+        if(states.ContainsKey(deleteStateName))
+        {
+            states.Remove(deleteStateName);
+        }
     }
-
-    public void FixedUpdateState()
-    {
-        CurrentState?.OnFixedUpdateState();
-    }
-
 }

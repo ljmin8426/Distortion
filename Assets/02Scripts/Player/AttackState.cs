@@ -15,7 +15,7 @@ public class AttackState : BaseState<PlayerController>
         {
             case WEAPON_TYPE.Melee:
                 controller.Animator.SetTrigger("IsAttack");
-                controller.Animator.SetFloat("AttackSpeed", controller.CurrentWeapon.WeaponData.attackSpeed + PlayerStatManager.instance.AttackSpeed);
+                controller.Animator.SetFloat("AttackSpeed", controller.CurrentWeapon.WeaponData.attackSpeed + PlayerStatManager.Instance.AttackSpeed);
                 break;
 
             case WEAPON_TYPE.Range:

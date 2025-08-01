@@ -63,13 +63,13 @@ public class InventoryPresenter
         if (slot.CurItem is EquipmentItem oldEquip)
         {
             model.AddItem(oldEquip);
-            PlayerStatManager.instance.UnEquip(oldEquip);
+            PlayerStatManager.Instance.UnEquip(oldEquip);
         }
 
         slot.SetItem(equipment);
         model.EquipItem(equipment);
         model.ownedItems.Remove(equipment);
-        PlayerStatManager.instance.Equip(equipment);
+        PlayerStatManager.Instance.Equip(equipment);
 
         RefreshUI();
     }
@@ -83,7 +83,7 @@ public class InventoryPresenter
         model.AddItem(item);
 
         if (item is EquipmentItem equipment)
-            PlayerStatManager.instance.UnEquip(equipment);
+            PlayerStatManager.Instance.UnEquip(equipment);
 
         RefreshUI();
     }

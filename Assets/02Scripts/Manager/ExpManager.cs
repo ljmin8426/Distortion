@@ -16,7 +16,7 @@ public class ExpManager : SingletonDestroy<ExpManager>
     private void InitializeExp()
     {
         currentExp = 0f;
-        expToNextLevel = GameManager.instance.playerData.initialExpToLevelUp;
+        //expToNextLevel = GameManager.Instance.playerData.initialExpToLevelUp;
         OnChangeExp?.Invoke(currentExp, expToNextLevel);
     }
 
@@ -34,10 +34,10 @@ public class ExpManager : SingletonDestroy<ExpManager>
 
     private void LevelUp()
     {
-        expToNextLevel *= GameManager.instance.playerData.expGrowthRate;
+        //expToNextLevel *= GameManager.Instance.playerData.expGrowthRate;
 
-        PlayerStatManager.instance.ApplyLevelUp();
+        PlayerStatManager.Instance.ApplyLevelUp();
 
-        Debug.Log("레벨 업! 현재 레벨: " + PlayerStatManager.instance.Level);
+        Debug.Log("레벨 업! 현재 레벨: " + PlayerStatManager.Instance.Level);
     }
 }

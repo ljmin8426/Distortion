@@ -38,7 +38,6 @@ public class MoveState : BaseState<PlayerController>
         controller.Controller.Move(move * Time.deltaTime);
 
         controller.Animator.SetFloat("MoveSpeed", input.magnitude);
-
     }
 
     public override void OnFixedUpdateState() { }

@@ -1,25 +1,16 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamaged
+public class Player : MonoBehaviour
 {
-    public StateMachine<PLAYER_STATE, PlayerController> StateMachine { get; private set; }
-
-    public void TakeDamage(int amount)
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
     {
-        var shield = GetComponent<Shield>();
-        if (shield != null && shield.IsShieldActive())
-        {
-            int remaining = shield.AbsorbDamage(amount);
-            if (remaining <= 0)
-            {
-                return;
-            }
+        
+    }
 
-            amount = remaining;
-        }
-
-        PlayerStatManager.instance.TakeDamage(amount);
-
-        StateMachine.ChangeState(PLAYER_STATE.Hit);
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }

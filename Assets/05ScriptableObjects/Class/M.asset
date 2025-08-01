@@ -10,17 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9248e37c393912498ce0978af71b576, type: 3}
-  m_Name: PlayerData
+  m_Name: M
   m_EditorClassIdentifier: 
-  characterName: 
-  baseMaxHP: 100
-  baseMaxEP: 50
-  baseAttack: 10
-  baseMoveSpeed: 5
-  initialExpToLevelUp: 100
-  expGrowthRate: 1.2
-  hpGrowth: 1.1
-  epGrowth: 1.1
-  atkGrowth: 1.1
-  hpRegenRate: 5
-  epRegenRate: 10
+  className: 
+  classDescription: 
+  HP: 0
+  EP: 0
+  Atk: 0
+  def: 0
+  Ag: 0

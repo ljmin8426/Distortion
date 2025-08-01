@@ -33,7 +33,7 @@ public class InventorySystem : MonoBehaviour
 
     private void Start()
     {
-        statPanelView.Bind(PlayerStatManager.instance);
+        statPanelView.Bind(PlayerStatManager.Instance);
         presenter.RefreshUI();
         inventoryView.ShowInventory(false);
     }

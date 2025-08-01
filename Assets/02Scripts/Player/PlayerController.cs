@@ -1,10 +1,10 @@
 using System;
-using System.Security.Cryptography.X509Certificates;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamaged
 {
     [Header("Movement Setting")]
     [SerializeField] private float moveSpeed = 8.0f;
@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float terminalVelocity = -53f;
 
     [Header("Dash Settings")]
-    [SerializeField] private float dashSpeed = 20f;
-    [SerializeField] private float dashCooldown = 1.0f;
+    [SerializeField] private float dashDistance = 5f;
+    [SerializeField] private float dashCoolTime = 1.0f;
     [SerializeField] private float dashEpAmount = 5.0f;
 
 
@@ -29,8 +29,8 @@ public class PlayerController : MonoBehaviour
 
     private StateMachine<PLAYER_STATE, PlayerController> stateMachine;
 
-    private float dashCooldownTimer = 0f;
-    private float _verticalVelocity;
+    private float dashCoolDown = 0f;
+    private float verticalVelocity;
 
     public static event Action<float> OnDashCooldownStart;
 
@@ -43,10 +43,10 @@ public class PlayerController : MonoBehaviour
     public Vector2 MoveInput => input.MoveInput;
     public WEAPON_TYPE CurrentWeaponType => weaponManager.CurrentWeaponType;
 
-    public float VerticalVelocity => _verticalVelocity;
+    public float VerticalVelocity => verticalVelocity;
     public float MoveSpeed => moveSpeed;
     public float RotationSpeed => rotationSpeed;
-    public float DashSpeed => dashSpeed;
+    public float DashDistance => dashDistance;
 
 
     #region Unity
@@ -67,13 +67,10 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         ApplyGravity();
-
-        // 쿨타임 감소
-        if (dashCooldownTimer > 0f)
-            dashCooldownTimer -= Time.deltaTime;
-
         stateMachine.UpdateState();
     }
+
+
 
     private void FixedUpdate()
     {
@@ -107,13 +104,32 @@ public class PlayerController : MonoBehaviour
     {
         if (controller.isGrounded)
         {
-            _verticalVelocity = -2f;
+            verticalVelocity = -2f;
         }
         else
         {
-            _verticalVelocity += gravity * Time.deltaTime;
-            _verticalVelocity = Mathf.Max(_verticalVelocity, terminalVelocity);
+            verticalVelocity += gravity * Time.deltaTime;
+            verticalVelocity = Mathf.Max(verticalVelocity, terminalVelocity);
         }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        var shield = GetComponent<Shield>();
+        if (shield != null && shield.IsShieldActive())
+        {
+            int remaining = shield.AbsorbDamage(amount);
+            if (remaining <= 0)
+            {
+                return;
+            }
+
+            amount = remaining;
+        }
+
+        PlayerStatManager.Instance.TakeDamage(amount);
+
+        StateMachine.ChangeState(PLAYER_STATE.Hit);
     }
 
     public void LookAtCursor()
@@ -132,13 +148,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnDashInput()
     {
-        if (dashCooldownTimer > 0f) return;
+        if (dashCoolDown > 0f) return;
         if (stateMachine.CurrentState is DashState) return;
-        PlayerStatManager.instance.ConsumeEP(dashEpAmount);
+        PlayerStatManager.Instance.ConsumeEP(dashEpAmount);
 
-        dashCooldownTimer = dashCooldown;
+        dashCoolDown = dashCoolTime;
 
-        OnDashCooldownStart?.Invoke(dashCooldown); // UI에게 알림
+        OnDashCooldownStart?.Invoke(dashCoolTime);
+
+        StartCoroutine(DashCoolTimeCO());
 
         StateMachine.ChangeState(PLAYER_STATE.Dash);
     }
@@ -153,5 +171,15 @@ public class PlayerController : MonoBehaviour
     private void OnSwapInput()
     {
         weaponManager.SwapWeapon();
+    } 
+
+    private IEnumerator DashCoolTimeCO()
+    {
+        while(dashCoolDown > 0f)
+        {
+            dashCoolDown -= Time.deltaTime;
+            yield return null;
+        }
+        dashCoolDown = 0f;
     }
 }

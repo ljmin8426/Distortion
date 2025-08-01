@@ -41,7 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8949581183865412894}
   - component: {fileID: 3304512216678563154}
-  - component: {fileID: 5844840775348433259}
   - component: {fileID: 842373764546799512}
   - component: {fileID: 3825734174987369963}
   - component: {fileID: 5820977053007963986}
@@ -67,8 +66,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2904116704145611960}
   - {fileID: 4054905614678349301}
+  - {fileID: 2904116704145611960}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &3304512216678563154
@@ -95,29 +94,6 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!136 &5844840775348433259
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7125308187309734796}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &842373764546799512
 MonoBehaviour:
@@ -165,7 +141,6 @@ MonoBehaviour:
   rotationSpeed: 10
   gravity: -30
   terminalVelocity: -40
-  weaponHolder: {fileID: 5140428776712710211}
   dashSpeed: 20
   dashCooldown: 1
   dashEpAmount: 5
@@ -181,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55514032555b6254da9ba19829b749d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponHolder: {fileID: 5140428776712710211}
   meleeWeaponPrefab: {fileID: 1466260392983395848, guid: cb12220899f40444693de3f0c8fbb426, type: 3}
   rangedWeaponPrefab: {fileID: 1466260392983395848, guid: cb12220899f40444693de3f0c8fbb426, type: 3}
 --- !u!114 &917467293962051222
@@ -231,7 +207,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9146180213775705780}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

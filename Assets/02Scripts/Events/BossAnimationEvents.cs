@@ -4,6 +4,6 @@ public class BossAnimationEvents : MonoBehaviour
 {
     public void FootStep()
     {
-        AudioManager.instance.PlaySFX("BossStep");
+        AudioManager.Instance.PlaySFX("BossStep");
     }
 }

@@ -62,13 +62,9 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
+
     public void SwapWeapon()
     {
         EquipWeapon(CurrentWeaponType == WEAPON_TYPE.Melee ? WEAPON_TYPE.Range : WEAPON_TYPE.Melee);
-    }
-
-    public void TryAttack()
-    {
-        CurWeapon?.Attack();
     }
 }

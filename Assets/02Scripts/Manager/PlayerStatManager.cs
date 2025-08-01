@@ -17,23 +17,26 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>
 
 
     // 기본 스탯
-    private float baseMaxHP;
-    private float baseMaxEP;
-    private float baseAttackPower;
-    private float baseAttackSpeed;
-    private float baseMoveSpeed;
+    [Header("Base Stat")]
+    [SerializeField] private float baseMaxHP;
+    [SerializeField] private float baseMaxEP;
+    [SerializeField] private float baseAttackPower;
+    [SerializeField] private float baseAttackSpeed;
+    [SerializeField] private float baseMoveSpeed;
 
     // 장비 스탯
-    private float bonusMaxHP;
-    private float bonusMaxEP;
-    private float bonusAttackPower;
-    private float bonusMoveSpeed;
-    private float bonusAttackSpeed;
+    [Header("Item Stat")]
+    [SerializeField] private float bonusMaxHP;
+    [SerializeField] private float bonusMaxEP;
+    [SerializeField] private float bonusAttackPower;
+    [SerializeField] private float bonusMoveSpeed;
+    [SerializeField] private float bonusAttackSpeed;
 
     // 현재 상태
-    private int level;
-    private float currentHP;
-    private float currentEP;
+    [Header("Current Stat")]
+    [SerializeField] private int level;
+    [SerializeField] private float currentHP;
+    [SerializeField] private float currentEP;   
 
     public int Level => level;
     public float MaxHP => baseMaxHP + bonusMaxHP;
@@ -55,12 +58,12 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>
     {
         level = 1;
 
-        var data = GameManager.instance.playerData;
-        baseMaxHP = data.baseMaxHP;
-        baseMaxEP = data.baseMaxEP;
-        baseAttackPower = data.baseAttack;
-        baseMoveSpeed = data.baseMoveSpeed;
-        baseAttackSpeed = data.baseAttackSpeed;
+        var data = GameManager.Instance.playerData;
+        //baseMaxHP = data.baseMaxHP;
+        //baseMaxEP = data.baseMaxEP;
+        //baseAttackPower = data.baseAttack;
+        //baseMoveSpeed = data.baseMoveSpeed;
+        //baseAttackSpeed = data.baseAttackSpeed;
 
         currentHP = MaxHP;
         currentEP = MaxEP;
@@ -78,34 +81,32 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>
         float interval = 0.1f;
         WaitForSeconds wait = new WaitForSeconds(interval);
 
-        var data = GameManager.instance.playerData;
+        var data = GameManager.Instance.playerData;
 
-        while (true)
-        {
-            if (currentHP < MaxHP)
-            {
-                currentHP = Mathf.Min(currentHP + data.hpRegenRate * interval, MaxHP);
-                OnHpChange?.Invoke(currentHP, MaxHP);
-            }
+        //while (true)
+        //{
+        //    if (currentHP < MaxHP)
+        //    {
+        //        currentHP = Mathf.Min(currentHP + data.hpRegenRate * interval, MaxHP);
+        //        OnHpChange?.Invoke(currentHP, MaxHP);
+        //    }
 
-            if (currentEP < MaxEP)
-            {
-                currentEP = Mathf.Min(currentEP + data.epRegenRate * interval, MaxEP);
-                OnEpChange?.Invoke(currentEP, MaxEP);
-            }
+        //    if (currentEP < MaxEP)
+        //    {
+        //        currentEP = Mathf.Min(currentEP + data.epRegenRate * interval, MaxEP);
+        //        OnEpChange?.Invoke(currentEP, MaxEP);
+        //    }
 
-            yield return wait;
-        }
+        //    yield return wait;
+        //}
+
+        yield return null;
     }
 
     public void ApplyLevelUp()
     {
         level++;
-        var data = GameManager.instance.playerData;
-
-        baseMaxHP *= data.hpGrowth;
-        baseMaxEP *= data.epGrowth;
-        baseAttackPower *= data.atkGrowth;
+        var data = GameManager.Instance.playerData;
 
         currentHP = MaxHP;
         currentEP = MaxEP;

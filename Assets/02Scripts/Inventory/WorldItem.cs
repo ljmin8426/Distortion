@@ -22,8 +22,6 @@ public class WorldItem : MonoBehaviour
         // 인벤토리에 추가
         InventoryEvents.OnPickupItem?.Invoke(grantedItem);
 
-        AudioManager.instance.PlaySFX("Item");
-
         // 오브젝트 제거
         Destroy(transform.parent.gameObject);
     }

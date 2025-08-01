@@ -27,6 +27,7 @@ public abstract class BaseSkillManager : MonoBehaviour
             Debug.Log("스킬이 존재하지않습니다");
         }
     }
+
     protected int GetSkillSlotIndexByType(SKILL_TYPE type)
     {
         switch (type)
@@ -38,6 +39,20 @@ public abstract class BaseSkillManager : MonoBehaviour
         }
     }
 
+    public virtual void SetEquipmentSkill(SkillBase newSkill)
+    {
+        if (newSkill == null) return;
+
+        int index = GetSkillSlotIndexByType(newSkill.SkillData.skillType);
+
+        while (skills.Count <= index)
+            skills.Add(null);
+
+        if (skills[index] != null)
+            Destroy(((MonoBehaviour)skills[index]).gameObject);
+
+        skills[index] = newSkill;
+    }
 
     protected abstract void InitializeSkills();
 }

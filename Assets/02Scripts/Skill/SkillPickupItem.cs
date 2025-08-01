@@ -9,9 +9,7 @@ public class SkillPickupItem : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        //AudioManager.instance.PlaySFX("Item");
-
-        var skillManager = other.GetComponent<WarriorSkillManager>();
+        var skillManager = other.GetComponent<BaseSkillManager>();
         var uiManager = FindAnyObjectByType<PlayerSkillUIManager>();
 
         if (skillData == null || skillData.skillPrefab == null || skillManager == null) return;

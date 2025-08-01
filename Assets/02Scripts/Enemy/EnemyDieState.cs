@@ -14,7 +14,7 @@ public class EnemyDieState : BaseState<EnemyBase>
         controller.GetComponent<Collider>().enabled = false; 
         controller.enabled = false;
 
-        ExpManager.instance.GetExp(controller.EnemyData.expReward);
+        ExpManager.Instance.GetExp(controller.EnemyData.expReward);
     }
 
     public override void OnUpdateState() { }

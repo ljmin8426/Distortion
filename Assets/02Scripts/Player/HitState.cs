@@ -22,6 +22,6 @@ public class HitState : BaseState<PlayerController>
         }
     }
 
-    public override void OnFixedUpdateState() { }
     public override void OnExitState() { }
+    public override void OnFixedUpdateState() { }
 }

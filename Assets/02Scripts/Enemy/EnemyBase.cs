@@ -90,7 +90,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamaged
 
     private void DropItem()
     {
-        GameObject drop = AssetManager.instance.GetRandomDropItem();
+        GameObject drop = AssetManager.Instance.GetRandomDropItem();
 
         if (drop != null)
             Instantiate(drop, transform.position + Vector3.up * 0.5f, Quaternion.identity);

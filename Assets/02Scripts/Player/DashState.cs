@@ -5,17 +5,22 @@ public class DashState : BaseState<PlayerController>
     private Vector3 dashDir;
     private float dashTimer;
     private bool isDashing;
+    private float dashSpeed = 5;
 
     public DashState(PlayerController controller) : base(controller) { }
 
     public override void OnEnterState()
     {
         controller.Animator.SetTrigger("IsDash");
-        controller.Animator.SetFloat("DashSpeed", 3);
 
-        float curAnimTime = controller.Animator.GetCurrentAnimatorStateInfo(0).length;
+        // 애니메이션 길이를 가져옵니다
+        dashTimer = controller.Animator.GetCurrentAnimatorStateInfo(0).length;
 
-        // 카메라 기준 입력 방향을 dashDir로 사용
+        // 속도를 자동으로 계산하여 dashTimer 동안 DashDistance만큼 움직이도록 설정
+        dashSpeed = controller.DashDistance / dashTimer;
+
+        controller.Animator.SetFloat("DashSpeed", dashSpeed);
+
         Vector2 input = controller.MoveInput;
         Vector3 inputDir = new Vector3(input.x, 0f, input.y).normalized;
 
@@ -35,11 +40,9 @@ public class DashState : BaseState<PlayerController>
         }
         else
         {
-            // 입력이 없으면 정면
             dashDir = controller.transform.forward;
         }
 
-        dashTimer = curAnimTime;
         isDashing = true;
     }
 
@@ -50,13 +53,12 @@ public class DashState : BaseState<PlayerController>
 
         dashTimer -= Time.deltaTime;
 
-        Vector3 move = dashDir * controller.DashSpeed;
+        Vector3 move = dashDir * controller.DashDistance;
         move.y = controller.VerticalVelocity;
-        controller.Controller.Move(move * Time.deltaTime);
+        controller.Controller.Move(move * dashSpeed * Time.deltaTime);
 
         if (dashTimer <= 0f)
         {
-            isDashing = false;
             controller.StateMachine.ChangeState(PLAYER_STATE.Move);
         }
     }

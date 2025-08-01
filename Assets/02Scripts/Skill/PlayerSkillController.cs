@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-
 
 public class PlayerSkillController : MonoBehaviour
 {
@@ -41,5 +39,4 @@ public class PlayerSkillController : MonoBehaviour
     {
         skillManager.UseSkill(3);
     }
-
 }

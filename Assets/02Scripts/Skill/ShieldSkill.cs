@@ -14,7 +14,7 @@ public class ShieldSkill : SkillBase
         if (!TryUseSkill())
             return;
 
-        AudioManager.instance.PlaySFX("Shield");
+        AudioManager.Instance.PlaySFX("Shield");
         var shield = attacker.GetComponent<Shield>();
         if (shield == null)
             shield = attacker.gameObject.AddComponent<Shield>();

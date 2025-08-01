@@ -18,15 +18,15 @@ public abstract class SkillBase : MonoBehaviour, IActiveSkill
         if (isCooldown)
             return false;
 
-        if (PlayerStatManager.instance == null)
+        if (PlayerStatManager.Instance == null)
             return false;
 
-        if( PlayerStatManager.instance.CurrentEP < skillData.manaCost)
+        if( PlayerStatManager.Instance.CurrentEP < skillData.manaCost)
             return false;
 
-        if(PlayerStatManager.instance.CurrentEP >= skillData.manaCost)
+        if(PlayerStatManager.Instance.CurrentEP >= skillData.manaCost)
         {
-            PlayerStatManager.instance.ConsumeEP(skillData.manaCost);
+            PlayerStatManager.Instance.ConsumeEP(skillData.manaCost);
             return true;
         }
         return false;
