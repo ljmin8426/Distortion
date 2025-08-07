@@ -15,6 +15,11 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>
     public static event Action<int> OnLevelChange;
     public static event Action OnDiePlayer;
 
+    // 현재 상태
+    [Header("Current Stat")]
+    [SerializeField] private int level;
+    [SerializeField] private float currentHP;
+    [SerializeField] private float currentEP;   
 
     // 기본 스탯
     [Header("Base Stat")]
@@ -32,11 +37,6 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>
     [SerializeField] private float bonusMoveSpeed;
     [SerializeField] private float bonusAttackSpeed;
 
-    // 현재 상태
-    [Header("Current Stat")]
-    [SerializeField] private int level;
-    [SerializeField] private float currentHP;
-    [SerializeField] private float currentEP;   
 
     public int Level => level;
     public float MaxHP => baseMaxHP + bonusMaxHP;

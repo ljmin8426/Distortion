@@ -19,6 +19,11 @@ public class PlayerController : MonoBehaviour, IDamaged
     [SerializeField] private float dashCoolTime = 1.0f;
     [SerializeField] private float dashEpAmount = 5.0f;
 
+    private string dashAnimationName = "2Hand-Sword-DiveRoll-Forward1";
+    public string DashAnimationName => dashAnimationName;
+    [SerializeField] private float dashSpeed = 10f;
+    public float DashSpeed => dashSpeed;
+
 
     private CharacterController controller;
     private Animator animator;
@@ -182,4 +187,14 @@ public class PlayerController : MonoBehaviour, IDamaged
         }
         dashCoolDown = 0f;
     }
+
+    public void OnDashEnd()
+    {
+        // 현재 상태가 DashState일 때만 상태 전환
+        if (StateMachine.CurrentState is DashState)
+        {
+            StateMachine.ChangeState(PLAYER_STATE.Move);
+        }
+    }
+
 }

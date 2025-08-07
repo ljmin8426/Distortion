@@ -25,4 +25,9 @@ public class PlayerAnimationEvents : MonoBehaviour
         }
         controller.StateMachine.ChangeState(PLAYER_STATE.Move);
     }
+
+    public void OnDashEnd()
+    {
+        controller.OnDashEnd();
+    }
 }

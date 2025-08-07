@@ -3,23 +3,14 @@ using UnityEngine;
 public class DashState : BaseState<PlayerController>
 {
     private Vector3 dashDir;
-    private float dashTimer;
-    private bool isDashing;
-    private float dashSpeed = 5;
+    private float dashSpeed;
+    private float dashDuration;
 
     public DashState(PlayerController controller) : base(controller) { }
 
     public override void OnEnterState()
     {
         controller.Animator.SetTrigger("IsDash");
-
-        // 애니메이션 길이를 가져옵니다
-        dashTimer = controller.Animator.GetCurrentAnimatorStateInfo(0).length;
-
-        // 속도를 자동으로 계산하여 dashTimer 동안 DashDistance만큼 움직이도록 설정
-        dashSpeed = controller.DashDistance / dashTimer;
-
-        controller.Animator.SetFloat("DashSpeed", dashSpeed);
 
         Vector2 input = controller.MoveInput;
         Vector3 inputDir = new Vector3(input.x, 0f, input.y).normalized;
@@ -34,39 +25,43 @@ public class DashState : BaseState<PlayerController>
 
         Vector3 moveDir = camForward * inputDir.z + camRight * inputDir.x;
 
-        if (moveDir.magnitude >= 0.1f)
-        {
-            dashDir = moveDir.normalized;
-        }
-        else
-        {
-            dashDir = controller.transform.forward;
-        }
+        dashDir = moveDir.magnitude >= 0.1f ? moveDir.normalized : controller.transform.forward;
 
-        isDashing = true;
+        // 실제 대시 속도 설정 (코드에서 설정한 고정값)
+        dashSpeed = controller.DashSpeed;
+
+        // 이동 시간 계산
+        dashDuration = controller.DashDistance / dashSpeed;
+
+        // 애니메이션 길이 가져오기
+        float animLength = GetDashAnimationLength();
+
+        // 애니메이션 재생 속도 설정 → 애니메이션이 이동 시간과 정확히 맞도록
+        float animSpeed = animLength > 0 ? animLength / dashDuration : 1f;
+        controller.Animator.SetFloat("DashSpeed", animSpeed);
     }
-
 
     public override void OnUpdateState()
     {
-        if (!isDashing) return;
-
-        dashTimer -= Time.deltaTime;
-
-        Vector3 move = dashDir * controller.DashDistance;
+        Vector3 move = dashDir * dashSpeed;
         move.y = controller.VerticalVelocity;
-        controller.Controller.Move(move * dashSpeed * Time.deltaTime);
-
-        if (dashTimer <= 0f)
-        {
-            controller.StateMachine.ChangeState(PLAYER_STATE.Move);
-        }
+        controller.Controller.Move(move * Time.deltaTime);
     }
 
-    public override void OnExitState()
-    {
-        isDashing = false;
-    }
+    public override void OnExitState() { }
 
     public override void OnFixedUpdateState() { }
+
+    private float GetDashAnimationLength()
+    {
+        var clips = controller.Animator.runtimeAnimatorController.animationClips;
+        foreach (var clip in clips)
+        {
+            if (clip.name == controller.DashAnimationName)
+                return clip.length;
+        }
+
+        Debug.LogWarning("Dash 애니메이션 클립을 찾을 수 없습니다. 기본값 사용");
+        return 0.5f; // 기본값
+    }
 }
