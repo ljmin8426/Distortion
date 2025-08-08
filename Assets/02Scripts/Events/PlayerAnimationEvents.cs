@@ -9,7 +9,7 @@ public class PlayerAnimationEvents : MonoBehaviour
         controller = GetComponentInParent<PlayerController>();
     }
 
-    public void OnAttack()
+    public void StartAttack()
     {
         if (controller.CurrentWeapon is IMeleeWeapon meleeWeapon)
         {
@@ -23,11 +23,18 @@ public class PlayerAnimationEvents : MonoBehaviour
         {
             meleeWeapon.DisableMelee();
         }
+    }
+
+    public void FinishiMotion()
+    {
         controller.StateMachine.ChangeState(PLAYER_STATE.Move);
     }
 
     public void OnDashEnd()
     {
-        controller.OnDashEnd();
+        if (controller.StateMachine.CurrentState is DashState)
+        {
+             controller.StateMachine.ChangeState(PLAYER_STATE.Move);
+        }
     }
 }

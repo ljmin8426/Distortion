@@ -27,11 +27,11 @@ public class EnemyAttackCollider : MonoBehaviour
     {
         if (!attackCollider.enabled) return;
 
-        if (!other.CompareTag("Player")) return;
+        if (other.CompareTag("Enemy")) return;
 
-        if (other.TryGetComponent<IDamaged>(out var damaged))
+        if (other.TryGetComponent<IDamageable>(out var damaged))
         {
-            damaged.TakeDamage(enemyBase.EnemyData.attackPower);
+            damaged.TakeDamage(enemyBase.EnemyData.attackPower, gameObject);
         }
     }
 }

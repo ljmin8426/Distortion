@@ -8,9 +8,9 @@ public class PlayerStatSO : ScriptableObject
     public string classDescription;
 
     [Header("±‚∫ª Ω∫≈»")]
-    public float HP;
-    public float EP;
-    public float Atk;
+    public float hp;
+    public float ep;
+    public float atk;
     public float def;
-    public float Ag;
+    public float ag;
 }

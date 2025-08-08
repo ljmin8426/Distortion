@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour, IDamaged
+public class PlayerController : MonoBehaviour
 {
     [Header("Movement Setting")]
     [SerializeField] private float moveSpeed = 8.0f;
@@ -15,27 +15,23 @@ public class PlayerController : MonoBehaviour, IDamaged
     [SerializeField] private float terminalVelocity = -53f;
 
     [Header("Dash Settings")]
-    [SerializeField] private float dashDistance = 5f;
-    [SerializeField] private float dashCoolTime = 1.0f;
-    [SerializeField] private float dashEpAmount = 5.0f;
+    [SerializeField] private float dashDistance = 12f;
+    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashEpAmount = 10f;
+    [SerializeField] private float dashCoolTime = 2f;
 
     private string dashAnimationName = "2Hand-Sword-DiveRoll-Forward1";
-    public string DashAnimationName => dashAnimationName;
-    [SerializeField] private float dashSpeed = 10f;
-    public float DashSpeed => dashSpeed;
-
+    private float dashCoolDown = 0f;
+    private float verticalVelocity;
 
     private CharacterController controller;
     private Animator animator;
     private Transform mainCamera;
 
-    private InputManager input;
+    private PlayerInputManager input;
     private WeaponManager weaponManager;
 
     private StateMachine<PLAYER_STATE, PlayerController> stateMachine;
-
-    private float dashCoolDown = 0f;
-    private float verticalVelocity;
 
     public static event Action<float> OnDashCooldownStart;
 
@@ -52,6 +48,8 @@ public class PlayerController : MonoBehaviour, IDamaged
     public float MoveSpeed => moveSpeed;
     public float RotationSpeed => rotationSpeed;
     public float DashDistance => dashDistance;
+    public float DashSpeed => dashSpeed;
+    public string DashAnimationName => dashAnimationName;
 
 
     #region Unity
@@ -59,7 +57,7 @@ public class PlayerController : MonoBehaviour, IDamaged
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
-        input = FindAnyObjectByType<InputManager>();
+        input = FindAnyObjectByType<PlayerInputManager>();
         weaponManager = GetComponent<WeaponManager>();
 
         mainCamera = Camera.main.transform;
@@ -84,16 +82,14 @@ public class PlayerController : MonoBehaviour, IDamaged
 
     private void OnEnable()
     {
-        InputManager.OnAttack += OnAttackInput;
-        InputManager.OnUtil += OnDashInput;
-        InputManager.OnSwap += OnSwapInput;
+        PlayerInputManager.OnAttack += OnAttackInput;
+        PlayerInputManager.OnUtil += OnDashInput;
     }
 
     private void OnDisable()
     {
-        InputManager.OnAttack -= OnAttackInput;
-        InputManager.OnUtil -= OnDashInput;
-        InputManager.OnSwap -= OnSwapInput;
+        PlayerInputManager.OnAttack -= OnAttackInput;
+        PlayerInputManager.OnUtil -= OnDashInput;
     }
     #endregion
 
@@ -102,7 +98,6 @@ public class PlayerController : MonoBehaviour, IDamaged
         stateMachine = new StateMachine<PLAYER_STATE, PlayerController>(PLAYER_STATE.Move, new MoveState(this));
         stateMachine.AddState(PLAYER_STATE.Attack, new AttackState(this));
         stateMachine.AddState(PLAYER_STATE.Dash, new DashState(this));
-        stateMachine.AddState(PLAYER_STATE.Hit, new HitState(this));
     }
 
     private void ApplyGravity()
@@ -116,25 +111,6 @@ public class PlayerController : MonoBehaviour, IDamaged
             verticalVelocity += gravity * Time.deltaTime;
             verticalVelocity = Mathf.Max(verticalVelocity, terminalVelocity);
         }
-    }
-
-    public void TakeDamage(int amount)
-    {
-        var shield = GetComponent<Shield>();
-        if (shield != null && shield.IsShieldActive())
-        {
-            int remaining = shield.AbsorbDamage(amount);
-            if (remaining <= 0)
-            {
-                return;
-            }
-
-            amount = remaining;
-        }
-
-        PlayerStatManager.Instance.TakeDamage(amount);
-
-        StateMachine.ChangeState(PLAYER_STATE.Hit);
     }
 
     public void LookAtCursor()
@@ -168,15 +144,10 @@ public class PlayerController : MonoBehaviour, IDamaged
 
     private void OnAttackInput()
     {
-        if (stateMachine.CurrentState is DashState || stateMachine.CurrentState is HitState) return;
+        if (stateMachine.CurrentState is DashState) return;
 
         StateMachine.ChangeState(PLAYER_STATE.Attack);
     }
-
-    private void OnSwapInput()
-    {
-        weaponManager.SwapWeapon();
-    } 
 
     private IEnumerator DashCoolTimeCO()
     {
@@ -187,14 +158,4 @@ public class PlayerController : MonoBehaviour, IDamaged
         }
         dashCoolDown = 0f;
     }
-
-    public void OnDashEnd()
-    {
-        // 현재 상태가 DashState일 때만 상태 전환
-        if (StateMachine.CurrentState is DashState)
-        {
-            StateMachine.ChangeState(PLAYER_STATE.Move);
-        }
-    }
-
 }

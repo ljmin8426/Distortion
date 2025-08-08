@@ -6,7 +6,7 @@ public enum BossPhase { Phase1, Phase2 }
 public enum BossState { Idle, Phase1, Phase2, Die }
 
 [RequireComponent(typeof(NavMeshAgent), typeof(Animator), typeof(AudioSource))]
-public class BossController : MonoBehaviour, IDamaged
+public class BossController : MonoBehaviour, IDamageable
 {
     [Header("∫∏Ω∫ Ω∫≈»")]
     public int maxHP = 500;
@@ -347,5 +347,10 @@ public class BossController : MonoBehaviour, IDamaged
             dashColliderObj.SetActive(false);
 
         stateTimer = 4f;
+    }
+
+    public void TakeDamage(int amount, GameObject attacker)
+    {
+        throw new System.NotImplementedException();
     }
 }

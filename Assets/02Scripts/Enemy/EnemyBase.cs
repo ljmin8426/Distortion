@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public abstract class EnemyBase : MonoBehaviour, IDamaged
+public abstract class EnemyBase : MonoBehaviour, IDamageable
 {
-    [SerializeField] private EnemyData enemyData;
+    [SerializeField] private EnemyDateSO enemyData;
 
 
     private float rotationSpeed = 10f;
@@ -13,7 +13,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamaged
 
     private EnemyHPBar hpBar;
 
-    public EnemyData EnemyData => enemyData;
+    public EnemyDateSO EnemyData => enemyData;
     public float RotationSpeed => rotationSpeed;
 
     public EnemyAttackCollider AttackCollider { get; private set; }
@@ -66,12 +66,13 @@ public abstract class EnemyBase : MonoBehaviour, IDamaged
         animator.SetFloat("Movespeed", speed);
     }
 
-    public virtual void TakeDamage(int amount)
+    public virtual void TakeDamage(int amount, GameObject attacker)
     {
         if (CurrentHP <= 0) return;
 
         CurrentHP -= amount;
         CurrentHP = Mathf.Max(CurrentHP, 0);
+
         if (hpBar != null)
         {
             hpBar.UpdateHPBar((float)CurrentHP / MaxHP);

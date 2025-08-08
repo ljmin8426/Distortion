@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IPlayerSkill
 {
-    void TryUseSkill(InputManager input, Transform camTransform, Transform playerTransform, CharacterController controller);
+    void TryUseSkill(PlayerInputManager input, Transform camTransform, Transform playerTransform, CharacterController controller);
 }

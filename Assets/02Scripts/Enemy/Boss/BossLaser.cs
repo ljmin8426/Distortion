@@ -13,9 +13,9 @@ public class BossLaser : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && other.TryGetComponent(out IDamaged target))
+        if (other.CompareTag("Player") && other.TryGetComponent(out IDamageable target))
         {
-            target.TakeDamage(damage);
+            target.TakeDamage(damage, gameObject);
         }
     }
 }

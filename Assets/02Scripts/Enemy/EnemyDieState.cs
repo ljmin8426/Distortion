@@ -9,8 +9,6 @@ public class EnemyDieState : BaseState<EnemyBase>
         controller.agent.isStopped = true;
         controller.animator.SetTrigger("IsDie");
 
-        //AudioManager.instance.PlaySFX("Die");
-
         controller.GetComponent<Collider>().enabled = false; 
         controller.enabled = false;
 

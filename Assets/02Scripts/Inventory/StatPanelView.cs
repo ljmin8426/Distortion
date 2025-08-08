@@ -13,8 +13,7 @@ public class StatPanelView : MonoBehaviour
         // 첫 값 설정
         hpStat.Set("HP", $"{statManager.CurrentHP} / {statManager.MaxHP}");
         epStat.Set("EP", $"{statManager.CurrentEP} / {statManager.MaxEP}");
-        attackStat.Set("ATK", statManager.AttackPower.ToString());
-        speedStat.Set("SPD", statManager.MoveSpeed.ToString());
+        attackStat.Set("ATK", statManager.ATK.ToString());
 
         // 이벤트 구독
         PlayerStatManager.OnHpChange += (cur, max) =>
@@ -23,7 +22,5 @@ public class StatPanelView : MonoBehaviour
             epStat.Set("EP", $"{cur} / {max}");
         PlayerStatManager.OnAttackPowerChange += (atk) =>
             attackStat.Set("ATK", atk.ToString());
-        PlayerStatManager.OnMoveSpeedChange += (spd) =>
-            speedStat.Set("SPD", spd.ToString());
     }
 }

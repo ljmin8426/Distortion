@@ -180,6 +180,7 @@ Transform:
   m_Children:
   - {fileID: 1292239644555375194}
   - {fileID: 6737958484919905019}
+  - {fileID: 6195028241393264993}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4776689133507453806
@@ -196,6 +197,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 293fa05b5894fa84a88529e158b0fb0a, type: 2}
   weaponAnimator: {fileID: 9100000, guid: 06c11cbd5c48e9b4085e5d8949f1e3bb, type: 2}
+--- !u!1 &9048903440158048734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6195028241393264993}
+  - component: {fileID: 5216566231573896012}
+  - component: {fileID: 7808903148965192073}
+  m_Layer: 0
+  m_Name: Attack Range
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6195028241393264993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9048903440158048734}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.043617744, y: -0.008718159, z: 0.00038064315, w: 0.9990102}
+  m_LocalPosition: {x: -19.1, y: -7.6, z: 100.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7984127574926249207}
+  m_LocalEulerAnglesHint: {x: 5, y: -1, z: 0}
+--- !u!65 &5216566231573896012
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9048903440158048734}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 50, y: 30, z: 300}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7808903148965192073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9048903440158048734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d76a804019b17ad459af73b049142d81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1292239644554979560
 PrefabInstance:
   m_ObjectHideFlags: 0

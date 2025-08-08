@@ -13,9 +13,9 @@ public class BossDashCollider : MonoBehaviour
     {
         if (boss == null || !boss.IsDashing()) return;
 
-        if (other.CompareTag("Player") && other.TryGetComponent(out IDamaged target))
+        if (other.CompareTag("Player") && other.TryGetComponent(out IDamageable target))
         {
-            target.TakeDamage(25);
+            target.TakeDamage(25, gameObject);
             boss.StopDash(); // 보스에게 종료 명령
         }
     }

@@ -2,50 +2,49 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class PlayerStatManager : SingletonDestroy<PlayerStatManager>
+public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageable
 {
     public delegate void StatsChange(float value);
     public static event StatsChange OnAttackPowerChange;
-    public static event StatsChange OnMoveSpeedChange;
 
-    public delegate void HpEpChange(float value1, float value2);
+    public delegate void HpEpChange(float curEP, float maxEP);
     public static event HpEpChange OnHpChange;
     public static event HpEpChange OnEpChange;
 
     public static event Action<int> OnLevelChange;
     public static event Action OnDiePlayer;
 
+    [SerializeField] private PlayerStatSO defaultStat;
+
     // 현재 상태
     [Header("Current Stat")]
     [SerializeField] private int level;
     [SerializeField] private float currentHP;
-    [SerializeField] private float currentEP;   
+    [SerializeField] private float currentEP;
 
     // 기본 스탯
     [Header("Base Stat")]
-    [SerializeField] private float baseMaxHP;
-    [SerializeField] private float baseMaxEP;
-    [SerializeField] private float baseAttackPower;
-    [SerializeField] private float baseAttackSpeed;
-    [SerializeField] private float baseMoveSpeed;
+    [SerializeField] private float defaultMaxHP;
+    [SerializeField] private float defaultMaxEP;
+    [SerializeField] private float defaultAtk;
+    [SerializeField] private float defaultAg;
 
     // 장비 스탯
     [Header("Item Stat")]
     [SerializeField] private float bonusMaxHP;
     [SerializeField] private float bonusMaxEP;
-    [SerializeField] private float bonusAttackPower;
-    [SerializeField] private float bonusMoveSpeed;
-    [SerializeField] private float bonusAttackSpeed;
+    [SerializeField] private float bonusAtk;
+    [SerializeField] private float bonusAg;
 
 
     public int Level => level;
-    public float MaxHP => baseMaxHP + bonusMaxHP;
-    public float MaxEP => baseMaxEP + bonusMaxEP;
     public float CurrentHP => currentHP;
     public float CurrentEP => currentEP;
-    public float AttackPower => baseAttackPower + bonusAttackPower;
-    public float MoveSpeed => baseMoveSpeed + bonusMoveSpeed;
-    public float AttackSpeed => baseAttackSpeed + bonusAttackSpeed;
+
+    public float MaxHP => defaultMaxHP + bonusMaxHP;
+    public float MaxEP => defaultMaxEP + bonusMaxEP;
+    public float ATK => defaultAtk + bonusAtk;
+    public float AG => defaultAg + bonusAg;
 
     private Coroutine recoverCoroutine;
 
@@ -58,12 +57,12 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>
     {
         level = 1;
 
-        var data = GameManager.Instance.playerData;
-        //baseMaxHP = data.baseMaxHP;
-        //baseMaxEP = data.baseMaxEP;
-        //baseAttackPower = data.baseAttack;
-        //baseMoveSpeed = data.baseMoveSpeed;
-        //baseAttackSpeed = data.baseAttackSpeed;
+        defaultMaxHP = defaultStat.hp; 
+        defaultMaxEP = defaultStat.ep;
+        defaultAtk = defaultStat.atk;
+        defaultAg = defaultStat.ag;
+
+
 
         currentHP = MaxHP;
         currentEP = MaxEP;
@@ -76,37 +75,48 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>
         recoverCoroutine = StartCoroutine(RecoverHPEP());
     }
 
+    public void TakeDamage(int amount, GameObject attacker)
+    {
+        var shield = GetComponent<Shield>();
+        if (shield != null && shield.IsShieldActive())
+        {
+            int remaining = shield.AbsorbDamage(amount);
+            if (remaining <= 0)
+            {
+                return;
+            }
+
+            amount = remaining;
+        }
+
+        PlayerStatManager.Instance.TakeDamage(amount);
+    }
     private IEnumerator RecoverHPEP()
     {
-        float interval = 0.1f;
+        float interval = 1f;
         WaitForSeconds wait = new WaitForSeconds(interval);
 
-        var data = GameManager.Instance.playerData;
+        while (true)
+        {
+            if (currentHP < MaxHP)
+            {
+                currentHP = Mathf.Min(currentHP + 1 * interval, MaxHP);
+                OnHpChange?.Invoke(currentHP, MaxHP);
+            }
 
-        //while (true)
-        //{
-        //    if (currentHP < MaxHP)
-        //    {
-        //        currentHP = Mathf.Min(currentHP + data.hpRegenRate * interval, MaxHP);
-        //        OnHpChange?.Invoke(currentHP, MaxHP);
-        //    }
+            if (currentEP < MaxEP)
+            {
+                currentEP = Mathf.Min(currentEP + 1 * interval, MaxEP);
+                OnEpChange?.Invoke(currentEP, MaxEP);
+            }
 
-        //    if (currentEP < MaxEP)
-        //    {
-        //        currentEP = Mathf.Min(currentEP + data.epRegenRate * interval, MaxEP);
-        //        OnEpChange?.Invoke(currentEP, MaxEP);
-        //    }
-
-        //    yield return wait;
-        //}
-
-        yield return null;
+            yield return wait;
+        }
     }
 
     public void ApplyLevelUp()
     {
         level++;
-        var data = GameManager.Instance.playerData;
 
         currentHP = MaxHP;
         currentEP = MaxEP;
@@ -158,13 +168,10 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>
                     bonusMaxEP += stat.value;
                     break;
                 case ITEM_STAT_TYPE.Attack:
-                    bonusAttackPower += stat.value;
-                    break;
-                case ITEM_STAT_TYPE.MoveSpeed:
-                    bonusMoveSpeed += stat.value;
+                    bonusAtk += stat.value;
                     break;
                 case ITEM_STAT_TYPE.AttackSpeed:
-                    bonusAttackSpeed += stat.value;
+                    bonusAg += stat.value;
                     break;
             }
         }
@@ -186,13 +193,10 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>
                     bonusMaxEP -= stat.value;
                     break;
                 case ITEM_STAT_TYPE.Attack:
-                    bonusAttackPower -= stat.value;
-                    break;
-                case ITEM_STAT_TYPE.MoveSpeed:
-                    bonusMoveSpeed -= stat.value;
+                    bonusAtk -= stat.value;
                     break;
                 case ITEM_STAT_TYPE.AttackSpeed:
-                    bonusAttackSpeed -= stat.value;
+                    bonusAg -= stat.value;
                     break;
             }
         }
@@ -211,7 +215,6 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>
     {
         OnHpChange?.Invoke(currentHP, MaxHP);
         OnEpChange?.Invoke(currentEP, MaxEP);
-        OnAttackPowerChange?.Invoke(AttackPower);
-        OnMoveSpeedChange?.Invoke(MoveSpeed);
+        OnAttackPowerChange?.Invoke(ATK);
     }
 }

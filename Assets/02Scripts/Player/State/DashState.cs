@@ -33,10 +33,8 @@ public class DashState : BaseState<PlayerController>
         // 이동 시간 계산
         dashDuration = controller.DashDistance / dashSpeed;
 
-        // 애니메이션 길이 가져오기
         float animLength = GetDashAnimationLength();
 
-        // 애니메이션 재생 속도 설정 → 애니메이션이 이동 시간과 정확히 맞도록
         float animSpeed = animLength > 0 ? animLength / dashDuration : 1f;
         controller.Animator.SetFloat("DashSpeed", animSpeed);
     }
@@ -50,7 +48,7 @@ public class DashState : BaseState<PlayerController>
 
     public override void OnExitState() { }
 
-    public override void OnFixedUpdateState() { }
+    public override void OnFixedUpdateState() { }  
 
     private float GetDashAnimationLength()
     {
@@ -62,6 +60,6 @@ public class DashState : BaseState<PlayerController>
         }
 
         Debug.LogWarning("Dash 애니메이션 클립을 찾을 수 없습니다. 기본값 사용");
-        return 0.5f; // 기본값
+        return 0.5f;
     }
 }

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9248e37c393912498ce0978af71b576, type: 3}
-  m_Name: M
+  m_Name: Player
   m_EditorClassIdentifier: 
-  className: 
-  classDescription: 
-  HP: 0
-  EP: 0
-  Atk: 0
-  def: 0
-  Ag: 0
+  className: AAAA
+  classDescription: AAAA
+  hp: 100
+  ep: 100
+  atk: 5
+  def: 5
+  ag: 5

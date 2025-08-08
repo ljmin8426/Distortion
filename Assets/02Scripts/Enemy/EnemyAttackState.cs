@@ -17,7 +17,6 @@ public class EnemyAttackState : BaseState<EnemyBase>
     {
         float dist = Vector3.Distance(controller.transform.position, controller.player.position);
 
-        // 공격 범위 밖이면 추격 상태로 전환
         if (dist > controller.EnemyData.attackRange)
         {
             controller.ChangeState(ENEMY_STATE.Chase);
