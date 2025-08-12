@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e65bdad3f614b944906bfdcfb7d0068, type: 3}
+  m_Name: ExpTable
+  m_EditorClassIdentifier: 
+  expTable:
+  - level: 1
+    requiredExp: 10
+    bonusHP: 2
+    bonusATK: 0.5
+    unlockNewSkill: 0
+  - level: 2
+    requiredExp: 15
+    bonusHP: 4
+    bonusATK: 1
+    unlockNewSkill: 0
+  - level: 3
+    requiredExp: 20
+    bonusHP: 6
+    bonusATK: 1.5
+    unlockNewSkill: 0
+  - level: 4
+    requiredExp: 25
+    bonusHP: 8
+    bonusATK: 2
+    unlockNewSkill: 0
+  - level: 5
+    requiredExp: 60
+    bonusHP: 10
+    bonusATK: 2.5
+    unlockNewSkill: 0
+  - level: 6
+    requiredExp: 35
+    bonusHP: 12
+    bonusATK: 3
+    unlockNewSkill: 0
+  - level: 7
+    requiredExp: 40
+    bonusHP: 14
+    bonusATK: 3.5
+    unlockNewSkill: 0
+  - level: 8
+    requiredExp: 45
+    bonusHP: 16
+    bonusATK: 4
+    unlockNewSkill: 0
+  - level: 9
+    requiredExp: 50
+    bonusHP: 18
+    bonusATK: 4.5
+    unlockNewSkill: 0
+  - level: 10
+    requiredExp: 110
+    bonusHP: 20
+    bonusATK: 5
+    unlockNewSkill: 1
+  - level: 11
+    requiredExp: 60
+    bonusHP: 22
+    bonusATK: 5.5
+    unlockNewSkill: 0
+  - level: 12
+    requiredExp: 65
+    bonusHP: 24
+    bonusATK: 6
+    unlockNewSkill: 0
+  - level: 13
+    requiredExp: 70
+    bonusHP: 26
+    bonusATK: 6.5
+    unlockNewSkill: 0
+  - level: 14
+    requiredExp: 75
+    bonusHP: 28
+    bonusATK: 7
+    unlockNewSkill: 0
+  - level: 15
+    requiredExp: 160
+    bonusHP: 30
+    bonusATK: 7.5
+    unlockNewSkill: 0
+  - level: 16
+    requiredExp: 85
+    bonusHP: 32
+    bonusATK: 8
+    unlockNewSkill: 0
+  - level: 17
+    requiredExp: 90
+    bonusHP: 34
+    bonusATK: 8.5
+    unlockNewSkill: 0
+  - level: 18
+    requiredExp: 95
+    bonusHP: 36
+    bonusATK: 9
+    unlockNewSkill: 0
+  - level: 19
+    requiredExp: 100
+    bonusHP: 38
+    bonusATK: 9.5
+    unlockNewSkill: 0
+  - level: 20
+    requiredExp: 210
+    bonusHP: 40
+    bonusATK: 10
+    unlockNewSkill: 1

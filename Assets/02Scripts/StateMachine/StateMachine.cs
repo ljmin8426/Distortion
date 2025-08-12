@@ -8,10 +8,10 @@ public class StateMachine<TStateName, TOwner>
     public BaseState<TOwner> CurrentState { get; private set; }
     private Dictionary<TStateName, BaseState<TOwner>> states = new();
 
-    public StateMachine(TStateName stateName, BaseState<TOwner> state)
+    public StateMachine(TStateName startStateName, BaseState<TOwner> startState)
     {
-        AddState(stateName, state);
-        CurrentState = GetState(stateName);
+        AddState(startStateName, startState);
+        CurrentState = startState;
     }
 
     public void UpdateState()
@@ -41,20 +41,36 @@ public class StateMachine<TStateName, TOwner>
 
     public void ChangeState(TStateName nextStateName)
     {
+        var nextState = GetState(nextStateName);
+
+        // 상태가 없거나 현재 상태와 같으면 무시
+        if (nextState == null || EqualityComparer<TStateName>.Default.Equals(GetStateName(CurrentState), nextStateName))
+            return;
+
+        // 전환 불가하면 무시
+        if (!nextState.CanEnter())
+            return;
+
         CurrentState?.OnExitState();
-
-        if (states.TryGetValue(nextStateName, out var newState))
-        {
-            CurrentState = newState;
-        }
-
+        CurrentState = nextState;
         CurrentState?.OnEnterState();
     }
+
     public void DeleteState(TStateName deleteStateName)
     {
-        if(states.ContainsKey(deleteStateName))
+        if (states.ContainsKey(deleteStateName))
         {
             states.Remove(deleteStateName);
         }
+    }
+
+    private TStateName GetStateName(BaseState<TOwner> state)
+    {
+        foreach (var kvp in states)
+        {
+            if (kvp.Value == state)
+                return kvp.Key;
+        }
+        return default;
     }
 }

@@ -22,7 +22,7 @@ public class PlayerHUD : MonoBehaviour
         PlayerStatManager.OnHpChange += UpdateHPUI;
         PlayerStatManager.OnEpChange += UpdateEPUI;
         PlayerStatManager.OnLevelChange += UpdateLevelUI;
-        ExpManager.OnChangeExp += UpdateExpUI;
+        PlayerStatManager.OnChangeExp += UpdateExpUI;
     }
 
     private void OnDisable()
@@ -30,7 +30,7 @@ public class PlayerHUD : MonoBehaviour
         PlayerStatManager.OnHpChange -= UpdateHPUI;
         PlayerStatManager.OnEpChange -= UpdateEPUI;
         PlayerStatManager.OnLevelChange -= UpdateLevelUI;
-        ExpManager.OnChangeExp -= UpdateExpUI;
+        PlayerStatManager.OnChangeExp -= UpdateExpUI;
     }
 
     private void UpdateExpUI(float value, float maxValue)
