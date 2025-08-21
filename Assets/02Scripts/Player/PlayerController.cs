@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashSpeed = 20f;
     [SerializeField] private float dashEpAmount = 10f;
     [SerializeField] private float dashCoolTime = 2f;
-    [SerializeField] private string dashAnimationName = "2Hand-Sword-DiveRoll-Forward1";
 
     private float verticalVelocity;
 
@@ -45,7 +44,6 @@ public class PlayerController : MonoBehaviour
     public float RotationSpeed => rotationSpeed;
     public float DashDistance => dashDistance;
     public float DashSpeed => dashSpeed;
-    public string DashAnimationName => dashAnimationName;
     public float DashEpAmount => dashEpAmount;
     public float DashCoolDown => dashCoolTime;
 

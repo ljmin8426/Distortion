@@ -9,7 +9,7 @@ public class InventoryItemSlotView : MonoBehaviour,
     public Image backgroundImage;
     public GameObject selectHighlight;
 
-    public ItemSO Item { get; private set; }
+    public ItemDataSO Item { get; private set; }
 
     private Transform originalParent;
     private Canvas canvas;
@@ -21,7 +21,7 @@ public class InventoryItemSlotView : MonoBehaviour,
         canvasGroup = gameObject.AddComponent<CanvasGroup>();
     }
 
-    public void Set(ItemSO item)
+    public void Set(ItemDataSO item)
     {
         Item = item;
         itemImage.sprite = item.icon;
@@ -50,7 +50,7 @@ public class InventoryItemSlotView : MonoBehaviour,
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (Item.itemType == ITEM_TYPE.Potion)
+            if (Item.itemType == ITEM_TYPE.Consumable)
             {
                 PlayerStatManager stat = PlayerStatManager.Instance;
                 if (Item is PotionItem potion)

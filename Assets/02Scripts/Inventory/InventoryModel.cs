@@ -2,15 +2,15 @@ using System.Collections.Generic;
 
 public class InventoryModel
 {
-    public List<ItemSO> ownedItems = new();
-    public Dictionary<ITEM_TYPE, ItemSO> equippedItems = new();
-    public ItemSO selectedItem;
+    public List<ItemDataSO> ownedItems = new();
+    public Dictionary<ITEM_TYPE, ItemDataSO> equippedItems = new();
+    public ItemDataSO selectedItem;
 
-    public void SelectItem(ItemSO item) => selectedItem = item;
+    public void SelectItem(ItemDataSO item) => selectedItem = item;
 
-    public void EquipItem(ItemSO item)
+    public void EquipItem(ItemDataSO item)
     {
-        if (item.itemType == ITEM_TYPE.Equipment || item.itemType == ITEM_TYPE.Passive || item.itemType == ITEM_TYPE.Skill)
+        if (item.itemType == ITEM_TYPE.Equipment || item.itemType == ITEM_TYPE.Skill)
         {
             equippedItems[item.itemType] = item;
             ownedItems.Remove(item);
@@ -26,13 +26,13 @@ public class InventoryModel
         }
     }
 
-    public void AddItem(ItemSO item)
+    public void AddItem(ItemDataSO item)
     {
         if (!ownedItems.Contains(item))
             ownedItems.Add(item);
     }
 
-    public void RemoveItem(ItemSO item)
+    public void RemoveItem(ItemDataSO item)
     {
         if (ownedItems.Contains(item))
             ownedItems.Remove(item);

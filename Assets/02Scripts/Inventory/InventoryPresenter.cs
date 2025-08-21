@@ -41,20 +41,20 @@ public class InventoryPresenter
         }
     }
 
-    public void OnItemClick(ItemSO item, InventoryItemSlotView slotView)
+    public void OnItemClick(ItemDataSO item, InventoryItemSlotView slotView)
     {
         model.SelectItem(item);
         view.itemInfoPanelView.ShowItemInfo(item);
         slotView.Highlight(true);
     }
 
-    public void OnPickupItem(ItemSO item)
+    public void OnPickupItem(ItemDataSO item)
     {
         model.ownedItems.Add(item);
         RefreshUI();
     }
 
-    public void OnItemEquip(ItemSO item, EquipSlotView slot)
+    public void OnItemEquip(ItemDataSO item, EquipSlotView slot)
     {
         if (item is not EquipmentItem equipment)
             return;
@@ -88,7 +88,7 @@ public class InventoryPresenter
         RefreshUI();
     }
 
-    public void OnUseItem(ItemSO item)
+    public void OnUseItem(ItemDataSO item)
     {
         model.ownedItems.Remove(item);
         RefreshUI();

@@ -3,15 +3,15 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class WorldItem : MonoBehaviour
 {
-    [SerializeField] private ItemSO itemData;
+    [SerializeField] private ItemDataSO itemData;
 
-    public ItemSO ItemData => itemData;
+    public ItemDataSO ItemData => itemData;
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
 
-        ItemSO grantedItem = Instantiate(itemData); // 원본 훼손 방지용 복제
+        ItemDataSO grantedItem = Instantiate(itemData); // 원본 훼손 방지용 복제
 
         // 만약 장비 아이템이라면 등급 랜덤 설정
         if (grantedItem is EquipmentItem equipmentItem)

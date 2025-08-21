@@ -9,7 +9,7 @@ public class ItemInfoPanelView : MonoBehaviour
     public Sprite EmptyImage;
     public List<StatElement> statElements;
 
-    public void ShowItemInfo(ItemSO item)
+    public void ShowItemInfo(ItemDataSO item)
     {
         if (item == null)
         {

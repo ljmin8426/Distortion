@@ -6,7 +6,7 @@ public class EquipmentPanelView : MonoBehaviour
 {
     public List<EquipSlotView> equipSlots;
 
-    public void SetEquippedItem(ItemSO item)
+    public void SetEquippedItem(ItemDataSO item)
     {
         var slot = equipSlots.FirstOrDefault(s => s.itemType == item.itemType);
         if (slot != null) slot.SetItem(item);

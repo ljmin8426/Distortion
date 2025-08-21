@@ -18,7 +18,7 @@ public class InventoryItemPanelView : MonoBehaviour
         slotViews.Clear();
     }
 
-    public void AddItemSlot(ItemSO item)
+    public void AddItemSlot(ItemDataSO item)
     {
         var obj = Instantiate(itemSlotPrefab, slotParent);
         var slotView = obj.GetComponent<InventoryItemSlotView>();

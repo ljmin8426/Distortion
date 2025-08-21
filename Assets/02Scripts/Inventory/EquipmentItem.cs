@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Inventory/Equipment Item")]
-public class EquipmentItem : ItemSO
+public class EquipmentItem : ItemDataSO
 {
     public List<ItemStat> statList = new();
 

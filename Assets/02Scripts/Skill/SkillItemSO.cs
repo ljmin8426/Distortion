@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Inventory/Skill Item")]
-public class SkillItemSO : ItemSO
+public class SkillItemSO : ItemDataSO
 {
     public GameObject skillPrefab; // SkillBase를 포함한 프리팹
 

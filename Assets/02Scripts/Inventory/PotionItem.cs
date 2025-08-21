@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Inventory/Potion Item")]
-public class PotionItem : ItemSO
+public class PotionItem : ItemDataSO
 {
     public bool restoreHP;
     public float restoreAmount; // È¸º¹·®

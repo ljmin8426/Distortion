@@ -23,9 +23,10 @@ public class DashState : BaseState<PlayerController>
         // 캐싱
         dashSpeed = controller.DashSpeed;
         dashDistance = controller.DashDistance;
-        dashAnimName = controller.DashAnimationName;
         dashEpCost = controller.DashEpAmount;
         dashCoolDown = controller.DashCoolDown;
+        // 무기에서 애니메이션 이름과 길이 받아오기
+        dashAnimName = controller.CurrentWeapon?.DashAnimationName ?? "DefaultDashAnim";
     }
 
     public override bool CanEnter()

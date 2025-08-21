@@ -12,13 +12,13 @@ public class EquipSlotView : MonoBehaviour, IDropHandler, IPointerClickHandler
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI itemName;
 
-    public ItemSO CurItem { get; private set; }
+    public ItemDataSO CurItem { get; private set; }
     public GameObject SpawnedSkillObj { get; private set; }
 
     /// <summary>
     /// 아이템 장착
     /// </summary>
-    public void SetItem(ItemSO item)
+    public void SetItem(ItemDataSO item)
     {
         CurItem = item;
 
