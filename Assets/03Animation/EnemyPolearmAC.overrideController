@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: EnemyPolearmAC
+  m_Controller: {fileID: 9100000, guid: b9236d8d1eacb044297853a2a5e65f14, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 1315bcd7509173f44bc6655b2673dd4d, type: 3}
+    m_OverrideClip: {fileID: 3094330708855449807, guid: 04d7996e4b80c684a97630c930541aff, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: acbe57a104d8c114c8487055894b3188, type: 3}
+    m_OverrideClip: {fileID: 3094330708855449807, guid: e191b1e6013333f4f8fcf7db4018a4d2, type: 3}
+  - m_OriginalClip: {fileID: -3100369314251171874, guid: 12e52e465ed793a4d801955e9f964a82, type: 3}
+    m_OverrideClip: {fileID: 3094330708855449807, guid: ba910604ba8bc7941bbd1905f1dcc09e, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 7f0b16d67db4d0349993822251b989b3, type: 3}
+    m_OverrideClip: {fileID: -6298473264308222846, guid: 467a90ea10589e644a7cd6578adc8fb7, type: 3}
+  - m_OriginalClip: {fileID: 6564411413370888346, guid: 16114d403eabb53438de032c6f0d1deb, type: 3}
+    m_OverrideClip: {fileID: 3094330708855449807, guid: 6deac83e30d8acd4cbb8c7d8a11545bd, type: 3}

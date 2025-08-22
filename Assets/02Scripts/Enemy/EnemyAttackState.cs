@@ -36,6 +36,6 @@ public class EnemyAttackState : BaseState<EnemyBase>
 
     public override void OnExitState()
     {
-        controller.AttackCollider?.DisableCollider(); // 안전하게 끄기
+        controller.AttackCollider?.DisableCollider();
     }
 }

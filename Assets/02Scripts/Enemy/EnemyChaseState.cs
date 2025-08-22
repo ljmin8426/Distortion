@@ -7,6 +7,7 @@ public class EnemyChaseState : BaseState<EnemyBase>
     public override void OnEnterState()
     {
         controller.agent.isStopped = false;
+        LookAtTarget();
     }
 
     public override void OnUpdateState()
@@ -20,7 +21,6 @@ public class EnemyChaseState : BaseState<EnemyBase>
         }
 
         controller.agent.SetDestination(controller.player.position);
-        LookAtTarget();
     }
 
     private void LookAtTarget()
@@ -34,10 +34,11 @@ public class EnemyChaseState : BaseState<EnemyBase>
             controller.transform.rotation = Quaternion.Slerp(
                 controller.transform.rotation,
                 targetRotation,
-                Time.deltaTime * controller.RotationSpeed
+                Time.deltaTime * 10
             );
         }
     }
+
 
     public override void OnExitState()
     {

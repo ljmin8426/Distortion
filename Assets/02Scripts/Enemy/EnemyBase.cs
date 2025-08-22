@@ -4,18 +4,14 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public abstract class EnemyBase : MonoBehaviour, IDamageable
 {
+    [Header("Enemy Data")]
     [SerializeField] private EnemyDateSO enemyData;
-
-
-    private float rotationSpeed = 10f;
 
     protected StateMachine<ENEMY_STATE, EnemyBase> stateMachine;
 
     private EnemyHPBar hpBar;
 
     public EnemyDateSO EnemyData => enemyData;
-    public float RotationSpeed => rotationSpeed;
-
     public EnemyAttackCollider AttackCollider { get; private set; }
     public Transform player { get; private set; }
     public NavMeshAgent agent { get; private set; }
@@ -34,7 +30,6 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
             {
                 hpBar.UpdateHPBar(1f);
             }
-            rotationSpeed = 10f;
         }
 
         player = GameObject.FindGameObjectWithTag("Player")?.transform;

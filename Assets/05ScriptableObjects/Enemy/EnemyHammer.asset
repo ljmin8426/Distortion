@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47fa9a88621c7944d9808859def00288, type: 3}
-  m_Name: Cyborg
+  m_Name: EnemyHammer
   m_EditorClassIdentifier: 
-  enemyName: Cyborg
-  maxHP: 100
-  moveSpeed: 5
-  attackPower: 10
+  enemyName: EnemyHammer
+  maxHP: 200
+  moveSpeed: 2
+  attackPower: 50
   attackRange: 2
-  attackCooldown: 3
+  attackCooldown: 6
   detectionRange: 10
-  expReward: 20
+  expReward: 100
