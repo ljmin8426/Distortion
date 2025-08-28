@@ -24,7 +24,7 @@ public class EnemyAnimationEvents : MonoBehaviour
     // 공격 애니메이션 끝날 때 호출
     public void OnAttackEnd()
     {
-        float dist = Vector3.Distance(enemyBase.transform.position, enemyBase.player.position);
+        float dist = Vector3.Distance(enemyBase.transform.position, enemyBase.Player.position);
         if (dist <= enemyBase.EnemyData.attackRange)
             enemyBase.ChangeState(ENEMY_STATE.Attack);
         else

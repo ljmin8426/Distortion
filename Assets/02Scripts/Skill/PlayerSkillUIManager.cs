@@ -13,13 +13,10 @@ public class PlayerSkillUIManager : MonoBehaviour
 
     private void Start()
     {
-        DashState.OnDashCooldownStart += skillUISlots[0].StartCooldown;
-        skillUISlots[0].SetEpCost(2); // 유틸기 고정
     }
 
     private void OnDestroy()
     {
-        DashState.OnDashCooldownStart -= utilityUI.StartCooldown;
     }
 
     private int GetSkillSlotIndexByType(SKILL_TYPE type)

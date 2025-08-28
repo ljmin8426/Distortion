@@ -8,14 +8,14 @@ public class EnemyAttackState : BaseState<EnemyBase>
 
     public override void OnEnterState()
     {
-        controller.agent.isStopped = true;
+        controller.Agent.isStopped = true;
         attackTimer = 0f;
-        controller.animator.SetTrigger("IsAttack");
+        controller.Animator.SetTrigger("IsAttack");
     }
 
     public override void OnUpdateState()
     {
-        float dist = Vector3.Distance(controller.transform.position, controller.player.position);
+        float dist = Vector3.Distance(controller.transform.position, controller.Player.position);
 
         if (dist > controller.EnemyData.attackRange)
         {
@@ -27,7 +27,7 @@ public class EnemyAttackState : BaseState<EnemyBase>
 
         if (attackTimer >= controller.EnemyData.attackCooldown)
         {
-            controller.animator.SetTrigger("IsAttack");
+            controller.Animator.SetTrigger("IsAttack");
             attackTimer = 0f;
         }
     }

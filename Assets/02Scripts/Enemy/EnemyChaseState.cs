@@ -6,13 +6,13 @@ public class EnemyChaseState : BaseState<EnemyBase>
 
     public override void OnEnterState()
     {
-        controller.agent.isStopped = false;
+        controller.Agent.isStopped = false;
         LookAtTarget();
     }
 
     public override void OnUpdateState()
     {
-        float distance = Vector3.Distance(controller.transform.position, controller.player.position);
+        float distance = Vector3.Distance(controller.transform.position, controller.Player.position);
 
         if (distance <= controller.EnemyData.attackRange)
         {
@@ -20,12 +20,12 @@ public class EnemyChaseState : BaseState<EnemyBase>
             return;
         }
 
-        controller.agent.SetDestination(controller.player.position);
+        controller.Agent.SetDestination(controller.Player.position);
     }
 
     private void LookAtTarget()
     {
-        Vector3 direction = controller.player.position - controller.transform.position;
+        Vector3 direction = controller.Player.position - controller.transform.position;
         direction.y = 0;
 
         if (direction.sqrMagnitude > 0.01f)
@@ -42,7 +42,7 @@ public class EnemyChaseState : BaseState<EnemyBase>
 
     public override void OnExitState()
     {
-        controller.agent.ResetPath();
+        controller.Agent.ResetPath();
     }
     public override void OnFixedUpdateState() { }
 }

@@ -1,4 +1,4 @@
-public class CyborgSoldier : EnemyBase
+public class Enemy : EnemyBase
 {
     protected override void Awake()
     {

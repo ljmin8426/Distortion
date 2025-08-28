@@ -6,12 +6,12 @@ public class EnemyIdleState : BaseState<EnemyBase>
 
     public override void OnEnterState()
     {
-        controller.agent.isStopped = true;
+        controller.Agent.isStopped = true;
     }
 
     public override void OnUpdateState()
     {
-        float dist = Vector3.Distance(controller.transform.position, controller.player.position);
+        float dist = Vector3.Distance(controller.transform.position, controller.Player.position);
 
         if (dist < controller.EnemyData.detectionRange)
         {

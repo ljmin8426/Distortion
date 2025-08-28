@@ -197,7 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 293fa05b5894fa84a88529e158b0fb0a, type: 2}
   weaponAnimator: {fileID: 9100000, guid: 06c11cbd5c48e9b4085e5d8949f1e3bb, type: 2}
-  dashAnimationName: DashAnimationName
+  dashAnimationName: 2Hand-Sword-DiveRoll-Forward1
 --- !u!1 &9048903440158048734
 GameObject:
   m_ObjectHideFlags: 0

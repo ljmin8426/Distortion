@@ -5,17 +5,18 @@ using UnityEngine.AI;
 public abstract class EnemyBase : MonoBehaviour, IDamageable
 {
     [Header("Enemy Data")]
-    [SerializeField] private EnemyDateSO enemyData;
+    [SerializeField] private EnemyDateSO enemyData;                 // 데이터
+    [SerializeField] private AudioClip damageSoundClip;
 
-    protected StateMachine<ENEMY_STATE, EnemyBase> stateMachine;
+    protected StateMachine<ENEMY_STATE, EnemyBase> stateMachine;    // 스테이트머신
 
-    private EnemyHPBar hpBar;
+    private EnemyHPBar hpBar;                                       // 체력바
 
     public EnemyDateSO EnemyData => enemyData;
     public EnemyAttackCollider AttackCollider { get; private set; }
-    public Transform player { get; private set; }
-    public NavMeshAgent agent { get; private set; }
-    public Animator animator { get; private set; }
+    public Transform Player { get; private set; }
+    public NavMeshAgent Agent { get; private set; }
+    public Animator Animator { get; private set; }
     public int MaxHP { get; private set; }
     public int CurrentHP { get; private set; }
 
@@ -32,14 +33,14 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
             }
         }
 
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        agent = GetComponent<NavMeshAgent>();
-        animator = GetComponentInChildren<Animator>();
+        Player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        Agent = GetComponent<NavMeshAgent>();
+        Animator = GetComponentInChildren<Animator>();
         AttackCollider = GetComponentInChildren<EnemyAttackCollider>();
         hpBar = GetComponentInChildren<EnemyHPBar>();
 
-        agent.stoppingDistance = enemyData.attackRange;
-        agent.speed = enemyData.moveSpeed;
+        Agent.stoppingDistance = enemyData.attackRange;
+        Agent.speed = enemyData.moveSpeed;
 
         InitStateMachine();
     }
@@ -57,8 +58,8 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
 
     protected void UpdateAnimator()
     {
-        float speed = agent.velocity.magnitude;
-        animator.SetFloat("Movespeed", speed);
+        float speed = Agent.velocity.magnitude;
+        Animator.SetFloat("Movespeed", speed);
     }
 
     public virtual void TakeDamage(int amount, GameObject attacker)
@@ -67,6 +68,15 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
 
         CurrentHP -= amount;
         CurrentHP = Mathf.Max(CurrentHP, 0);
+        DamagePopUpGenerator.Instance.CreatePopUp(transform.position, amount.ToString(), Color.red);
+
+        AudioManager.Instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
+        // 피격 파티클 소환
+        PoolManager.Instance.SpawnFromPool(
+            "HitEffect",
+            transform.position,
+            Quaternion.identity
+        );
 
         if (hpBar != null)
         {

@@ -8,8 +8,8 @@ public class EnemyHitState : BaseState<EnemyBase>
 
     public override void OnEnterState()
     {
-        controller.agent.isStopped = true;
-        controller.animator.SetTrigger("IsHit");
+        controller.Agent.isStopped = true;
+        controller.Animator.SetTrigger("IsHit");
         hitTimer = 0f;
     }
 

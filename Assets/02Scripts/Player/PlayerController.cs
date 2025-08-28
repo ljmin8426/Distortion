@@ -15,11 +15,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float terminalVelocity = -53f;
     [SerializeField] private float groundedGravity = -2f;
 
-    [Header("Dash Settings")]
-    [SerializeField] private float dashDistance = 12f;
-    [SerializeField] private float dashSpeed = 20f;
-    [SerializeField] private float dashEpAmount = 10f;
-    [SerializeField] private float dashCoolTime = 2f;
 
     private float verticalVelocity;
 
@@ -42,10 +37,7 @@ public class PlayerController : MonoBehaviour
     public float VerticalVelocity => verticalVelocity;
     public float MoveSpeed => moveSpeed;
     public float RotationSpeed => rotationSpeed;
-    public float DashDistance => dashDistance;
-    public float DashSpeed => dashSpeed;
-    public float DashEpAmount => dashEpAmount;
-    public float DashCoolDown => dashCoolTime;
+
 
     #region Unity Lifecycle
     private void Awake()
@@ -80,13 +72,11 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         PlayerInputManager.OnAttack += OnAttackInput;
-        PlayerInputManager.OnUtil += OnDashInput;
     }
 
     private void OnDisable()
     {
         PlayerInputManager.OnAttack -= OnAttackInput;
-        PlayerInputManager.OnUtil -= OnDashInput;
     }
     #endregion
 

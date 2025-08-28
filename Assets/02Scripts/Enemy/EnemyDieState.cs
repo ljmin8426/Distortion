@@ -6,8 +6,8 @@ public class EnemyDieState : BaseState<EnemyBase>
 
     public override void OnEnterState()
     {
-        controller.agent.isStopped = true;
-        controller.animator.SetTrigger("IsDie");
+        controller.Agent.isStopped = true;
+        controller.Animator.SetTrigger("IsDie");
 
         controller.GetComponent<Collider>().enabled = false; 
         controller.enabled = false;
