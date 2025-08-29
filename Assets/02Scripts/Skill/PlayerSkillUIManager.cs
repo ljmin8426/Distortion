@@ -8,17 +8,6 @@ public class PlayerSkillUIManager : MonoBehaviour
 
     private List<SkillBase> acquiredSkills = new List<SkillBase>();
 
-    [Header("Utility Skill UI (e.g. Dash)")]
-    [SerializeField] private SkillCooldownUI utilityUI;
-
-    private void Start()
-    {
-    }
-
-    private void OnDestroy()
-    {
-    }
-
     private int GetSkillSlotIndexByType(SKILL_TYPE type)
     {
         switch (type)
@@ -34,7 +23,7 @@ public class PlayerSkillUIManager : MonoBehaviour
     {
         if (newSkill == null) return;
 
-        int index = GetSkillSlotIndexByType(newSkill.SkillData.skillType);
+        int index = GetSkillSlotIndexByType(newSkill.SkillType);
 
         if (index < 1 || index >= skillUISlots.Count)
         {

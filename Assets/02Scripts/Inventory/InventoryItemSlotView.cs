@@ -2,12 +2,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryItemSlotView : MonoBehaviour,
-    IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
+public class InventoryItemSlotView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
-    public Image itemImage;
-    public Image backgroundImage;
-    public GameObject selectHighlight;
+    [SerializeField] private Image itemImage;
+    [SerializeField] private Image backgroundImage;
+    [SerializeField] private GameObject selectHighlight;
 
     public ItemDataSO Item { get; private set; }
 

@@ -5,8 +5,8 @@ using UnityEngine;
 public class ItemDataSO : ScriptableObject
 {
     public string itemName;
+    public string description;
     public Sprite icon;
     public ITEM_TYPE itemType;
     public int maxStack;
-    public string description;
 }

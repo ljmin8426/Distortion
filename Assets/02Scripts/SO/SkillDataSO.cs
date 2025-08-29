@@ -1,10 +1,8 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SkillData", menuName = "Skills/Skill Data")]
+[CreateAssetMenu(fileName = "SkillData", menuName = "Skill/Data")]
 public class SkillDataSO : ScriptableObject
 {
-    public string skillName;
-    public string skillDescription;
     public int cooldown;
     public int manaCost;
 
@@ -12,7 +10,6 @@ public class SkillDataSO : ScriptableObject
 
     public GameObject effectPrefab;
     public AudioClip soundEffect;
-    public AnimationClip animationClip;
     public Sprite SkillIcon;
 }
 

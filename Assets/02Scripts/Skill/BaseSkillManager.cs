@@ -5,12 +5,12 @@ public abstract class BaseSkillManager : MonoBehaviour
 {
     protected List<IActiveSkill> skills = new List<IActiveSkill>();
 
-    protected IActiveSkill curSkill;
-
     protected void Awake()
     {
         InitializeSkills();
     }
+
+    protected abstract void InitializeSkills();
 
     public virtual void UseSkill(int index)
     {
@@ -27,14 +27,14 @@ public abstract class BaseSkillManager : MonoBehaviour
             Debug.Log("스킬이 존재하지않습니다");
         }
     }
-
+    
     protected int GetSkillSlotIndexByType(SKILL_TYPE type)
     {
         switch (type)
         {
-            case SKILL_TYPE.Defense: return 1;   // 방어: 1번
-            case SKILL_TYPE.Normal: return 2;   // 공격: 2번
-            case SKILL_TYPE.Ultimate: return 3;   // 궁극기: 3번
+            case SKILL_TYPE.Defense: return 1;  
+            case SKILL_TYPE.Normal: return 2;   
+            case SKILL_TYPE.Ultimate: return 3; 
             default: return skills.Count;
         }
     }
@@ -43,7 +43,7 @@ public abstract class BaseSkillManager : MonoBehaviour
     {
         if (newSkill == null) return;
 
-        int index = GetSkillSlotIndexByType(newSkill.SkillData.skillType);
+        int index = GetSkillSlotIndexByType(newSkill.SkillType);
 
         while (skills.Count <= index)
             skills.Add(null);
@@ -53,6 +53,4 @@ public abstract class BaseSkillManager : MonoBehaviour
 
         skills[index] = newSkill;
     }
-
-    protected abstract void InitializeSkills();
 }

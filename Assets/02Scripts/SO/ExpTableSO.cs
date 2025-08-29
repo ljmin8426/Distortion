@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "ExpTable", menuName = "GameData/Exp Table")]
+[CreateAssetMenu(fileName = "ExpTable", menuName = "Game Data/Exp Table")]
 public class ExpTableSO : ScriptableObject
 {
     [System.Serializable]

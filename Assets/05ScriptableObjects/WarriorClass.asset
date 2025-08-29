@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WarriorClass
   m_EditorClassIdentifier: 
   className: Warrior
-  classDescription: STR
+  classDescription: This is Warrior
   hp: 100
   ep: 100
   atk: 5

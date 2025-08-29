@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MouseTargeting : MonoBehaviour
 {
-    [SerializeField] private Camera mainCamera; // 할당 안하면 자동으로 Camera.main 사용
+    [SerializeField] private Camera mainCamera; 
     private EnemyOutlineHighlighter lastHighlighted;
 
     void Update()
@@ -19,7 +19,7 @@ public class MouseTargeting : MonoBehaviour
 
             if (enemy != null)
             {
-                if (lastHighlighted != enemy) // 새로운 적에 닿았을 때만
+                if (lastHighlighted != enemy) 
                 {
                     if (lastHighlighted != null)
                         lastHighlighted.SetHighlight(false);

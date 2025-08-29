@@ -8,16 +8,18 @@ public class HomingMissileSkill : SkillBase
     [SerializeField] private int missileCount = 3;
     [SerializeField] private float missileSpreadAngle = 15f;
     [SerializeField] private float missileSpawnInterval = 0.1f;
+    [SerializeField] private GameObject effectPrefab;
 
     public override void Activate(GameObject attacker)
     {
-        // 발동 전에 주변에 타겟이 존재하는지 확인
         Transform priorityTarget = FindPriorityTarget(attacker.transform.position, 20f);
         if (priorityTarget == null)
         {
-            Debug.Log("타겟이 없어 스킬을 사용할 수 없습니다.");
+            Debug.Log("타겟이 없어 스킬을 사용할 수 없습니다");
             return;
         }
+
+        PlayerStatManager.Instance.ConsumeEP(manaCost);
 
         if (!TryUseSkill())
             return;
@@ -76,10 +78,7 @@ public class HomingMissileSkill : SkillBase
             Vector3 direction = Quaternion.Euler(0, angleOffset, 0) * attacker.transform.forward;
             Vector3 spawnPos = attacker.transform.position + Vector3.up * 1.2f + direction * 0.2f;
 
-            GameObject missile = Instantiate(skillData.effectPrefab, spawnPos, Quaternion.LookRotation(direction));
-
-            if (skillData.soundEffect)
-                AudioSource.PlayClipAtPoint(skillData.soundEffect, spawnPos);
+            GameObject missile = Instantiate(effectPrefab, spawnPos, Quaternion.LookRotation(direction));
 
             GameObject target = (i < targets.Count) ? targets[i].gameObject : FindNearestEnemy(attacker.transform.position);
             if (target != null)

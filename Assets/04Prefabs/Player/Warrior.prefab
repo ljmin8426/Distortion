@@ -584,21 +584,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3825734174987369963, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      propertyPath: groundedGravity
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5820977053007963986, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      propertyPath: weaponHolder
+      value: 
+      objectReference: {fileID: 3879453641494217623}
     - target: {fileID: 7125308187309734796, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       propertyPath: m_Name
-      value: Player Variant
+      value: Warrior
       objectReference: {fileID: 0}
     - target: {fileID: 8949581183865412894, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -3.16
       objectReference: {fileID: 0}
     - target: {fileID: 8949581183865412894, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7
+      value: 0.25243
       objectReference: {fileID: 0}
     - target: {fileID: 8949581183865412894, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 14.98
       objectReference: {fileID: 0}
     - target: {fileID: 8949581183865412894, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       propertyPath: m_LocalRotation.w

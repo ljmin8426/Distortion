@@ -1,13 +1,13 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewPlayerData", menuName = "Game Data/Player Data")]
+[CreateAssetMenu(fileName = "ClassData", menuName = "Game Data/Class Data")]
 public class PlayerStatSO : ScriptableObject
 {
-    [Header("클래스")]
+    [Header("Class")]
     public string className;
     public string classDescription;
 
-    [Header("기본 스탯")]
+    [Header("Default Stat")]
     public float hp;
     public float ep;
     public float atk;

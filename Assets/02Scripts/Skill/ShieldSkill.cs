@@ -3,17 +3,21 @@ using UnityEngine;
 
 public class ShieldSkill : SkillBase
 {
-    [Header("Shield Settings")]
+    [Header("Shield Setting")]
     [SerializeField] private float shieldDuration = 5f;
     [SerializeField] private int shieldAmount = 100;
+    [SerializeField] private GameObject effectPrefab;
 
     private GameObject activeEffect;
 
     public override void Activate(GameObject attacker)
     {
-        if (!TryUseSkill())
-            return;
+        if (!TryUseSkill()) return;
+
+        PlayerStatManager.Instance.ConsumeEP(manaCost);
+
         var shield = attacker.GetComponent<Shield>();
+
         if (shield == null)
             shield = attacker.gameObject.AddComponent<Shield>();
 
@@ -25,9 +29,9 @@ public class ShieldSkill : SkillBase
 
         shield.EnableShield(shieldAmount);
 
-        if (skillData.effectPrefab != null)
+        if (effectPrefab != null)
         {
-            activeEffect = Instantiate(skillData.effectPrefab, attacker.transform);
+            activeEffect = Instantiate(effectPrefab, attacker.transform);
             activeEffect.transform.localPosition = Vector3.zero;
         }
 

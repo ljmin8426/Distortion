@@ -21,10 +21,10 @@ public class SkillCooldownUI : MonoBehaviour
 
         // 아이콘 설정
         if (iconImage != null)
-            iconImage.sprite = skill.SkillData.SkillIcon;
+            iconImage.sprite = skill.Icon;
 
-        if (skill.SkillData != null && epCostText != null)
-            epCostText.text = $"{skill.SkillData.manaCost}";
+        if (skill != null && epCostText != null)
+            epCostText.text = $"{skill.ManaCost}";
 
         // 쿨다운 이벤트 연결
         skill.OnCooldownStart += StartCooldown;

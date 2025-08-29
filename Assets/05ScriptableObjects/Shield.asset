@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44af18714a60d374d9cefdbcd3cd25f7, type: 3}
   m_Name: Shield
   m_EditorClassIdentifier: 
-  skillName: Shield
-  skillDescription: 
   cooldown: 15
   manaCost: 20
   skillType: 0
   effectPrefab: {fileID: 4417147771312647708, guid: 4defe0d5d6205bb4bb15513c7fbf5359, type: 3}
   soundEffect: {fileID: 0}
-  animationClip: {fileID: 0}
   SkillIcon: {fileID: 21300000, guid: 1458237dbb3c6d54f8fe9d39c0175d00, type: 3}

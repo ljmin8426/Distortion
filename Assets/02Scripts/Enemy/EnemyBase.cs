@@ -3,15 +3,18 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public abstract class EnemyBase : MonoBehaviour, IDamageable
-{
-    [Header("Enemy Data")]
-    [SerializeField] private EnemyDateSO enemyData;                 // 데이터
-    [SerializeField] private AudioClip damageSoundClip;
-
-    protected StateMachine<ENEMY_STATE, EnemyBase> stateMachine;    // 스테이트머신
-
-    private EnemyHPBar hpBar;                                       // 체력바
-
+{                                                                 
+    [Header("Enemy Data")]                                        
+    [SerializeField] private EnemyDateSO enemyData;               
+                                                                  
+    [Header("Sound Clip")]                                        
+    [SerializeField] private AudioClip damageSoundClip;           
+    [SerializeField] private AudioClip attackSoundClip;           
+                                                                  
+    protected StateMachine<ENEMY_STATE, EnemyBase> stateMachine;  
+                                                                  
+    private EnemyHPBar hpBar;                                     
+                                                                  
     public EnemyDateSO EnemyData => enemyData;
     public EnemyAttackCollider AttackCollider { get; private set; }
     public Transform Player { get; private set; }
