@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip dashSound;
 
     private float verticalVelocity;
+    private bool isMove;
 
     private CharacterController controller;
     private Animator animator;
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public float VerticalVelocity => verticalVelocity;
     public float MoveSpeed => moveSpeed;
     public float RotationSpeed => rotationSpeed;
+    
 
 
     #region Unity Lifecycle
@@ -56,6 +58,8 @@ public class PlayerController : MonoBehaviour
             mainCamera = Camera.main.transform;
 
         mouse = Mouse.current;
+
+        isMove = true;
     }
 
     private void Start()
@@ -127,11 +131,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnDashInput()
     {
+        if (!isMove) return;
+
         StateMachine.ChangeState(PLAYER_STATE.Dash);
     }
 
     private void OnAttackInput(InputAction.CallbackContext context)
     {
+        if (!isMove) return;
+
         if (context.performed)
         {
             if (context.interaction is HoldInteraction) // 차지 공격 시작
@@ -156,6 +164,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void StopMove()
+    {
+        // 현재 상태를 반전
+        isMove = !isMove;
 
+        // 상태에 따라 디버그 로그 출력 (선택)
+        if (isMove)
+            Debug.Log("플레이어 이동 활성화");
+        else
+            Debug.Log("플레이어 이동 비활성화");
+
+        // 이동 비활성화 시 애니메이션 강제로 idle로 변경 (선택)
+        if (!isMove)
+            animator.SetFloat("MoveSpeed", 0f);
+    }
 
 }

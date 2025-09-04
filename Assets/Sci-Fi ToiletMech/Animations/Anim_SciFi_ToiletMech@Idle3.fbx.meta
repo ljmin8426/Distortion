@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 4fe6f33c0dbd1104ea51403312423814
+AssetOrigin:
+  serializedVersion: 1
+  productId: 315652
+  packageName: Sci-Fi ToiletMech
+  packageVersion: 1.01
+  assetPath: Assets/Sci-Fi ToiletMech/Animations/Anim_SciFi_ToiletMech@Idle3.fbx
+  uploadId: 755620
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -105,10 +112,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 315652
-  packageName: Sci-Fi ToiletMech
-  packageVersion: 1.01
-  assetPath: Assets/Sci-Fi ToiletMech/Animations/Anim_SciFi_ToiletMech@Idle3.fbx
-  uploadId: 755620
