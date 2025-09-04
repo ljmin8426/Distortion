@@ -18,14 +18,14 @@ public class MoveState : BaseState<PlayerController>
 
     public override void OnUpdateState()
     {
-        Vector2 input = controller.MoveInput;
+        Vector2 input = owner.MoveInput;
         Vector3 inputDir = new Vector3(input.x, 0f, input.y).normalized;
 
-        Vector3 camForward = controller.MainCamera.forward;
+        Vector3 camForward = owner.MainCamera.forward;
         camForward.y = 0;
         camForward.Normalize();
 
-        Vector3 camRight = controller.MainCamera.right;
+        Vector3 camRight = owner.MainCamera.right;
         camRight.y = 0;
         camRight.Normalize();
 
@@ -34,18 +34,18 @@ public class MoveState : BaseState<PlayerController>
         if (moveDir.magnitude >= 0.1f)
         {
             Quaternion rot = Quaternion.LookRotation(moveDir);
-            controller.transform.rotation = Quaternion.Slerp(
-                controller.transform.rotation,
+            owner.transform.rotation = Quaternion.Slerp(
+                owner.transform.rotation,
                 rot,
-                controller.RotationSpeed * Time.deltaTime
+                owner.RotationSpeed * Time.deltaTime
             );
         }
 
-        Vector3 move = moveDir * controller.MoveSpeed;
-        move.y = controller.VerticalVelocity;
-        controller.Controller.Move(move * Time.deltaTime);
+        Vector3 move = moveDir * owner.MoveSpeed;
+        move.y = owner.VerticalVelocity;
+        owner.Controller.Move(move * Time.deltaTime);
 
-        controller.Animator.SetFloat("MoveSpeed", input.magnitude);
+        owner.Animator.SetFloat("MoveSpeed", input.magnitude);
     }
 
     public override void OnFixedUpdateState() { }

@@ -22,7 +22,7 @@ public class PickUpSkillItem : MonoBehaviour
             if (e.GetType() == ItemData.skillPrefab.GetComponent<SkillBase>().GetType())
             {
                 Debug.Log("이미 동일한 스킬을 보유하고 있음");
-                Destroy(transform.parent.gameObject);
+                Destroy(gameObject);
                 return;
             }
         }
@@ -37,6 +37,6 @@ public class PickUpSkillItem : MonoBehaviour
             uiManager?.SetEquipmentSkill(skill);      // UI에 등록
         }
 
-        Destroy(transform.parent.gameObject);
+        Destroy(gameObject);
     }
 }

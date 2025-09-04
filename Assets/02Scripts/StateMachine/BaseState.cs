@@ -1,15 +1,17 @@
+using System;
+
 public abstract class BaseState<T>
 {
-    protected T controller { get; private set; }
+    protected T owner { get; private set; }
 
-    public BaseState(T controller)
+    public BaseState(T owner)
     {
-        this.controller = controller;
+        this.owner = owner ?? throw new ArgumentNullException(nameof(owner));
     }
-    public virtual bool CanEnter()
-    {
-        return true; 
-    }
+
+    public virtual bool CanEnter() => true;
+
+
     public abstract void OnEnterState();
     public abstract void OnUpdateState();
     public abstract void OnFixedUpdateState();

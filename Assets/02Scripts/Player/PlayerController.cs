@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -15,6 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float terminalVelocity = -53f;
     [SerializeField] private float groundedGravity = -2f;
 
+    [Header("Sound")]
+    [SerializeField] private AudioClip dashSound;
 
     private float verticalVelocity;
 
@@ -32,6 +35,8 @@ public class PlayerController : MonoBehaviour
     public Animator Animator => animator;
     public Transform MainCamera => mainCamera;
     public StateMachine<PLAYER_STATE, PlayerController> StateMachine => stateMachine;
+
+    public AudioClip DashSound => dashSound;
     public Vector2 MoveInput => input.MoveInput;
     public WEAPON_TYPE CurrentWeaponType => weaponManager.CurrentWeaponType;
     public float VerticalVelocity => verticalVelocity;
@@ -72,11 +77,14 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         PlayerInputManager.OnAttack += OnAttackInput;
+        PlayerInputManager.OnUtil += OnDashInput;
     }
 
     private void OnDisable()
     {
         PlayerInputManager.OnAttack -= OnAttackInput;
+        PlayerInputManager.OnUtil -= OnDashInput;
+
     }
     #endregion
 
@@ -122,8 +130,32 @@ public class PlayerController : MonoBehaviour
         StateMachine.ChangeState(PLAYER_STATE.Dash);
     }
 
-    private void OnAttackInput()
+    private void OnAttackInput(InputAction.CallbackContext context)
     {
-        StateMachine.ChangeState(PLAYER_STATE.Attack);
+        if (context.performed)
+        {
+            if (context.interaction is HoldInteraction) // 차지 공격 시작
+            {
+                Debug.Log("차지 공격 시작!");
+                StateMachine.ChangeState(PLAYER_STATE.Attack);
+                // 차지용 상태/로직 따로 빼도 됨
+            }
+            else if (context.interaction is PressInteraction) // 일반 공격
+            {
+                Debug.Log("일반 공격!");
+                StateMachine.ChangeState(PLAYER_STATE.Attack);
+            }
+        }
+        else if (context.canceled)
+        {
+            if (context.interaction is HoldInteraction) // 차지 공격 해제
+            {
+                Debug.Log("차지 공격 해제 -> 발사!");
+                // 차지 공격 실행 로직
+            }
+        }
     }
+
+
+
 }

@@ -44,6 +44,10 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
     [SerializeField] private float bonusAtk;
     [SerializeField] private float bonusAg;
 
+    [Header("Sound")]
+    [SerializeField] private AudioClip damageSound;
+    [SerializeField] private AudioClip levelUpSound;
+
     public int Level => level;
     public float CurrentHP => currentHP;
     public float CurrentEP => currentEP;
@@ -102,8 +106,8 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
         currentEP = MaxEP;
 
         InvokeAllEvents();
+        AudioManager.Instance.PlaySoundFXClip(levelUpSound, transform, 1f);
         OnLevelChange?.Invoke(level);
-        Debug.Log("레벨 업! 현재 레벨: " + level);
     }
     // 피해 처리
     public void TakeDamage(int amount, GameObject attacker)
@@ -122,6 +126,7 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
     {
         currentHP = Mathf.Max(0, currentHP - amount);
         OnHpChange?.Invoke(currentHP, MaxHP);
+        AudioManager.Instance.PlaySoundFXClip(damageSound, transform, 1f);
 
         if (currentHP <= 0f)
         {

@@ -235,20 +235,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 27684aaa9fd632d45980448c5b0891f2, type: 2}
     - target: {fileID: 5492023532531197749, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
+      propertyPath: attackSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 88b1cbe3caa3fee4b8b103b5edd7aba9, type: 3}
+    - target: {fileID: 5492023532531197749, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: damageSoundClip
       value: 
       objectReference: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
     - target: {fileID: 9143711301211502345, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.83
+      value: -6.6025696
       objectReference: {fileID: 0}
     - target: {fileID: 9143711301211502345, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2524284
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9143711301211502345, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.59000003
+      value: 1.1974754
       objectReference: {fileID: 0}
     - target: {fileID: 9143711301211502345, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: m_LocalRotation.w

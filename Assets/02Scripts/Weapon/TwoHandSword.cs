@@ -20,6 +20,7 @@ public class TwoHandSword : BaseWeapon, IMeleeWeapon
     {
         meleeArea.enabled = true;
         trailRenderer.enabled = true;
+        AudioManager.Instance.PlaySoundFXClip(AttackSound, transform, 1f);
     }
 
     public void DisableMelee()

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AttackState : BaseState<PlayerController>
@@ -7,7 +8,7 @@ public class AttackState : BaseState<PlayerController>
     public override bool CanEnter()
     {
         // 대시 중에는 공격 불가
-        if (controller.StateMachine.CurrentState is DashState)
+        if (owner.StateMachine.CurrentState is DashState)
             return false;
 
         return true;
@@ -15,18 +16,18 @@ public class AttackState : BaseState<PlayerController>
 
     public override void OnEnterState()
     {
-        controller.LookAtCursor();
+        owner.LookAtCursor();
 
-        switch (controller.CurrentWeaponType)
+        switch (owner.CurrentWeaponType)
         {
             case WEAPON_TYPE.Melee:
-                controller.Animator.SetTrigger("IsAttack");
-                controller.Animator.SetFloat("AttackSpeed", PlayerStatManager.Instance.AG / 5);
+                owner.Animator.SetTrigger("IsAttack");
+                owner.Animator.SetFloat("AttackSpeed", PlayerStatManager.Instance.AG / 5);
                 break;
                 // 필요한 다른 무기 타입 처리 가능
         }
 
-        controller.CurrentWeapon.Attack();
+        owner.CurrentWeapon.Attack();
     }
 
     public override void OnUpdateState()

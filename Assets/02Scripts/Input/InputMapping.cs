@@ -111,6 +111,15 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Jump1"",
+                    ""type"": ""Button"",
+                    ""id"": ""f478bd51-7e76-4a51-bd91-410f02b71789"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Util"",
                     ""type"": ""Button"",
                     ""id"": ""c62744b3-824c-45ff-85a3-9a6a93907a5e"",
@@ -150,87 +159,6 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""2806da15-2b90-4f13-a11b-c692ee926dc4"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""F1"",
-                    ""type"": ""Button"",
-                    ""id"": ""2b85f27e-f30e-4a6e-aa75-d5879bb87531"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""F2"",
-                    ""type"": ""Button"",
-                    ""id"": ""54a6b223-8b1c-42eb-9ba8-cf2972295f1b"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""F3"",
-                    ""type"": ""Button"",
-                    ""id"": ""17fffdb6-def8-44d0-b554-ba8431d31bb8"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""F4"",
-                    ""type"": ""Button"",
-                    ""id"": ""e6760ed7-a857-4a23-9d76-2975ece9e154"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""F5"",
-                    ""type"": ""Button"",
-                    ""id"": ""2f7f650f-6201-436a-bcae-194c9ee56acb"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""F6"",
-                    ""type"": ""Button"",
-                    ""id"": ""d37e6889-49ea-4096-a884-cfdfe7464fbe"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""F7"",
-                    ""type"": ""Button"",
-                    ""id"": ""2c904153-2a9f-426e-ae57-cefa4a8e5173"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""F8"",
-                    ""type"": ""Button"",
-                    ""id"": ""0b172849-20d7-4a55-b899-0cc13ee49361"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""d10bff92-d4d8-440f-ab0f-f6b6b37e7a4a"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -306,6 +234,17 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""b85f6600-430d-4352-8794-cd71ad1e5567"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardMouse"",
+                    ""action"": ""Jump1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""2f83e8ec-a5fe-4e2b-9707-947d81f197ef"",
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
@@ -352,109 +291,10 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""f70567ec-ce9c-42ae-9db2-45a4db0f4884"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold,Press"",
                     ""processors"": """",
                     ""groups"": "";KeyboardMouse"",
                     ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""04eb4660-78f9-4614-aaef-a6ee8e055419"",
-                    ""path"": ""<Keyboard>/f1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyboardMouse"",
-                    ""action"": ""F1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6c3e2650-48e6-43c3-995d-38abcfd83f3c"",
-                    ""path"": ""<Keyboard>/f2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyboardMouse"",
-                    ""action"": ""F2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f9d90245-2786-439c-ba21-1e8b4204d7f5"",
-                    ""path"": ""<Keyboard>/f3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyboardMouse"",
-                    ""action"": ""F3"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f3d5db02-195c-418f-a63f-1df285af7af2"",
-                    ""path"": ""<Keyboard>/f4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyboardMouse"",
-                    ""action"": ""F4"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a14c16de-2c47-4833-8da9-fdb6187fb3c8"",
-                    ""path"": ""<Keyboard>/f5"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyboardMouse"",
-                    ""action"": ""F5"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8eda6216-815d-455d-8a8d-cb6d6ceb1555"",
-                    ""path"": ""<Keyboard>/f6"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyboardMouse"",
-                    ""action"": ""F6"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c1e0d164-dfe3-42a0-a30c-fe46c771fb73"",
-                    ""path"": ""<Keyboard>/f7"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyboardMouse"",
-                    ""action"": ""F7"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0d91f101-6e46-483f-967f-bd6829594255"",
-                    ""path"": ""<Keyboard>/f8"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyboardMouse"",
-                    ""action"": ""F8"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""776cea39-3045-4f79-bff1-c202ecb57745"",
-                    ""path"": ""<Keyboard>/p"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyboardMouse"",
-                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -484,20 +324,12 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Jump1 = m_Player.FindAction("Jump1", throwIfNotFound: true);
         m_Player_Util = m_Player.FindAction("Util", throwIfNotFound: true);
         m_Player_Defense = m_Player.FindAction("Defense", throwIfNotFound: true);
         m_Player_Ultimate = m_Player.FindAction("Ultimate", throwIfNotFound: true);
         m_Player_Skill = m_Player.FindAction("Skill", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
-        m_Player_F1 = m_Player.FindAction("F1", throwIfNotFound: true);
-        m_Player_F2 = m_Player.FindAction("F2", throwIfNotFound: true);
-        m_Player_F3 = m_Player.FindAction("F3", throwIfNotFound: true);
-        m_Player_F4 = m_Player.FindAction("F4", throwIfNotFound: true);
-        m_Player_F5 = m_Player.FindAction("F5", throwIfNotFound: true);
-        m_Player_F6 = m_Player.FindAction("F6", throwIfNotFound: true);
-        m_Player_F7 = m_Player.FindAction("F7", throwIfNotFound: true);
-        m_Player_F8 = m_Player.FindAction("F8", throwIfNotFound: true);
-        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
     }
 
     ~@InputMapping()
@@ -580,20 +412,12 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Jump1;
     private readonly InputAction m_Player_Util;
     private readonly InputAction m_Player_Defense;
     private readonly InputAction m_Player_Ultimate;
     private readonly InputAction m_Player_Skill;
     private readonly InputAction m_Player_Attack;
-    private readonly InputAction m_Player_F1;
-    private readonly InputAction m_Player_F2;
-    private readonly InputAction m_Player_F3;
-    private readonly InputAction m_Player_F4;
-    private readonly InputAction m_Player_F5;
-    private readonly InputAction m_Player_F6;
-    private readonly InputAction m_Player_F7;
-    private readonly InputAction m_Player_F8;
-    private readonly InputAction m_Player_Pause;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -614,6 +438,10 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         /// <summary>
+        /// Provides access to the underlying input action "Player/Jump1".
+        /// </summary>
+        public InputAction @Jump1 => m_Wrapper.m_Player_Jump1;
+        /// <summary>
         /// Provides access to the underlying input action "Player/Util".
         /// </summary>
         public InputAction @Util => m_Wrapper.m_Player_Util;
@@ -633,42 +461,6 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Attack".
         /// </summary>
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/F1".
-        /// </summary>
-        public InputAction @F1 => m_Wrapper.m_Player_F1;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/F2".
-        /// </summary>
-        public InputAction @F2 => m_Wrapper.m_Player_F2;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/F3".
-        /// </summary>
-        public InputAction @F3 => m_Wrapper.m_Player_F3;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/F4".
-        /// </summary>
-        public InputAction @F4 => m_Wrapper.m_Player_F4;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/F5".
-        /// </summary>
-        public InputAction @F5 => m_Wrapper.m_Player_F5;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/F6".
-        /// </summary>
-        public InputAction @F6 => m_Wrapper.m_Player_F6;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/F7".
-        /// </summary>
-        public InputAction @F7 => m_Wrapper.m_Player_F7;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/F8".
-        /// </summary>
-        public InputAction @F8 => m_Wrapper.m_Player_F8;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/Pause".
-        /// </summary>
-        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -701,6 +493,9 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Jump1.started += instance.OnJump1;
+            @Jump1.performed += instance.OnJump1;
+            @Jump1.canceled += instance.OnJump1;
             @Util.started += instance.OnUtil;
             @Util.performed += instance.OnUtil;
             @Util.canceled += instance.OnUtil;
@@ -716,33 +511,6 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
-            @F1.started += instance.OnF1;
-            @F1.performed += instance.OnF1;
-            @F1.canceled += instance.OnF1;
-            @F2.started += instance.OnF2;
-            @F2.performed += instance.OnF2;
-            @F2.canceled += instance.OnF2;
-            @F3.started += instance.OnF3;
-            @F3.performed += instance.OnF3;
-            @F3.canceled += instance.OnF3;
-            @F4.started += instance.OnF4;
-            @F4.performed += instance.OnF4;
-            @F4.canceled += instance.OnF4;
-            @F5.started += instance.OnF5;
-            @F5.performed += instance.OnF5;
-            @F5.canceled += instance.OnF5;
-            @F6.started += instance.OnF6;
-            @F6.performed += instance.OnF6;
-            @F6.canceled += instance.OnF6;
-            @F7.started += instance.OnF7;
-            @F7.performed += instance.OnF7;
-            @F7.canceled += instance.OnF7;
-            @F8.started += instance.OnF8;
-            @F8.performed += instance.OnF8;
-            @F8.canceled += instance.OnF8;
-            @Pause.started += instance.OnPause;
-            @Pause.performed += instance.OnPause;
-            @Pause.canceled += instance.OnPause;
         }
 
         /// <summary>
@@ -760,6 +528,9 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Jump1.started -= instance.OnJump1;
+            @Jump1.performed -= instance.OnJump1;
+            @Jump1.canceled -= instance.OnJump1;
             @Util.started -= instance.OnUtil;
             @Util.performed -= instance.OnUtil;
             @Util.canceled -= instance.OnUtil;
@@ -775,33 +546,6 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
-            @F1.started -= instance.OnF1;
-            @F1.performed -= instance.OnF1;
-            @F1.canceled -= instance.OnF1;
-            @F2.started -= instance.OnF2;
-            @F2.performed -= instance.OnF2;
-            @F2.canceled -= instance.OnF2;
-            @F3.started -= instance.OnF3;
-            @F3.performed -= instance.OnF3;
-            @F3.canceled -= instance.OnF3;
-            @F4.started -= instance.OnF4;
-            @F4.performed -= instance.OnF4;
-            @F4.canceled -= instance.OnF4;
-            @F5.started -= instance.OnF5;
-            @F5.performed -= instance.OnF5;
-            @F5.canceled -= instance.OnF5;
-            @F6.started -= instance.OnF6;
-            @F6.performed -= instance.OnF6;
-            @F6.canceled -= instance.OnF6;
-            @F7.started -= instance.OnF7;
-            @F7.performed -= instance.OnF7;
-            @F7.canceled -= instance.OnF7;
-            @F8.started -= instance.OnF8;
-            @F8.performed -= instance.OnF8;
-            @F8.canceled -= instance.OnF8;
-            @Pause.started -= instance.OnPause;
-            @Pause.performed -= instance.OnPause;
-            @Pause.canceled -= instance.OnPause;
         }
 
         /// <summary>
@@ -870,6 +614,13 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJump(InputAction.CallbackContext context);
         /// <summary>
+        /// Method invoked when associated input action "Jump1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnJump1(InputAction.CallbackContext context);
+        /// <summary>
         /// Method invoked when associated input action "Util" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -904,68 +655,5 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAttack(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "F1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnF1(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "F2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnF2(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "F3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnF3(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "F4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnF4(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "F5" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnF5(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "F6" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnF6(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "F7" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnF7(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "F8" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnF8(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnPause(InputAction.CallbackContext context);
     }
 }

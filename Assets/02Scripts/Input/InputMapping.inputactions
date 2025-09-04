@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "InputMapping",
     "maps": [
         {
@@ -18,6 +19,15 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "8702f5d2-60bd-47e3-9ad4-d9a898d17b6c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Jump1",
+                    "type": "Button",
+                    "id": "f478bd51-7e76-4a51-bd91-410f02b71789",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -63,87 +73,6 @@
                     "name": "Attack",
                     "type": "Button",
                     "id": "2806da15-2b90-4f13-a11b-c692ee926dc4",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "F1",
-                    "type": "Button",
-                    "id": "2b85f27e-f30e-4a6e-aa75-d5879bb87531",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "F2",
-                    "type": "Button",
-                    "id": "54a6b223-8b1c-42eb-9ba8-cf2972295f1b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "F3",
-                    "type": "Button",
-                    "id": "17fffdb6-def8-44d0-b554-ba8431d31bb8",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "F4",
-                    "type": "Button",
-                    "id": "e6760ed7-a857-4a23-9d76-2975ece9e154",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "F5",
-                    "type": "Button",
-                    "id": "2f7f650f-6201-436a-bcae-194c9ee56acb",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "F6",
-                    "type": "Button",
-                    "id": "d37e6889-49ea-4096-a884-cfdfe7464fbe",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "F7",
-                    "type": "Button",
-                    "id": "2c904153-2a9f-426e-ae57-cefa4a8e5173",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "F8",
-                    "type": "Button",
-                    "id": "0b172849-20d7-4a55-b899-0cc13ee49361",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "d10bff92-d4d8-440f-ab0f-f6b6b37e7a4a",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -219,6 +148,17 @@
                 },
                 {
                     "name": "",
+                    "id": "b85f6600-430d-4352-8794-cd71ad1e5567",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyboardMouse",
+                    "action": "Jump1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2f83e8ec-a5fe-4e2b-9707-947d81f197ef",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
@@ -265,109 +205,10 @@
                     "name": "",
                     "id": "f70567ec-ce9c-42ae-9db2-45a4db0f4884",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Hold,Press",
                     "processors": "",
                     "groups": ";KeyboardMouse",
                     "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "04eb4660-78f9-4614-aaef-a6ee8e055419",
-                    "path": "<Keyboard>/f1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardMouse",
-                    "action": "F1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6c3e2650-48e6-43c3-995d-38abcfd83f3c",
-                    "path": "<Keyboard>/f2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardMouse",
-                    "action": "F2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f9d90245-2786-439c-ba21-1e8b4204d7f5",
-                    "path": "<Keyboard>/f3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardMouse",
-                    "action": "F3",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f3d5db02-195c-418f-a63f-1df285af7af2",
-                    "path": "<Keyboard>/f4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardMouse",
-                    "action": "F4",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a14c16de-2c47-4833-8da9-fdb6187fb3c8",
-                    "path": "<Keyboard>/f5",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardMouse",
-                    "action": "F5",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8eda6216-815d-455d-8a8d-cb6d6ceb1555",
-                    "path": "<Keyboard>/f6",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardMouse",
-                    "action": "F6",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c1e0d164-dfe3-42a0-a30c-fe46c771fb73",
-                    "path": "<Keyboard>/f7",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardMouse",
-                    "action": "F7",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0d91f101-6e46-483f-967f-bd6829594255",
-                    "path": "<Keyboard>/f8",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardMouse",
-                    "action": "F8",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "776cea39-3045-4f79-bff1-c202ecb57745",
-                    "path": "<Keyboard>/p",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardMouse",
-                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

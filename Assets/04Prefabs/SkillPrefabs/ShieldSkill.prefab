@@ -51,3 +51,4 @@ MonoBehaviour:
   shieldDuration: 5
   shieldAmount: 100
   effectPrefab: {fileID: 13945152674232655, guid: d858307c3c986124c9a2b5c40f371473, type: 3}
+  shieldSound: {fileID: 8300000, guid: 00e4eb96f4f6cc249a632e4027644cad, type: 3}

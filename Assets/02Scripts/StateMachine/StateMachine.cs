@@ -6,12 +6,15 @@ public class StateMachine<TStateName, TOwner>
     where TOwner : class
 {
     public BaseState<TOwner> CurrentState { get; private set; }
-    private Dictionary<TStateName, BaseState<TOwner>> states = new();
+    public TStateName CurrentStateName { get; private set; }
+
+    private readonly Dictionary<TStateName, BaseState<TOwner>> states = new();
 
     public StateMachine(TStateName startStateName, BaseState<TOwner> startState)
     {
         AddState(startStateName, startState);
         CurrentState = startState;
+        CurrentStateName = startStateName;
     }
 
     public void UpdateState()
@@ -24,9 +27,16 @@ public class StateMachine<TStateName, TOwner>
         CurrentState?.OnFixedUpdateState();
     }
 
-    public void AddState(TStateName stateName, BaseState<TOwner> state)
+    public void AddState(TStateName stateName, BaseState<TOwner> state, bool overwrite = false)
     {
-        if (!states.ContainsKey(stateName))
+        if (states.ContainsKey(stateName))
+        {
+            if (overwrite)
+                states[stateName] = state;
+            else
+                return;
+        }
+        else
         {
             states.Add(stateName, state);
         }
@@ -34,43 +44,38 @@ public class StateMachine<TStateName, TOwner>
 
     public BaseState<TOwner> GetState(TStateName stateName)
     {
-        if (states.TryGetValue(stateName, out var state))
-            return state;
-        return null;
+        states.TryGetValue(stateName, out var state);
+        return state;
     }
 
     public void ChangeState(TStateName nextStateName)
     {
-        var nextState = GetState(nextStateName);
-
-        // 상태가 없거나 현재 상태와 같으면 무시
-        if (nextState == null || EqualityComparer<TStateName>.Default.Equals(GetStateName(CurrentState), nextStateName))
+        if (EqualityComparer<TStateName>.Default.Equals(CurrentStateName, nextStateName))
             return;
 
-        // 전환 불가하면 무시
+        if (!states.TryGetValue(nextStateName, out var nextState))
+            return;
+
         if (!nextState.CanEnter())
             return;
 
         CurrentState?.OnExitState();
         CurrentState = nextState;
+        CurrentStateName = nextStateName;
         CurrentState?.OnEnterState();
     }
 
-    public void DeleteState(TStateName deleteStateName)
+    public void DeleteState(TStateName stateName)
     {
-        if (states.ContainsKey(deleteStateName))
-        {
-            states.Remove(deleteStateName);
-        }
-    }
+        if (!states.TryGetValue(stateName, out var state))
+            return;
 
-    private TStateName GetStateName(BaseState<TOwner> state)
-    {
-        foreach (var kvp in states)
+        if (state == CurrentState)
         {
-            if (kvp.Value == state)
-                return kvp.Key;
+            CurrentState = null;
+            CurrentStateName = default;
         }
-        return default;
+
+        states.Remove(stateName);
     }
 }

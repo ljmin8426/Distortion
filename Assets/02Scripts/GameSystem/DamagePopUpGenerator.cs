@@ -20,5 +20,4 @@ public class DamagePopUpGenerator : SingletonDestroy<DamagePopUpGenerator>
             anim.SetText(text, color, position);
         }
     }
-
 }

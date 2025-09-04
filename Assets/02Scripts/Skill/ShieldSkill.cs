@@ -4,9 +4,10 @@ using UnityEngine;
 public class ShieldSkill : SkillBase
 {
     [Header("Shield Setting")]
-    [SerializeField] private float shieldDuration = 5f;
+    [SerializeField] private float shieldDuration = 4f;
     [SerializeField] private int shieldAmount = 100;
     [SerializeField] private GameObject effectPrefab;
+    [SerializeField] private AudioClip shieldSound;
 
     private GameObject activeEffect;
 
@@ -18,6 +19,8 @@ public class ShieldSkill : SkillBase
 
         var shield = attacker.GetComponent<Shield>();
 
+        AudioManager.Instance.PlaySoundFXClip(shieldSound, transform, 1f);
+    
         if (shield == null)
             shield = attacker.gameObject.AddComponent<Shield>();
 
