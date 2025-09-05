@@ -20,15 +20,13 @@ public class WeaponItemData : ItemData
 [System.Serializable]
 public class MonsterData
 {
-    public int monsterId;
     public string monsterName;
     public string monsterDescription;
+    public int monsterId;
     public int moveSpeed;
     public int attackSpeed;
     public int attackDamage;
     public int maxHP;
-    public GameObject[] dropItem;
-    public int dropRate;
     public int EXP;
 }
 
@@ -37,6 +35,16 @@ public class EXPTable
 {
     public int curLevel;
     public int nextEXP;
+}
+
+[System.Serializable]
+public class BossData
+{
+    public string bossName;
+    public string bossDescription;
+    public int bossId;
+    public int bossSpeed;
+    public int maxHP;
 }
 
 

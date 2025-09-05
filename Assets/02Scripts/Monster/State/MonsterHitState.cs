@@ -12,7 +12,7 @@ public class MonsterHitState : BaseState<MonsterBase>
         Debug.Log("Hit");
 
 
-        AudioManager.Instance.PlaySoundFXClip(owner.DamageSoundClip, owner.transform, 1f);
+        AudioManager.Instance.PlaySoundFXClip(owner.HitSoundClip, owner.transform, 1f);
         // ¿Ãµø ∏ÿ√„
         owner.Agent.isStopped = true;
         owner.Agent.ResetPath();

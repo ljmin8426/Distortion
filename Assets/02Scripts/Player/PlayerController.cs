@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        AddStates();
+        InitPlayerState();
     }
 
     private void Update()
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    private void AddStates()
+    private void InitPlayerState()
     {
         stateMachine = new StateMachine<PLAYER_STATE, PlayerController>(PLAYER_STATE.Move, new MoveState(this));
         stateMachine.AddState(PLAYER_STATE.Attack, new AttackState(this));
@@ -142,42 +142,36 @@ public class PlayerController : MonoBehaviour
 
         if (context.performed)
         {
-            if (context.interaction is HoldInteraction) // 차지 공격 시작
+            if (context.interaction is HoldInteraction) 
             {
-                Debug.Log("차지 공격 시작!");
+                Debug.Log("차지중");
                 StateMachine.ChangeState(PLAYER_STATE.Attack);
-                // 차지용 상태/로직 따로 빼도 됨
             }
-            else if (context.interaction is PressInteraction) // 일반 공격
+            else if (context.interaction is PressInteraction)
             {
-                Debug.Log("일반 공격!");
+                Debug.Log("일반 공격");
                 StateMachine.ChangeState(PLAYER_STATE.Attack);
             }
         }
         else if (context.canceled)
         {
-            if (context.interaction is HoldInteraction) // 차지 공격 해제
+            if (context.interaction is HoldInteraction)
             {
-                Debug.Log("차지 공격 해제 -> 발사!");
-                // 차지 공격 실행 로직
+                Debug.Log("차지공격");
             }
         }
     }
 
     public void StopMove()
     {
-        // 현재 상태를 반전
         isMove = !isMove;
 
-        // 상태에 따라 디버그 로그 출력 (선택)
         if (isMove)
             Debug.Log("플레이어 이동 활성화");
         else
             Debug.Log("플레이어 이동 비활성화");
 
-        // 이동 비활성화 시 애니메이션 강제로 idle로 변경 (선택)
         if (!isMove)
             animator.SetFloat("MoveSpeed", 0f);
     }
-
 }

@@ -183,15 +183,15 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
     - target: {fileID: 9143711301211502345, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.545
+      value: 5.04063
       objectReference: {fileID: 0}
     - target: {fileID: 9143711301211502345, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.1258
       objectReference: {fileID: 0}
     - target: {fileID: 9143711301211502345, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.256131
+      value: 16.43997
       objectReference: {fileID: 0}
     - target: {fileID: 9143711301211502345, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -239,7 +239,7 @@ PrefabInstance:
       addedObject: {fileID: 2342477434897735907}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 699105463901480250, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
-      insertIndex: 1
+      insertIndex: 3
       addedObject: {fileID: 6510660388515822427}
     - targetCorrespondingSourceObject: {fileID: 699105463901480250, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       insertIndex: -1
@@ -298,11 +298,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba9bd51c0fb57943a0d18cb8b74d60b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSoundClip: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
+  hitSoundClip: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
   attackSoundClip: {fileID: 8300000, guid: fd25a15f9797641458336cccfb445343, type: 3}
   deathSoundClip: {fileID: 8300000, guid: 566d2ea6240b489479a6e9fd608c2621, type: 3}
   attackRange: 2
-  detectionRange: 10
+  detectionRange: 50
   id: 1000
 --- !u!114 &1935762436160180109
 MonoBehaviour:

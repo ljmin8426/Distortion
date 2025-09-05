@@ -3,17 +3,18 @@ using UnityEngine;
 
 public class DataManager : Singleton<DataManager>
 {
-    private bool loadData = false;
-    public bool LoadData => loadData;
+    public bool LoadData { get; private set; }
+
     private GameData_SO originTable;
 
     private Dictionary<int, ItemData> dicItemData = new Dictionary<int, ItemData>();
     private Dictionary<int, MonsterData> dicMonsterData = new Dictionary<int, MonsterData>();
+    private Dictionary<int, BossData> dicBossData = new Dictionary<int, BossData>();
 
     protected override void Awake()
     {
         base.Awake();
-        if(!loadData)
+        if(!LoadData)
         {
             originTable = Resources.Load<GameData_SO>("GameData");
 
@@ -27,17 +28,27 @@ public class DataManager : Singleton<DataManager>
                 dicMonsterData.Add(originTable.monsterData[i].monsterId, originTable.monsterData[i]);
             }
 
-            loadData = true;
+            for (int i = 0; i < originTable.bossData.Count; i++)
+            {
+                dicBossData.Add(originTable.bossData[i].bossId, originTable.bossData[i]);
+            }
+
+            LoadData = true;
         }
     }
 
-    public bool GetItemData(int keyID, out ItemData itemData)
+    public bool GetItemData(int keyId, out ItemData itemData)
     {
-        return dicItemData.TryGetValue(keyID, out itemData);
+        return dicItemData.TryGetValue(keyId, out itemData);
     }
 
-    public bool GetMonsterData(int ID, out MonsterData monsterData)
+    public bool GetMonsterData(int keyId, out MonsterData monsterData)
     {
-        return dicMonsterData.TryGetValue(ID, out monsterData);
+        return dicMonsterData.TryGetValue(keyId, out monsterData);
+    }
+
+    public bool GetBossData(int keyId, out BossData bossData)
+    {
+        return dicBossData.TryGetValue(keyId, out bossData);
     }
 }

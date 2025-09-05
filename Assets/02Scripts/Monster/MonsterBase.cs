@@ -4,17 +4,17 @@ using UnityEngine.AI;
 
 public class MonsterBase : PoolObject, IDamageable
 {
+    [Header("Monster Id")]
+    [SerializeField] private int id;
+
     [Header("Sound Clip")]
-    [SerializeField] private AudioClip damageSoundClip;
+    [SerializeField] private AudioClip hitSoundClip;
     [SerializeField] private AudioClip attackSoundClip;
     [SerializeField] private AudioClip deathSoundClip;
 
     [Header("Range")]
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private float detectionRange = 10f;
-
-    [Header("Monster Id")]
-    [SerializeField] private int id;
 
     private bool isDead;
 
@@ -39,7 +39,7 @@ public class MonsterBase : PoolObject, IDamageable
 
     public GameObject Owner {  get; private set; }
     public AudioClip AttackSoundClip => attackSoundClip;
-    public AudioClip DamageSoundClip => damageSoundClip;
+    public AudioClip HitSoundClip => hitSoundClip;
     public AudioClip DeathSoundClip => deathSoundClip;
     public Animator Animator => animator;
     public Transform Target => target;
@@ -99,7 +99,6 @@ public class MonsterBase : PoolObject, IDamageable
         agent.stoppingDistance = attackRange;
         gameObject.layer = LayerMask.NameToLayer("Monster");
 
-        // HP바 리셋
         if (hpBar != null)
             hpBar.UpdateHPBar(1f);
 
@@ -122,10 +121,6 @@ public class MonsterBase : PoolObject, IDamageable
         curHP = Mathf.Max(curHP, 0);
         hpBar.UpdateHPBar(curHP / maxHP);
 
-        DamagePopUpGenerator.Instance.CreatePopUp(transform.position, amount.ToString(), Color.red);
-        PoolManager.Instance.SpawnFromPool("HitEffect", transform.position, Quaternion.identity);
-
-        // Death
         if (curHP <= 0)
         {
             if(isDead) return;
@@ -136,6 +131,9 @@ public class MonsterBase : PoolObject, IDamageable
         }
         else
         {
+            DamagePopUpGenerator.Instance.CreatePopUp(transform.position, amount.ToString(), Color.red);
+            PoolManager.Instance.SpawnFromPool("HitEffect", transform.position, Quaternion.identity);
+
             ChangeState(ENEMY_STATE.Hit);
         }
     }
@@ -147,11 +145,9 @@ public class MonsterBase : PoolObject, IDamageable
 
     private void OnDrawGizmosSelected()
     {
-        // 공격 범위 시각화
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
 
-        // 감지 범위 시각화
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
     }

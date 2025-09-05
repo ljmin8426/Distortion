@@ -1,49 +1,52 @@
 using UnityEngine;
 using UnityEngine.Playables;
+using System;
 
 public class CutScene : MonoBehaviour
 {
-    [Header("컷씬 PlayableDirector")]
+    [Header("PlayableDirector")]
     public PlayableDirector cutsceneDirector;
 
-    [Header("플레이어")]
-    public GameObject player; // Player 오브젝트 연결
-    private PlayerController playerController; // PlayerController 참조
-
-    [Header("옵션")]
+    [Header("Option")]
     public bool playOnce = true;
     private bool hasPlayed = false;
 
-    private void Start()
-    {
-        // PlayerController 컴포넌트 가져오기 (예: PlayerMovement, PlayerController 등)
-        playerController = player.GetComponent<PlayerController>();
-    }
+    private PlayerController playerController;
+
+    public event Action OnCutsceneFinishedEvent;
 
     private void OnTriggerEnter(Collider other)
     {
         if (hasPlayed && playOnce) return;
 
-        if (other.gameObject == player)
+        if (other.CompareTag("Player"))
         {
-            // 플레이어 움직임 막기
-            if (playerController != null) playerController.enabled = false;
+            BossManager.Instance.SpawnBoss();
 
-            // 컷씬 재생
+            playerController = other.GetComponent<PlayerController>();
+            if (playerController != null)
+            {
+                playerController.enabled = false;
+                playerController.StopMove();
+            }
+
             cutsceneDirector.Play();
-
-            // 컷씬 종료 시 플레이어 컨트롤 복구
-            cutsceneDirector.stopped += OnCutsceneFinished;
+            cutsceneDirector.stopped += OnCutsceneFinishedHandler;
 
             hasPlayed = true;
         }
     }
 
-    private void OnCutsceneFinished(PlayableDirector director)
+    private void OnCutsceneFinishedHandler(PlayableDirector director)
     {
-        if (playerController != null) playerController.enabled = true;
+        if (playerController != null)
+        {
+            playerController.enabled = true;
+            playerController.StopMove();
+        }
 
-        // 이벤트 해제 (메모리 누수 방지)
-        cutsceneDirector.stopped -= OnCutsceneFinished;
+        cutsceneDirector.stopped -= OnCutsceneFinishedHandler;
+
+        OnCutsceneFinishedEvent?.Invoke();
     }
 }

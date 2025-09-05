@@ -8,7 +8,6 @@ public class EnemyHPBar : MonoBehaviour
     [SerializeField] private float lerpSpeed = 2f; // 잔상 줄어드는 속도
 
     private Camera mainCamera;
-    private float targetValue;
 
     private void Awake()
     {

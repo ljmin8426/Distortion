@@ -39,7 +39,6 @@ public class DashState : BaseState<PlayerController>
             : owner.transform.forward;
 
         dashDirection.Normalize();
-
     }
 
     public override void OnUpdateState()

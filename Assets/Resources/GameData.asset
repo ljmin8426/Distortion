@@ -14,26 +14,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponData: []
   monsterData:
-  - monsterId: 1000
-    monsterName: MeleeMonster
+  - monsterName: MeleeMonster
     monsterDescription: This is Melee Monster
+    monsterId: 1000
     moveSpeed: 5
-    attackSpeed: 3
-    attackDamage: 10
-    maxHP: 100
-    dropItem: []
-    dropRate: 10
-    EXP: 10
-  - monsterId: 1001
-    monsterName: HammerMonster
-    monsterDescription: This is HammerMonster
-    moveSpeed: 3
     attackSpeed: 2
     attackDamage: 10
     maxHP: 100
-    dropItem: []
-    dropRate: 10
     EXP: 10
+  - monsterName: HammerMonster
+    monsterDescription: This is HammerMonster
+    monsterId: 2000
+    moveSpeed: 2
+    attackSpeed: 4
+    attackDamage: 30
+    maxHP: 200
+    EXP: 50
+  - monsterName: PolearmMonster
+    monsterDescription: This is PolearmMonster
+    monsterId: 3000
+    moveSpeed: 3
+    attackSpeed: 3
+    attackDamage: 15
+    maxHP: 150
+    EXP: 25
   expTableData:
   - curLevel: 0
     nextEXP: 0
+  bossData:
+  - bossName: Toilet Mech
+    bossDescription: This is Toilet Mech
+    bossId: 10000
+    bossSpeed: 5
+    maxHP: 1000
