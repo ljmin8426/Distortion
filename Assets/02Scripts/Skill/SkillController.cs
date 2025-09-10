@@ -4,34 +4,27 @@ public class SkillController : BaseSkillManager
 {
     private void OnEnable()
     {
-        PlayerInputManager.OnSkill += AttackSkill;
-        PlayerInputManager.OnDefense += HandleDefense;
-        PlayerInputManager.OnUltimate += HandleUltimate;
+        PlayerInputManager.OnSkillQ += HandleQSkill;
+        PlayerInputManager.OnSkillE += HandleESkill;
     }
 
     private void OnDisable()
     {
-        PlayerInputManager.OnSkill -= AttackSkill;
-        PlayerInputManager.OnDefense -= HandleDefense;
-        PlayerInputManager.OnUltimate -= HandleUltimate;
+        PlayerInputManager.OnSkillQ -= HandleQSkill;
+        PlayerInputManager.OnSkillE -= HandleESkill;
     }
 
-    private void HandleDefense()
+    private void HandleQSkill()
+    {
+        UseSkill(0);
+    }
+
+    private void HandleESkill()
     {
         UseSkill(1);
     }
-
-    private void AttackSkill()
-    {
-        UseSkill(2);
-    }
-
-    private void HandleUltimate()
-    {
-        UseSkill(3);
-    }
     protected override void InitializeSkills()
-    { 
+    {
         
     }
 }

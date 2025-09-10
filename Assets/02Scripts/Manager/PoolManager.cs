@@ -50,7 +50,7 @@ public class PoolManager : SingletonDestroy<PoolManager>
 
             PoolObject poolObj = go.GetComponent<PoolObject>();
             if (poolObj == null)
-                poolObj = go.AddComponent<PoolObject>(); // PoolObject 없으면 자동 추가
+                poolObj = go.AddComponent<PoolObject>();
 
             poolObj.SetTag(tag);
             poolDictionary[tag].Add(poolObj);

@@ -4,8 +4,16 @@ using UnityEngine.AI;
 
 public class MonsterBase : PoolObject, IDamageable
 {
+    public enum Monster_Id
+    {
+        None = 0,
+        Melee = 1000,
+        Polearm = 2000,
+        Hammer = 3000
+    }
+
     [Header("Monster Id")]
-    [SerializeField] private int id;
+    [SerializeField] private Monster_Id id;
 
     [Header("Sound Clip")]
     [SerializeField] private AudioClip hitSoundClip;
@@ -15,6 +23,9 @@ public class MonsterBase : PoolObject, IDamageable
     [Header("Range")]
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private float detectionRange = 10f;
+
+    [Header("HitState")]
+    [SerializeField] private float stunTime = 1;
 
     private bool isDead;
 
@@ -45,8 +56,10 @@ public class MonsterBase : PoolObject, IDamageable
     public Transform Target => target;
     public MonsterData MonsterData => monsterData;
     public NavMeshAgent Agent => agent;
+
     public float DetectionRange => detectionRange;
     public float AttackRange => attackRange;
+    public float StunTime => stunTime;
     public bool IsDead => isDead;
 
 
@@ -57,7 +70,7 @@ public class MonsterBase : PoolObject, IDamageable
         GameObject playerObj = GameObject.FindWithTag("Player"); 
         if (playerObj != null)
             target = playerObj.transform;
- 
+
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
         hpBar = GetComponentInChildren<EnemyHPBar>();
@@ -87,10 +100,9 @@ public class MonsterBase : PoolObject, IDamageable
         stateMachine.AddState(ENEMY_STATE.Die, new MonsterDieState(this));
     }
 
-
     public void InitMonster()
     {
-        DataManager.Instance.GetMonsterData(id, out monsterData);
+        DataManager.Instance.GetMonsterData((int)id, out monsterData);
 
         isDead = false;
         curHP = monsterData.maxHP;

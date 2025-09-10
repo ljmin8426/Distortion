@@ -14,15 +14,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -57.72
+      value: -57.85
       objectReference: {fileID: 0}
     - target: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.00000047683716
       objectReference: {fileID: 0}
     - target: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 166.48
+      value: 166.47
       objectReference: {fileID: 0}
     - target: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       propertyPath: m_LocalRotation.w
@@ -71,7 +71,7 @@ PrefabInstance:
       addedObject: {fileID: 7048140378478297071}
     - targetCorrespondingSourceObject: {fileID: 3261593887658606135, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3665156376922486628}
+      addedObject: {fileID: 3478915776803181197}
   m_SourcePrefab: {fileID: 100100000, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
 --- !u!1 &4294760755518841896 stripped
 GameObject:
@@ -150,7 +150,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3665156376922486628
+--- !u!114 &3478915776803181197
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,14 +159,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 4294760755518841896}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae787613fefd29d41b2184ca13bab39b, type: 3}
+  m_Script: {fileID: 11500000, guid: 315326f20b72ab444b4d7f5b1cc0c2f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossId: 10000
-  phase2Sound: {fileID: 8300000, guid: f1cb5d83282f2904a85f73111d068616, type: 3}
-  hitSound: {fileID: 8300000, guid: a245ee5d75348c84a89ffb7992f1dc82, type: 3}
-  deathSound: {fileID: 8300000, guid: ab297b593498a6e47ba84de770477cbe, type: 3}
-  detectionRange: 40
+  id: 10000
+  phase1Sound: {fileID: 0}
+  phase2Sound: {fileID: 0}
+  phase3Sound: {fileID: 0}
+  hitSound: {fileID: 0}
+  deathSound: {fileID: 0}
+  detectionRange: 10
 --- !u!4 &7555772341608088485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9080086510325291450, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}

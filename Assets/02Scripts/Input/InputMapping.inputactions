@@ -16,7 +16,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
+                    "name": "Util",
                     "type": "Button",
                     "id": "8702f5d2-60bd-47e3-9ad4-d9a898d17b6c",
                     "expectedControlType": "",
@@ -25,16 +25,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Util",
-                    "type": "Button",
-                    "id": "c62744b3-824c-45ff-85a3-9a6a93907a5e",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Defense",
+                    "name": "QSkill",
                     "type": "Button",
                     "id": "a5347c3e-b605-4139-8342-5f9d0a0e8435",
                     "expectedControlType": "",
@@ -43,18 +34,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Ultimate",
+                    "name": "ESkill",
                     "type": "Button",
                     "id": "ecfa9dad-30eb-450f-bb19-06e0ad30810a",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Skill",
-                    "type": "Button",
-                    "id": "d4a48963-2432-4dd8-b774-02df471c2287",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -133,17 +115,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";KeyboardMouse",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2f83e8ec-a5fe-4e2b-9707-947d81f197ef",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardMouse",
                     "action": "Util",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -151,33 +122,22 @@
                 {
                     "name": "",
                     "id": "42666bef-356f-437c-bc26-ab82191a2534",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": ";KeyboardMouse",
-                    "action": "Defense",
+                    "action": "QSkill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "be589e51-32d0-483a-ab7a-55f54a8592c9",
-                    "path": "<Keyboard>/c",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": ";KeyboardMouse",
-                    "action": "Ultimate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "babf2068-4920-42d7-bcbb-bf85bdc15cf0",
-                    "path": "<Keyboard>/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardMouse",
-                    "action": "Skill",
+                    "action": "ESkill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

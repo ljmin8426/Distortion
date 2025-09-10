@@ -12,6 +12,9 @@ public class DashState : BaseState<PlayerCtrl>
 
     public override bool CanEnter()
     {
+        if (!PlayerStatManager.Instance.UseDash())
+            return false; // 대시 없음
+
         // 공격 중이면 대시 불가
         if (owner.StateMachine.CurrentState is AttackState)
             return false;

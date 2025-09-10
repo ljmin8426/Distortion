@@ -7,6 +7,7 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
     [Header("Sound")]
     [SerializeField] private AudioClip damageSound;
     [SerializeField] private AudioClip levelUpSound;
+    [SerializeField] private AudioClip blockSound;
 
     [Header("Defaullt Stat")]
     [SerializeField] private PlayerStatSO defaultStat;
@@ -32,6 +33,11 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
     [SerializeField] private float bonusAtk;
     [SerializeField] private float bonusAg;
 
+    [Header("Dash")]
+    [SerializeField] private int maxDash = 5;
+    [SerializeField] private int dashAmount;
+    [SerializeField] private float dashRecoverTime = 2f; // 2초마다 1개 회복
+
     private bool isDead;
 
     public int Level => level;
@@ -43,6 +49,10 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
     public float ATK => defaultAtk + bonusAtk;
     public float AG => defaultAg + bonusAg;
 
+    public float DashAmount => dashAmount;
+    public int MaxDash => maxDash;
+
+    private Coroutine dashCoroutine;
     private Coroutine recoverCoroutine;
 
     public delegate void StatsChange(float value);
@@ -56,6 +66,8 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
     public static event Action<int> OnLevelChange;
     public static event Action OnDiePlayer;
     public static event Action<float, float> OnChangeExp;
+
+    public static event Action<int> OnDashChange; // 대시 개수 변화 알림
 
     private void Start()
     {
@@ -75,6 +87,9 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
         currentHP = MaxHP;
         currentEP = MaxEP;
 
+        dashAmount = maxDash;
+        OnDashChange?.Invoke(dashAmount);
+
         InvokeAllEvents();
         OnLevelChange?.Invoke(level);
         OnChangeExp?.Invoke(currentExp, expTable.GetExpRequired(level));
@@ -82,6 +97,33 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
         if (recoverCoroutine != null)
             StopCoroutine(recoverCoroutine);
         recoverCoroutine = StartCoroutine(RecoverHPEP());
+    }
+    public bool UseDash()
+    {
+        if (dashAmount <= 0) return false;
+
+        dashAmount--;
+        OnDashChange?.Invoke(dashAmount);
+
+        if (dashCoroutine == null)
+            dashCoroutine = StartCoroutine(DashRecover());
+
+        return true;
+    }
+
+
+
+    private IEnumerator DashRecover()
+    {
+        while (dashAmount < maxDash)
+        {
+            yield return new WaitForSeconds(dashRecoverTime);
+
+            dashAmount++;
+            OnDashChange?.Invoke(dashAmount);
+        }
+
+        dashCoroutine = null;
     }
 
     public void GetExp(float amount)
@@ -115,6 +157,7 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
         var shield = GetComponent<Shield>();
         if (shield != null && shield.IsShieldActive())
         {
+            AudioManager.Instance.PlaySoundFXClip(blockSound, transform, 1f);
             float remaining = shield.AbsorbDamage(damage);
             if (remaining <= 0f) return;
             damage = remaining;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
@@ -31,6 +32,8 @@ public class WeaponManager : MonoBehaviour
     public void Initialized()
     {
         weapon = Instantiate(weaponObj, weaponHolder).GetComponent<BaseWeapon>();
+
+        weapon.AddComponent<MyOutline>();
 
         weapon.gameObject.SetActive(false);
 

@@ -102,7 +102,7 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""Util"",
                     ""type"": ""Button"",
                     ""id"": ""8702f5d2-60bd-47e3-9ad4-d9a898d17b6c"",
                     ""expectedControlType"": """",
@@ -111,16 +111,7 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Util"",
-                    ""type"": ""Button"",
-                    ""id"": ""c62744b3-824c-45ff-85a3-9a6a93907a5e"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Defense"",
+                    ""name"": ""QSkill"",
                     ""type"": ""Button"",
                     ""id"": ""a5347c3e-b605-4139-8342-5f9d0a0e8435"",
                     ""expectedControlType"": """",
@@ -129,18 +120,9 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Ultimate"",
+                    ""name"": ""ESkill"",
                     ""type"": ""Button"",
                     ""id"": ""ecfa9dad-30eb-450f-bb19-06e0ad30810a"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Skill"",
-                    ""type"": ""Button"",
-                    ""id"": ""d4a48963-2432-4dd8-b774-02df471c2287"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -219,17 +201,6 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";KeyboardMouse"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2f83e8ec-a5fe-4e2b-9707-947d81f197ef"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyboardMouse"",
                     ""action"": ""Util"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -237,33 +208,22 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""42666bef-356f-437c-bc26-ab82191a2534"",
-                    ""path"": ""<Keyboard>/z"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";KeyboardMouse"",
-                    ""action"": ""Defense"",
+                    ""action"": ""QSkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""be589e51-32d0-483a-ab7a-55f54a8592c9"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";KeyboardMouse"",
-                    ""action"": ""Ultimate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""babf2068-4920-42d7-bcbb-bf85bdc15cf0"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyboardMouse"",
-                    ""action"": ""Skill"",
+                    ""action"": ""ESkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -303,11 +263,9 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Util = m_Player.FindAction("Util", throwIfNotFound: true);
-        m_Player_Defense = m_Player.FindAction("Defense", throwIfNotFound: true);
-        m_Player_Ultimate = m_Player.FindAction("Ultimate", throwIfNotFound: true);
-        m_Player_Skill = m_Player.FindAction("Skill", throwIfNotFound: true);
+        m_Player_QSkill = m_Player.FindAction("QSkill", throwIfNotFound: true);
+        m_Player_ESkill = m_Player.FindAction("ESkill", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
     }
 
@@ -390,11 +348,9 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Util;
-    private readonly InputAction m_Player_Defense;
-    private readonly InputAction m_Player_Ultimate;
-    private readonly InputAction m_Player_Skill;
+    private readonly InputAction m_Player_QSkill;
+    private readonly InputAction m_Player_ESkill;
     private readonly InputAction m_Player_Attack;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
@@ -412,25 +368,17 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Player_Move;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Jump".
-        /// </summary>
-        public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        /// <summary>
         /// Provides access to the underlying input action "Player/Util".
         /// </summary>
         public InputAction @Util => m_Wrapper.m_Player_Util;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Defense".
+        /// Provides access to the underlying input action "Player/QSkill".
         /// </summary>
-        public InputAction @Defense => m_Wrapper.m_Player_Defense;
+        public InputAction @QSkill => m_Wrapper.m_Player_QSkill;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Ultimate".
+        /// Provides access to the underlying input action "Player/ESkill".
         /// </summary>
-        public InputAction @Ultimate => m_Wrapper.m_Player_Ultimate;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/Skill".
-        /// </summary>
-        public InputAction @Skill => m_Wrapper.m_Player_Skill;
+        public InputAction @ESkill => m_Wrapper.m_Player_ESkill;
         /// <summary>
         /// Provides access to the underlying input action "Player/Attack".
         /// </summary>
@@ -464,21 +412,15 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Jump.started += instance.OnJump;
-            @Jump.performed += instance.OnJump;
-            @Jump.canceled += instance.OnJump;
             @Util.started += instance.OnUtil;
             @Util.performed += instance.OnUtil;
             @Util.canceled += instance.OnUtil;
-            @Defense.started += instance.OnDefense;
-            @Defense.performed += instance.OnDefense;
-            @Defense.canceled += instance.OnDefense;
-            @Ultimate.started += instance.OnUltimate;
-            @Ultimate.performed += instance.OnUltimate;
-            @Ultimate.canceled += instance.OnUltimate;
-            @Skill.started += instance.OnSkill;
-            @Skill.performed += instance.OnSkill;
-            @Skill.canceled += instance.OnSkill;
+            @QSkill.started += instance.OnQSkill;
+            @QSkill.performed += instance.OnQSkill;
+            @QSkill.canceled += instance.OnQSkill;
+            @ESkill.started += instance.OnESkill;
+            @ESkill.performed += instance.OnESkill;
+            @ESkill.canceled += instance.OnESkill;
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
@@ -496,21 +438,15 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Jump.started -= instance.OnJump;
-            @Jump.performed -= instance.OnJump;
-            @Jump.canceled -= instance.OnJump;
             @Util.started -= instance.OnUtil;
             @Util.performed -= instance.OnUtil;
             @Util.canceled -= instance.OnUtil;
-            @Defense.started -= instance.OnDefense;
-            @Defense.performed -= instance.OnDefense;
-            @Defense.canceled -= instance.OnDefense;
-            @Ultimate.started -= instance.OnUltimate;
-            @Ultimate.performed -= instance.OnUltimate;
-            @Ultimate.canceled -= instance.OnUltimate;
-            @Skill.started -= instance.OnSkill;
-            @Skill.performed -= instance.OnSkill;
-            @Skill.canceled -= instance.OnSkill;
+            @QSkill.started -= instance.OnQSkill;
+            @QSkill.performed -= instance.OnQSkill;
+            @QSkill.canceled -= instance.OnQSkill;
+            @ESkill.started -= instance.OnESkill;
+            @ESkill.performed -= instance.OnESkill;
+            @ESkill.canceled -= instance.OnESkill;
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
@@ -575,13 +511,6 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnJump(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "Util" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -589,26 +518,19 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnUtil(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Defense" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "QSkill" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDefense(InputAction.CallbackContext context);
+        void OnQSkill(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Ultimate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "ESkill" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnUltimate(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Skill" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSkill(InputAction.CallbackContext context);
+        void OnESkill(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Attack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

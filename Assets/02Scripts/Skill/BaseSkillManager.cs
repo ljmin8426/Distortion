@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseSkillManager : MonoBehaviour
 {
     protected List<IActiveSkill> skills = new List<IActiveSkill>();
+
+    public static event Action<SkillBase> OnSkillEquipped;
 
     protected void Awake()
     {
@@ -27,30 +30,13 @@ public abstract class BaseSkillManager : MonoBehaviour
             Debug.Log("스킬이 존재하지않습니다");
         }
     }
-    
-    protected int GetSkillSlotIndexByType(SKILL_TYPE type)
-    {
-        switch (type)
-        {
-            case SKILL_TYPE.Defense: return 1;  
-            case SKILL_TYPE.Normal: return 2;   
-            case SKILL_TYPE.Ultimate: return 3; 
-            default: return skills.Count;
-        }
-    }
 
     public virtual void SetEquipmentSkill(SkillBase newSkill)
     {
         if (newSkill == null) return;
 
-        int index = GetSkillSlotIndexByType(newSkill.SkillType);
+        skills.Add(newSkill);
 
-        while (skills.Count <= index)
-            skills.Add(null);
-
-        if (skills[index] != null)
-            Destroy(((MonoBehaviour)skills[index]).gameObject);
-
-        skills[index] = newSkill;
+        OnSkillEquipped?.Invoke(newSkill);
     }
 }

@@ -3,35 +3,38 @@ using UnityEngine;
 
 public class PlayerSkillUIManager : MonoBehaviour
 {
-    [Header("Skill UI Slots")]
     [SerializeField] private List<SkillCooldownUI> skillUISlots;
 
-    private List<SkillBase> acquiredSkills = new List<SkillBase>();
-
-    private int GetSkillSlotIndexByType(SKILL_TYPE type)
+    private void OnEnable()
     {
-        switch (type)
+        BaseSkillManager.OnSkillEquipped += HandleSkillEquipped;
+    }
+
+    private void OnDisable()
+    {
+        BaseSkillManager.OnSkillEquipped -= HandleSkillEquipped;
+    }
+
+    private void Awake()
+    {
+        for(int i = 0;  i < skillUISlots.Count; i++)
         {
-            case SKILL_TYPE.Defense: return 1;
-            case SKILL_TYPE.Normal: return 2;
-            case SKILL_TYPE.Ultimate: return 3;
-            default: return -1;
+            skillUISlots[i].Clear();
         }
     }
 
-    public void SetEquipmentSkill(SkillBase newSkill)
+    private void HandleSkillEquipped(SkillBase newSkill)
     {
         if (newSkill == null) return;
 
-        int index = GetSkillSlotIndexByType(newSkill.SkillType);
-
-        if (index < 1 || index >= skillUISlots.Count)
+        // 순서대로 UI 슬롯에 바인딩
+        for (int i = 0; i < skillUISlots.Count; i++)
         {
-            Debug.LogWarning("스킬 타입에 맞는 UI 슬롯이 없습니다.");
-            return;
+            if (!skillUISlots[i].IsBound) // 아직 스킬이 바인딩되지 않은 슬롯 찾기
+            {
+                skillUISlots[i].Bind(newSkill);
+                break;
+            }
         }
-
-        skillUISlots[index].Clear();         // 기존 UI 정리
-        skillUISlots[index].Bind(newSkill);  // 새 UI 등록
     }
 }

@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class BasicRigidBodyPush : MonoBehaviour
 {
-    public LayerMask pushLayers;
+    [SerializeField] private LayerMask pushLayers;
 
-    public bool canPush;
+    [SerializeField] private bool canPush;
 
     [Range(0.5f, 5f)]
-    public float strength = 1.1f;
+    [SerializeField] private float strength = 1.1f;
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {

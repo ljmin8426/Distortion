@@ -32,6 +32,7 @@ public abstract class SkillBase : MonoBehaviour, IActiveSkill
 
         if(PlayerStatManager.Instance.CurrentEP >= manaCost)
         {
+            PlayerStatManager.Instance.ConsumeEP(manaCost);
             return true;
         }
 

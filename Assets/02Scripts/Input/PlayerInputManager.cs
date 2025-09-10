@@ -11,10 +11,9 @@ public class PlayerInputManager : MonoBehaviour
     public static event Action OnAttack;
 
     public static event Action OnUtil;
-    public static event Action OnSwap;
-    public static event Action OnDefense;
-    public static event Action OnUltimate;
-    public static event Action OnSkill;
+
+    public static event Action OnSkillQ;
+    public static event Action OnSkillE;
 
 
     private void Awake()
@@ -25,11 +24,9 @@ public class PlayerInputManager : MonoBehaviour
         inputMapping.Player.Move.canceled += ctx => MoveInput = Vector2.zero;
 
         inputMapping.Player.Attack.performed += _ => OnAttack?.Invoke();
-        inputMapping.Player.Jump.performed += _ => OnUtil?.Invoke();
-        inputMapping.Player.Util.performed += _ => OnSwap?.Invoke();
-        inputMapping.Player.Defense.performed += _ => OnDefense?.Invoke();
-        inputMapping.Player.Ultimate.performed += _ => OnUltimate?.Invoke();
-        inputMapping.Player.Skill.performed += _ => OnSkill?.Invoke();
+        inputMapping.Player.Util.performed += _ => OnUtil?.Invoke();
+        inputMapping.Player.QSkill.performed += _ => OnSkillQ?.Invoke();
+        inputMapping.Player.ESkill.performed += _ => OnSkillE?.Invoke();
     }
 
     private void OnEnable()

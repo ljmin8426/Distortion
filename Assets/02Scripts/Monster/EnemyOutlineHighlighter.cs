@@ -1,20 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Outline))]
+[RequireComponent(typeof(MyOutline))]
 public class EnemyOutlineHighlighter : MonoBehaviour
 {
-    private Outline outline;
+    private MyOutline outline;
 
     void Awake()
     {
-        outline = GetComponent<Outline>();
-        outline.enabled = false; // ±âº»Àº ²¨µÒ
+        outline = GetComponent<MyOutline>();
+        outline.enabled = false;
     }
 
     public void SetHighlight(bool value)
     {
-        outline.OutlineColor = Color.red; // ¸¶¿ì½º ¿À¹ö½Ã »¡°£»ö
+        outline.OutlineColor = Color.red;
         outline.enabled = value;
     }
 }

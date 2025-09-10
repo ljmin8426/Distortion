@@ -7,6 +7,7 @@ public class SkillCooldownUI : MonoBehaviour
 {
     [SerializeField] private Image cooldownOverlay;
     [SerializeField] private Image iconImage;
+    [SerializeField] private Sprite defaultIconImg;
     [SerializeField] private TextMeshProUGUI epCostText;
 
     private SkillBase boundSkill;
@@ -19,7 +20,6 @@ public class SkillCooldownUI : MonoBehaviour
 
         boundSkill = skill;
 
-        // 아이콘 설정
         if (iconImage != null)
             iconImage.sprite = skill.Icon;
 
@@ -69,7 +69,7 @@ public class SkillCooldownUI : MonoBehaviour
             cooldownOverlay.fillAmount = 0f;
 
         if (iconImage != null)
-            iconImage.sprite = null;
+            iconImage.sprite = defaultIconImg;
 
         if (epCostText != null)
             epCostText.text = "";

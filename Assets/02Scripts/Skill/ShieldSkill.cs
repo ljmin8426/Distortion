@@ -15,8 +15,6 @@ public class ShieldSkill : SkillBase
     {
         if (!TryUseSkill()) return;
 
-        PlayerStatManager.Instance.ConsumeEP(manaCost);
-
         var shield = attacker.GetComponent<Shield>();
 
         AudioManager.Instance.PlaySoundFXClip(shieldSound, transform, 1f);

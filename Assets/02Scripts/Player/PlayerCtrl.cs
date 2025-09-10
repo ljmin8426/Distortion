@@ -135,6 +135,8 @@ public class PlayerCtrl : MonoBehaviour
     {
         if (isStop) return;
 
+
+
         // 이동속도가 없으면 대시 불가
         if (MoveInput.magnitude <= 0.1f) return;
 

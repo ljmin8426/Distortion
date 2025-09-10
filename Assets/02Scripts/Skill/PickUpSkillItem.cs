@@ -10,7 +10,6 @@ public class PickUpSkillItem : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         var skillManager = other.GetComponent<BaseSkillManager>();
-        var uiManager = FindAnyObjectByType<PlayerSkillUIManager>();
 
         if (ItemData == null || ItemData.skillPrefab == null || skillManager == null) return;
 
@@ -33,8 +32,7 @@ public class PickUpSkillItem : MonoBehaviour
 
         if (skill != null)
         {
-            skillManager.SetEquipmentSkill(skill);    // BaseSkillManager 리스트에 추가
-            uiManager?.SetEquipmentSkill(skill);      // UI에 등록
+            skillManager.SetEquipmentSkill(skill);
         }
 
         Destroy(gameObject);

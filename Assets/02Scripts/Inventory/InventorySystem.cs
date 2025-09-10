@@ -42,7 +42,6 @@ public class InventorySystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             bool isOpen = !inventoryView.rootPanel.activeSelf;
-            inventoryView.ShowInventory();
             if (isOpen) presenter.RefreshUI();
         }
     }
