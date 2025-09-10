@@ -5,14 +5,17 @@ using UnityEngine.UI;
 
 public class BossBar : MonoBehaviour
 {
+    [Header("TMPro")]
     [SerializeField] private TextMeshProUGUI bossName;
     [SerializeField] private TextMeshProUGUI bossHP;
 
+    [Header("Slider")]
     [SerializeField] private Slider hpSlider;
     [SerializeField] private Slider delaySlider;
 
-    [SerializeField] private float lerpSpeed = 2f;
-    [SerializeField] private float hideDuration = 0.5f;
+    [Header("Setting")]
+    [SerializeField] private float lerpSpeed = 0.2f;
+    [SerializeField] private float hideDuration = 0.2f;
 
     private BossCtrl boss;
     private Coroutine delayCoroutine;
@@ -23,30 +26,30 @@ public class BossBar : MonoBehaviour
         transform.localScale = Vector3.zero; // Ã³À½¿¡´Â ¼û±è
     }
 
+    public void Initialize(BossCtrl newBoss)
+    {
+        boss = newBoss;
+        boss.OnFightReady += ShowUI;
+        boss.OnBossHpChanged += UpdateHP;
+        boss.OnBossDie += HideUI;
+    }
+
     private void OnDisable()
     {
         if (boss != null)
         {
+            boss.OnFightReady -= ShowUI;
             boss.OnBossHpChanged -= UpdateHP;
             boss.OnBossDie -= HideUI;
-            boss.OnBossNameChanged -= ChangeName;
         }
     }
 
-    public void ShowUI(BossCtrl newBoss)
+    private void ShowUI(BossCtrl bossCtrl)
     {
-        boss = newBoss;
-
-        if (boss == null) return;
-
-        boss.OnBossHpChanged += UpdateHP;
-        boss.OnBossDie += HideUI;
-        boss.OnBossNameChanged += ChangeName;
-
+        bossName.text = bossCtrl.BossData.bossName;
         hpSlider.value = 1f;
         delaySlider.value = 1f;
-
-        transform.localScale = Vector3.one; // ÄÆ¾À ³¡³­ ½ÃÁ¡¿¡ µîÀå
+        transform.localScale = Vector3.one;
     }
 
     private void UpdateHP(float curHP, float maxHP)
@@ -75,7 +78,7 @@ public class BossBar : MonoBehaviour
         }
     }
 
-    private void HideUI(BossCtrl boss)
+    private void HideUI(BossCtrl bossCtrl)
     {
         if (hideCoroutine != null) StopCoroutine(hideCoroutine);
         hideCoroutine = StartCoroutine(HideWithScale());
@@ -95,10 +98,5 @@ public class BossBar : MonoBehaviour
         }
 
         transform.localScale = Vector3.zero;
-    }
-
-    private void ChangeName(string name)
-    {
-        bossName.text = name;
     }
 }

@@ -111,15 +111,6 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Jump1"",
-                    ""type"": ""Button"",
-                    ""id"": ""f478bd51-7e76-4a51-bd91-410f02b71789"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Util"",
                     ""type"": ""Button"",
                     ""id"": ""c62744b3-824c-45ff-85a3-9a6a93907a5e"",
@@ -234,17 +225,6 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b85f6600-430d-4352-8794-cd71ad1e5567"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyboardMouse"",
-                    ""action"": ""Jump1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""2f83e8ec-a5fe-4e2b-9707-947d81f197ef"",
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
@@ -324,7 +304,6 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_Jump1 = m_Player.FindAction("Jump1", throwIfNotFound: true);
         m_Player_Util = m_Player.FindAction("Util", throwIfNotFound: true);
         m_Player_Defense = m_Player.FindAction("Defense", throwIfNotFound: true);
         m_Player_Ultimate = m_Player.FindAction("Ultimate", throwIfNotFound: true);
@@ -412,7 +391,6 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_Jump1;
     private readonly InputAction m_Player_Util;
     private readonly InputAction m_Player_Defense;
     private readonly InputAction m_Player_Ultimate;
@@ -437,10 +415,6 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Jump".
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/Jump1".
-        /// </summary>
-        public InputAction @Jump1 => m_Wrapper.m_Player_Jump1;
         /// <summary>
         /// Provides access to the underlying input action "Player/Util".
         /// </summary>
@@ -493,9 +467,6 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Jump1.started += instance.OnJump1;
-            @Jump1.performed += instance.OnJump1;
-            @Jump1.canceled += instance.OnJump1;
             @Util.started += instance.OnUtil;
             @Util.performed += instance.OnUtil;
             @Util.canceled += instance.OnUtil;
@@ -528,9 +499,6 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Jump1.started -= instance.OnJump1;
-            @Jump1.performed -= instance.OnJump1;
-            @Jump1.canceled -= instance.OnJump1;
             @Util.started -= instance.OnUtil;
             @Util.performed -= instance.OnUtil;
             @Util.canceled -= instance.OnUtil;
@@ -613,13 +581,6 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJump(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Jump1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnJump1(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Util" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class MouseTargeting : MonoBehaviour
 {
-    [SerializeField] private Camera mainCamera; 
+    private Camera mainCamera; 
     private EnemyOutlineHighlighter lastHighlighted;
 
+    private void Awake()
+    {
+        mainCamera = GetComponent<Camera>();
+    }
     void Update()
     {
         if (mainCamera == null)
@@ -38,7 +42,6 @@ public class MouseTargeting : MonoBehaviour
             ClearHighlight();
         }
     }
-
     private void ClearHighlight()
     {
         if (lastHighlighted != null)

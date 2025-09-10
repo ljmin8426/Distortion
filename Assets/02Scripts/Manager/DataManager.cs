@@ -1,6 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BossId
+{
+    BossToilet = 10000,
+}
+
+
 public class DataManager : Singleton<DataManager>
 {
     public bool LoadData { get; private set; }

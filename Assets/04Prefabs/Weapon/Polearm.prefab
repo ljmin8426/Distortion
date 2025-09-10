@@ -43,7 +43,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5002998981315911839}
   - component: {fileID: 3343759295245688674}
-  - component: {fileID: 7129339705834932389}
   m_Layer: 0
   m_Name: Attack Range
   m_TagString: Untagged
@@ -87,18 +86,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.7, y: 2.5, z: 0.6}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &7129339705834932389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1012675063346262803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4461621f5c25e344b166724b1f1160b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6671332946858757573
 PrefabInstance:
   m_ObjectHideFlags: 0

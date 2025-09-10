@@ -23,9 +23,6 @@ public class ExpTableSO : ScriptableObject
     [Tooltip("레벨별 필요 경험치 + 보상 테이블")]
     public LevelExpData[] expTable;
 
-    /// <summary>
-    /// 해당 레벨의 필요 경험치 반환
-    /// </summary>
     public float GetExpRequired(int level)
     {
         if (level <= 0) return 0;
@@ -39,18 +36,12 @@ public class ExpTableSO : ScriptableObject
         return expTable[level - 1].requiredExp;
     }
 
-    /// <summary>
-    /// 최대 레벨 여부 확인
-    /// </summary>
     public bool IsMaxLevel(int level)
     {
         return level >= expTable.Length;
     }
 
 #if UNITY_EDITOR
-    /// <summary>
-    /// 기본 경험치 테이블 자동 생성
-    /// </summary>
     [ContextMenu("Generate Default Table")]
     public void GenerateDefaultTable()
     {

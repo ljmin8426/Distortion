@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TwoHandSword : BaseWeapon, IMeleeWeapon
+public class TwoHandSword : BaseWeapon
 {
     private BoxCollider meleeArea;
     private TrailRenderer trailRenderer;
@@ -16,21 +16,18 @@ public class TwoHandSword : BaseWeapon, IMeleeWeapon
         trailRenderer.enabled = false;
     }
 
-    public void EnableMelee()
+    public override void AttackStart()
     {
         meleeArea.enabled = true;
         trailRenderer.enabled = true;
         AudioManager.Instance.PlaySoundFXClip(AttackSound, transform, 1f);
     }
 
-    public void DisableMelee()
+    public override void AttackEnd()
     {
         meleeArea.enabled = false;
         trailRenderer.enabled = false;
         colliderChecker.ClearDamagedTargets();
     }
-
-    public override void Attack() { }
-    public override void Skill() { }
 }
 

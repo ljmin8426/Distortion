@@ -8,11 +8,11 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private Transform weaponHolder;
 
     [Header("Weapon Prefab")]
-    [SerializeField] private GameObject meleeWeaponPrefab;
+    [SerializeField] private GameObject weaponObj;
 
-    private BaseWeapon meleeWeapon;
+    private BaseWeapon weapon;
 
-    private PlayerController playerController;
+    private PlayerCtrl playerCtrl;
 
     public BaseWeapon CurWeapon { get; private set; }
     public WEAPON_TYPE CurrentWeaponType { get; private set; }
@@ -20,7 +20,7 @@ public class WeaponManager : MonoBehaviour
 
     private void Awake()
     {
-        playerController = GetComponent<PlayerController>();
+        playerCtrl = GetComponent<PlayerCtrl>();
     }
 
     private void Start()
@@ -30,9 +30,9 @@ public class WeaponManager : MonoBehaviour
 
     public void Initialized()
     {
-        meleeWeapon = Instantiate(meleeWeaponPrefab, weaponHolder).GetComponent<BaseWeapon>();
+        weapon = Instantiate(weaponObj, weaponHolder).GetComponent<BaseWeapon>();
 
-        meleeWeapon.gameObject.SetActive(false);
+        weapon.gameObject.SetActive(false);
 
         EquipWeapon(WEAPON_TYPE.Melee);
     }
@@ -44,9 +44,9 @@ public class WeaponManager : MonoBehaviour
         switch (type)
         {
             case WEAPON_TYPE.Melee:
-                meleeWeapon.gameObject.SetActive(true);
-                CurWeapon = meleeWeapon;
-                playerController.Animator.runtimeAnimatorController = CurWeapon.WeaponAnimator;
+                weapon.gameObject.SetActive(true);
+                CurWeapon = weapon;
+                playerCtrl.Animator.runtimeAnimatorController = CurWeapon.WeaponAnimator;
                 break;
         }
     }

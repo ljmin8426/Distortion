@@ -10,13 +10,11 @@ public class StatPanelView : MonoBehaviour
 
     public void Bind(PlayerStatManager statManager)
     {
-        // 첫 값 설정
         hpStat.Set("HP", $"{statManager.CurrentHP} / {statManager.MaxHP}");
         epStat.Set("EP", $"{statManager.CurrentEP} / {statManager.MaxEP}");
         atkStat.Set("ATK", statManager.ATK.ToString());
         agStat.Set("AG", statManager.AG.ToString());
 
-        // 이벤트 구독
         PlayerStatManager.OnHpChange += (cur, max) =>
             hpStat.Set("HP", $"{cur} / {max}");
         PlayerStatManager.OnEpChange += (cur, max) =>

@@ -2622,8 +2622,8 @@ RectTransform:
   m_GameObject: {fileID: 5810069011744041108}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6164581244184682799}
   - {fileID: 7775382902965088898}
@@ -2651,10 +2651,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossName: {fileID: 5549331156196663134}
-  bossHP: {fileID: 0}
+  bossHP: {fileID: 8913045886720555004}
   hpSlider: {fileID: 4867898520792180302}
   delaySlider: {fileID: 1737572081267885717}
   lerpSpeed: 3
+  hideDuration: 0.5
 --- !u!1 &6158559080913491472
 GameObject:
   m_ObjectHideFlags: 0

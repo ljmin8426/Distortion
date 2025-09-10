@@ -4,18 +4,9 @@ using UnityEngine;
 
 public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageable
 {
-    // 이벤트
-    public delegate void StatsChange(float value);
-    public static event StatsChange OnAtkChange;
-    public static event StatsChange OnAgChange;
-
-    public delegate void HpEpChange(float cur, float max);
-    public static event HpEpChange OnHpChange;
-    public static event HpEpChange OnEpChange;
-
-    public static event Action<int> OnLevelChange;
-    public static event Action OnDiePlayer;
-    public static event Action<float, float> OnChangeExp;
+    [Header("Sound")]
+    [SerializeField] private AudioClip damageSound;
+    [SerializeField] private AudioClip levelUpSound;
 
     [Header("Defaullt Stat")]
     [SerializeField] private PlayerStatSO defaultStat;
@@ -23,30 +14,25 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
     [Header("Exp Table")]
     [SerializeField] private ExpTableSO expTable;
 
-    // 현재 상태
     [Header("Current Stat")]
     [SerializeField] private int level;
     [SerializeField] private float currentHP;
     [SerializeField] private float currentEP;
     [SerializeField] private float currentExp;
 
-    // 기본 스탯
     [Header("Base Stat")]
     [SerializeField] private float defaultMaxHP;
     [SerializeField] private float defaultMaxEP;
     [SerializeField] private float defaultAtk;
     [SerializeField] private float defaultAg;
 
-    // 장비 스탯
     [Header("Item Stat")]
     [SerializeField] private float bonusMaxHP;
     [SerializeField] private float bonusMaxEP;
     [SerializeField] private float bonusAtk;
     [SerializeField] private float bonusAg;
 
-    [Header("Sound")]
-    [SerializeField] private AudioClip damageSound;
-    [SerializeField] private AudioClip levelUpSound;
+    private bool isDead;
 
     public int Level => level;
     public float CurrentHP => currentHP;
@@ -58,6 +44,18 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
     public float AG => defaultAg + bonusAg;
 
     private Coroutine recoverCoroutine;
+
+    public delegate void StatsChange(float value);
+    public static event StatsChange OnAtkChange;
+    public static event StatsChange OnAgChange;
+
+    public delegate void HpEpChange(float cur, float max);
+    public static event HpEpChange OnHpChange;
+    public static event HpEpChange OnEpChange;
+
+    public static event Action<int> OnLevelChange;
+    public static event Action OnDiePlayer;
+    public static event Action<float, float> OnChangeExp;
 
     private void Start()
     {
@@ -86,18 +84,18 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
         recoverCoroutine = StartCoroutine(RecoverHPEP());
     }
 
-    // 경험치 획득
     public void GetExp(float amount)
     {
         currentExp += amount;
+
         while (currentExp >= expTable.GetExpRequired(level))
         {
             currentExp -= expTable.GetExpRequired(level);
             LevelUp();
         }
+
         OnChangeExp?.Invoke(currentExp, expTable.GetExpRequired(level));
     }
-
 
     private void LevelUp()
     {
@@ -109,30 +107,36 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
         AudioManager.Instance.PlaySoundFXClip(levelUpSound, transform, 1f);
         OnLevelChange?.Invoke(level);
     }
-    // 피해 처리
-    public void TakeDamage(int amount, GameObject attacker)
+
+    public void TakeDamage(float damage, GameObject attacker)
     {
+        if (isDead) return;
+
         var shield = GetComponent<Shield>();
         if (shield != null && shield.IsShieldActive())
         {
-            int remaining = shield.AbsorbDamage(amount);
-            if (remaining <= 0) return;
-            amount = remaining;
+            float remaining = shield.AbsorbDamage(damage);
+            if (remaining <= 0f) return;
+            damage = remaining;
         }
-        TakeDamage((float)amount);
-    }
 
-    public void TakeDamage(float amount)
-    {
-        currentHP = Mathf.Max(0, currentHP - amount);
+        currentHP = Mathf.Max(0f, currentHP - damage);
         OnHpChange?.Invoke(currentHP, MaxHP);
         AudioManager.Instance.PlaySoundFXClip(damageSound, transform, 1f);
 
         if (currentHP <= 0f)
         {
-            Debug.Log("<color=red>[Player] 사망</color>");
-            OnDiePlayer?.Invoke();
+            Die(attacker);
         }
+    }
+
+    private void Die(GameObject killer)
+    {
+        if (isDead) return;
+        isDead = true;
+
+        OnDiePlayer?.Invoke();
+        // killer 정보 넘길거면: OnDiePlayer?.Invoke(killer);
     }
 
     private IEnumerator RecoverHPEP()
@@ -158,7 +162,6 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
         }
     }
 
-    // EP, HP 소비/회복
     public void ConsumeEP(float amount)
     {
         currentEP = Mathf.Max(0, currentEP - amount);
@@ -177,7 +180,6 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
         OnEpChange?.Invoke(currentEP, MaxEP);
     }
 
-    // 장비 장착/해제
     public void Equip(EquipmentItem equipment)
     {
         foreach (var stat in equipment.GetModifiedStats())

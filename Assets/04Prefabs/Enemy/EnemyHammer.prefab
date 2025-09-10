@@ -336,7 +336,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 566d2ea6240b489479a6e9fd608c2621, type: 3}
     - target: {fileID: 6441436916401542365, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: detectionRange
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6441436916401542365, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: attackSoundClip

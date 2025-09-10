@@ -11,8 +11,13 @@ public class InventoryView : MonoBehaviour
     public ItemInfoPanelView itemInfoPanelView;
     public InventoryItemPanelView inventoryItemPanelView;
 
-    public void ShowInventory(bool show)
+    private void Awake()
     {
-        rootPanel.SetActive(show);
+        rootPanel.transform.localScale = Vector3.zero;
+    }
+
+    public void ShowInventory()
+    {
+        rootPanel.transform.localScale = Vector3.one;
     }
 }

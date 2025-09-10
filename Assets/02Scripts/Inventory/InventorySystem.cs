@@ -35,7 +35,6 @@ public class InventorySystem : MonoBehaviour
     {
         statPanelView.Bind(PlayerStatManager.Instance);
         presenter.RefreshUI();
-        inventoryView.ShowInventory(false);
     }
 
     private void Update()
@@ -43,7 +42,7 @@ public class InventorySystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             bool isOpen = !inventoryView.rootPanel.activeSelf;
-            inventoryView.ShowInventory(isOpen);
+            inventoryView.ShowInventory();
             if (isOpen) presenter.RefreshUI();
         }
     }

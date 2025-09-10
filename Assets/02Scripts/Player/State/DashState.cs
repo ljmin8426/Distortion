@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DashState : BaseState<PlayerController>
+public class DashState : BaseState<PlayerCtrl>
 {
     private float dashSpeed = 20f;
     private float dashDuration = 0.2f;
@@ -8,11 +8,19 @@ public class DashState : BaseState<PlayerController>
     private Vector3 dashDirection;
     public bool isDash { get; private set; } = false;
 
-    public DashState(PlayerController controller) : base(controller) { }
+    public DashState(PlayerCtrl controller) : base(controller) { }
 
     public override bool CanEnter()
     {
-        return owner.Controller.isGrounded && !isDash;
+        // 공격 중이면 대시 불가
+        if (owner.StateMachine.CurrentState is AttackState)
+            return false;
+
+        // 플레이어가 이동 중일 때만 대시 가능
+        if (owner.MoveInput.magnitude <= 0.1f)
+            return false;
+
+        return true;
     }
 
     public override void OnEnterState()
@@ -22,7 +30,6 @@ public class DashState : BaseState<PlayerController>
 
         AudioManager.Instance.PlaySoundFXClip(owner.DashSound, owner.transform, 1f);
 
-        // 카메라 기준 입력 계산
         Vector2 input = owner.MoveInput;
         Vector3 inputDir = new Vector3(input.x, 0f, input.y).normalized;
 
@@ -50,7 +57,6 @@ public class DashState : BaseState<PlayerController>
             owner.StateMachine.ChangeState(PLAYER_STATE.Move);
         }
 
-        // 캐릭터 회전
         if (dashDirection.sqrMagnitude > 0.01f)
         {
             Quaternion targetRot = Quaternion.LookRotation(dashDirection);
@@ -66,7 +72,6 @@ public class DashState : BaseState<PlayerController>
     {
         if (!isDash) return;
 
-        // 데쉬 이동 + 중력 적용
         Vector3 move = dashDirection * dashSpeed + Vector3.up * owner.VerticalVelocity;
         owner.Controller.Move(move * Time.fixedDeltaTime);
     }

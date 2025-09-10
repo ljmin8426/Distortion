@@ -9,9 +9,6 @@ public class MonsterHitState : BaseState<MonsterBase>
 
     public override void OnEnterState()
     {
-        Debug.Log("Hit");
-
-
         AudioManager.Instance.PlaySoundFXClip(owner.HitSoundClip, owner.transform, 1f);
         // 이동 멈춤
         owner.Agent.isStopped = true;
@@ -24,23 +21,16 @@ public class MonsterHitState : BaseState<MonsterBase>
         owner.StartCoroutine(HitStunCoroutine());
     }
 
-    public override void OnUpdateState()
-    {
-        // 스턴 중에는 아무 행동도 하지 않음
-    }
+    public override void OnUpdateState() { }
 
     public override void OnFixedUpdateState() { }
 
-    public override void OnExitState()
-    {
-    }
+    public override void OnExitState() { }
 
-    // 스턴 코루틴
     private IEnumerator HitStunCoroutine()
     {
         yield return new WaitForSeconds(hitDuration);
 
-        // 스턴 종료 후 Chase 상태로 전환
         owner.ChangeState(ENEMY_STATE.Idle);
     }
 }

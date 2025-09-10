@@ -11,9 +11,23 @@ public class CutScene : MonoBehaviour
     public bool playOnce = true;
     private bool hasPlayed = false;
 
-    private PlayerController playerController;
+    private PlayerCtrl playerController;
+    public BossCutScene bossCutScene; // 추가
 
     public event Action OnCutsceneFinishedEvent;
+
+    private void OnCutsceneFinishedHandler(PlayableDirector director)
+    {
+        if (playerController != null)
+        {
+            playerController.enabled = true;
+            playerController.SetMove(true);
+        }
+
+        cutsceneDirector.stopped -= OnCutsceneFinishedHandler;
+
+        OnCutsceneFinishedEvent?.Invoke();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,32 +35,20 @@ public class CutScene : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            BossManager.Instance.SpawnBoss();
-
-            playerController = other.GetComponent<PlayerController>();
+            playerController = other.GetComponent<PlayerCtrl>();
             if (playerController != null)
             {
                 playerController.enabled = false;
-                playerController.StopMove();
+                playerController.SetMove(false);
             }
+
+            // 보스 찾기 & 카메라 설정
+            bossCutScene?.FindBoss();
 
             cutsceneDirector.Play();
             cutsceneDirector.stopped += OnCutsceneFinishedHandler;
 
             hasPlayed = true;
         }
-    }
-
-    private void OnCutsceneFinishedHandler(PlayableDirector director)
-    {
-        if (playerController != null)
-        {
-            playerController.enabled = true;
-            playerController.StopMove();
-        }
-
-        cutsceneDirector.stopped -= OnCutsceneFinishedHandler;
-
-        OnCutsceneFinishedEvent?.Invoke();
     }
 }

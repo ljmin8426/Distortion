@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 4954470891656417397}
   - component: {fileID: 6441436916401542365}
   - component: {fileID: 2576730624287404233}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -182,12 +182,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba9bd51c0fb57943a0d18cb8b74d60b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSoundClip: {fileID: 0}
+  id: 0
+  hitSoundClip: {fileID: 0}
   attackSoundClip: {fileID: 0}
   deathSoundClip: {fileID: 0}
   attackRange: 2
   detectionRange: 10
-  id: 0
 --- !u!114 &2576730624287404233
 MonoBehaviour:
   m_ObjectHideFlags: 0

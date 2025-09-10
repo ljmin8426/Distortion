@@ -31,13 +31,6 @@ public class MonsterData
 }
 
 [System.Serializable]
-public class EXPTable
-{
-    public int curLevel;
-    public int nextEXP;
-}
-
-[System.Serializable]
 public class BossData
 {
     public string bossName;

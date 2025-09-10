@@ -113,13 +113,16 @@ public class MonsterBase : PoolObject, IDamageable
         }
     }
 
-    public void TakeDamage(int amount, GameObject attacker)
+    public void TakeDamage(float amount, GameObject attacker)
     {
         if (curHP <= 0) return;
 
         curHP -= amount;
         curHP = Mathf.Max(curHP, 0);
         hpBar.UpdateHPBar(curHP / maxHP);
+
+        DamagePopUpGenerator.Instance.CreatePopUp(transform.position, amount.ToString(), Color.red);
+        PoolManager.Instance.SpawnFromPool("HitEffect", transform.position, Quaternion.identity);
 
         if (curHP <= 0)
         {
@@ -131,9 +134,6 @@ public class MonsterBase : PoolObject, IDamageable
         }
         else
         {
-            DamagePopUpGenerator.Instance.CreatePopUp(transform.position, amount.ToString(), Color.red);
-            PoolManager.Instance.SpawnFromPool("HitEffect", transform.position, Quaternion.identity);
-
             ChangeState(ENEMY_STATE.Hit);
         }
     }

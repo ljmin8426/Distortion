@@ -11,7 +11,6 @@ public abstract class BaseState<T>
 
     public virtual bool CanEnter() => true;
 
-
     public abstract void OnEnterState();
     public abstract void OnUpdateState();
     public abstract void OnFixedUpdateState();

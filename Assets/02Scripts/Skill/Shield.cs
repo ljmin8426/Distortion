@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    private int shieldHp = 0;
+    private float shieldHp = 0;
     private bool isActive = false;
 
     public void EnableShield(int amount)
@@ -17,7 +17,7 @@ public class Shield : MonoBehaviour
         shieldHp = 0;
     }
 
-    public int AbsorbDamage(int damage)
+    public float AbsorbDamage(float damage)
     {
         if (!isActive)
         {

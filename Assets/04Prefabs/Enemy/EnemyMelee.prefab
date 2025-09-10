@@ -183,15 +183,15 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
     - target: {fileID: 9143711301211502345, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.04063
+      value: 2.8280406
       objectReference: {fileID: 0}
     - target: {fileID: 9143711301211502345, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.1258
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9143711301211502345, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.43997
+      value: 34.28449
       objectReference: {fileID: 0}
     - target: {fileID: 9143711301211502345, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -298,12 +298,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba9bd51c0fb57943a0d18cb8b74d60b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 1000
   hitSoundClip: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
   attackSoundClip: {fileID: 8300000, guid: fd25a15f9797641458336cccfb445343, type: 3}
   deathSoundClip: {fileID: 8300000, guid: 566d2ea6240b489479a6e9fd608c2621, type: 3}
   attackRange: 2
-  detectionRange: 50
-  id: 1000
+  detectionRange: 10
 --- !u!114 &1935762436160180109
 MonoBehaviour:
   m_ObjectHideFlags: 0

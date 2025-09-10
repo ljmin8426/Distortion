@@ -13,7 +13,7 @@ public abstract class BaseWeapon : MonoBehaviour
     public WeaponDataSO WeaponData => weaponData;
     public AudioClip AttackSound => attackSound;
 
-    public abstract void Attack();
-    public abstract void Skill();
+    public abstract void AttackStart();
+    public abstract void AttackEnd();
 }
 
