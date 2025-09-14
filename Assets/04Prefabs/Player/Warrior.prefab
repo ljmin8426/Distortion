@@ -307,7 +307,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2445352346182678353}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d790d0b6013bc4d4fb6fbd8feb594c2e, type: 3}
   m_Name: 
@@ -725,6 +725,10 @@ PrefabInstance:
       value: 'Player/LeftMouse[/Mouse/leftButton]'
       objectReference: {fileID: 0}
     - target: {fileID: 2534179767905325024, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      propertyPath: blockSound
+      value: 
+      objectReference: {fileID: 8300000, guid: b7b5a6156961bac44a67504d42ce6fcf, type: 3}
+    - target: {fileID: 2534179767905325024, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       propertyPath: damageSound
       value: 
       objectReference: {fileID: 8300000, guid: 1ed8fb76fc64e4e46847348138782234, type: 3}
@@ -732,6 +736,10 @@ PrefabInstance:
       propertyPath: levelUpSound
       value: 
       objectReference: {fileID: 8300000, guid: b83bf8726a7fac349a54389f0c57cda6, type: 3}
+    - target: {fileID: 2534179767905325024, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      propertyPath: dashRecoverTime
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3825734174987369963, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       propertyPath: dashSound
       value: 
@@ -740,6 +748,10 @@ PrefabInstance:
       propertyPath: groundedGravity
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 5820977053007963986, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      propertyPath: weaponObj
+      value: 
+      objectReference: {fileID: 1466260392983395848, guid: cb12220899f40444693de3f0c8fbb426, type: 3}
     - target: {fileID: 5820977053007963986, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       propertyPath: weaponHolder
       value: 
@@ -800,6 +812,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7125308187309734796, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       insertIndex: 3
       addedObject: {fileID: 8272339142854189354}
+    - targetCorrespondingSourceObject: {fileID: 7125308187309734796, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5529908142336650773}
+    - targetCorrespondingSourceObject: {fileID: 7125308187309734796, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4299174095119697948}
   m_SourcePrefab: {fileID: 100100000, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
 --- !u!1 &754770639707351320 stripped
 GameObject:
@@ -823,7 +841,42 @@ MonoBehaviour:
   gravity: -9.81
   terminalVelocity: -53
   groundedGravity: -2
-  dashSound: {fileID: 8300000, guid: 8401456349c492a489ed90469e317e43, type: 3}
+  dashSound: {fileID: 8300000, guid: 5c7b6d4002009e842bd2621585546d19, type: 3}
+--- !u!114 &5529908142336650773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754770639707351320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e245ad7b5e51944287a5dd56a3307a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  canPush: 1
+  strength: 2
+--- !u!114 &4299174095119697948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754770639707351320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0831606b8179cba4fbeb5f2d4c416d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0, g: 0, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!4 &4385072423439532245 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6071342458423759425, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}

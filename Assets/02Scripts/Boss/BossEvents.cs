@@ -6,11 +6,22 @@ public class BossEvents : MonoBehaviour
 
     private void Awake()
     {
-        bossCtrl = GetComponent<BossController>();
+        bossCtrl = GetComponentInParent<BossController>();
     }
 
     public void StartFight()
     {
         bossCtrl.StartFight();
+    }
+
+    public void Phase1Attack()
+    {
+        bossCtrl.FireConeMissiles();
+    }
+
+    // 애니메이션 이벤트에서 호출
+    public void OnHit()
+    {
+        bossCtrl.SpawnAttackRange();
     }
 }

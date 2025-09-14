@@ -6,7 +6,6 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
 {
     [Header("Sound")]
     [SerializeField] private AudioClip damageSound;
-    [SerializeField] private AudioClip levelUpSound;
     [SerializeField] private AudioClip blockSound;
 
     [Header("Defaullt Stat")]
@@ -67,7 +66,7 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
     public static event Action OnDiePlayer;
     public static event Action<float, float> OnChangeExp;
 
-    public static event Action<int> OnDashChange; // 대시 개수 변화 알림
+    public static event Action<int> OnDashChange;
 
     private void Start()
     {
@@ -98,6 +97,7 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
             StopCoroutine(recoverCoroutine);
         recoverCoroutine = StartCoroutine(RecoverHPEP());
     }
+
     public bool UseDash()
     {
         if (dashAmount <= 0) return false;
@@ -110,8 +110,6 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
 
         return true;
     }
-
-
 
     private IEnumerator DashRecover()
     {
@@ -146,7 +144,6 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
         currentEP = MaxEP;
 
         InvokeAllEvents();
-        AudioManager.Instance.PlaySoundFXClip(levelUpSound, transform, 1f);
         OnLevelChange?.Invoke(level);
     }
 

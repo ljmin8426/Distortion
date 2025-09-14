@@ -62,8 +62,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.91685396
-        functionName: StartPhase2
+      - time: 0.5034474
+        functionName: Phase1Attack
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

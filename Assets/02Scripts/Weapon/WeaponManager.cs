@@ -33,8 +33,6 @@ public class WeaponManager : MonoBehaviour
     {
         weapon = Instantiate(weaponObj, weaponHolder).GetComponent<BaseWeapon>();
 
-        weapon.AddComponent<MyOutline>();
-
         weapon.gameObject.SetActive(false);
 
         EquipWeapon(WEAPON_TYPE.Melee);
