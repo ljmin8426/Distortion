@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2235952982769499729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7331339806794225581}
+  m_Layer: 0
+  m_Name: ProjectileMuzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7331339806794225581
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2235952982769499729}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7897896324980152620}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1646501599637723679
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14,15 +45,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -57.85
+      value: -57.99488
       objectReference: {fileID: 0}
     - target: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00000047683716
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 166.47
+      value: 163.28172
       objectReference: {fileID: 0}
     - target: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       propertyPath: m_LocalRotation.w
@@ -56,6 +87,9 @@ PrefabInstance:
     - {fileID: 5956833440897579088, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7331339806794225581}
     - targetCorrespondingSourceObject: {fileID: 9080086510325291450, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5875174849184621070}
@@ -142,7 +176,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_StoppingDistance: 4
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -163,15 +197,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 10000
-  phase1Sound: {fileID: 0}
-  phase2Sound: {fileID: 0}
-  phase3Sound: {fileID: 0}
-  hitSound: {fileID: 0}
-  deathSound: {fileID: 0}
+  phase1Sound: {fileID: 8300000, guid: ab297b593498a6e47ba84de770477cbe, type: 3}
+  phase1AttackClip: {fileID: 8300000, guid: 21c4a490b24ba2045bc815f7626a40ef, type: 3}
+  phase2Sound: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}
+  hitSound: {fileID: 8300000, guid: a245ee5d75348c84a89ffb7992f1dc82, type: 3}
+  deathSound: {fileID: 8300000, guid: f1cb5d83282f2904a85f73111d068616, type: 3}
   detectionRange: 10
+  wakeUpDuration: 2
+  volleyInterval: 5
+  missileSpawnPoint: {fileID: 7331339806794225581}
+  missilesPerVolley: 18
+  spreadAngle: 360
+  missileSpeed: 15
+  missilePoolTag: Missile
+  phase2HPThreshold: 0.66
+  jumpHeight: 15
+  jumpDuration: 2
+  landingWarningPrefab: {fileID: 4849681648837321060, guid: bda838dcb4a44014688fa819d648b12a, type: 3}
+  warningDuration: 2
+  attackRangePrefab: {fileID: 4849681648837321060, guid: bda838dcb4a44014688fa819d648b12a, type: 3}
+  attackRangeDuration: 1
+  attackDamage: 10
+  attackRangeRadius: 3
 --- !u!4 &7555772341608088485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9080086510325291450, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
+  m_PrefabInstance: {fileID: 1646501599637723679}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7897896324980152620 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
   m_PrefabInstance: {fileID: 1646501599637723679}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6197631592375518693
@@ -251,7 +306,7 @@ PrefabInstance:
       addedObject: {fileID: 1875401119691071616}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b9871c02e8d6df54b812a906657f671f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7383601360302871940}
+      addedObject: {fileID: 2516946718533994483}
   m_SourcePrefab: {fileID: 100100000, guid: b9871c02e8d6df54b812a906657f671f, type: 3}
 --- !u!4 &5875174849184621070 stripped
 Transform:
@@ -272,7 +327,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6540071947903252660}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: b9871c02e8d6df54b812a906657f671f, type: 3}
   m_Controller: {fileID: 9100000, guid: 4681b52d33a688b48b01c79b0c1526b6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -285,7 +340,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7383601360302871940
+--- !u!114 &2516946718533994483
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -294,6 +349,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6540071947903252660}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f40c351e7ade72c40847159858a15e52, type: 3}
+  m_Script: {fileID: 11500000, guid: f67a4274f28d77a47b645e92cc9b2ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -1,10 +1,11 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossSpawner : MonoBehaviour
 {
     [Header("º¸½º ¹× UI Prefab")]
-    [SerializeField] private BossCtrl bossPrefab;
+    [SerializeField] private BossController bossPrefab;
     [SerializeField] private Transform point;
     [SerializeField] private BossBar bossBar;
 
@@ -17,8 +18,8 @@ public class BossSpawner : MonoBehaviour
 
     private IEnumerator TestBoss()
     {
-        yield return new WaitForSeconds(2f);
-        BossCtrl newBoss = Instantiate(bossPrefab, point.position, Quaternion.identity);
+        yield return null;
+        BossController newBoss = Instantiate(bossPrefab, point.position, Quaternion.identity);
 
         bossBar.Initialize(newBoss);
     }

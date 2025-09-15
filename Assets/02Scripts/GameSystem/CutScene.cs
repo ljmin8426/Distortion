@@ -12,7 +12,6 @@ public class CutScene : MonoBehaviour
     private bool hasPlayed = false;
 
     private PlayerCtrl playerController;
-    public BossCutScene bossCutScene; // 추가
 
     public event Action OnCutsceneFinishedEvent;
 
@@ -41,9 +40,6 @@ public class CutScene : MonoBehaviour
                 playerController.enabled = false;
                 playerController.SetMove(false);
             }
-
-            // 보스 찾기 & 카메라 설정
-            bossCutScene?.FindBoss();
 
             cutsceneDirector.Play();
             cutsceneDirector.stopped += OnCutsceneFinishedHandler;

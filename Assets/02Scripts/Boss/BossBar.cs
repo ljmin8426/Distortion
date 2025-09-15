@@ -17,7 +17,7 @@ public class BossBar : MonoBehaviour
     [SerializeField] private float lerpSpeed = 0.2f;
     [SerializeField] private float hideDuration = 0.2f;
 
-    private BossCtrl boss;
+    private BossController boss;
     private Coroutine delayCoroutine;
     private Coroutine hideCoroutine;
 
@@ -26,7 +26,7 @@ public class BossBar : MonoBehaviour
         transform.localScale = Vector3.zero; // Ã³À½¿¡´Â ¼û±è
     }
 
-    public void Initialize(BossCtrl newBoss)
+    public void Initialize(BossController newBoss)
     {
         boss = newBoss;
         boss.OnFightReady += ShowUI;
@@ -44,7 +44,7 @@ public class BossBar : MonoBehaviour
         }
     }
 
-    private void ShowUI(BossCtrl bossCtrl)
+    private void ShowUI(BossController bossCtrl)
     {
         bossName.text = bossCtrl.BossData.bossName;
         hpSlider.value = 1f;
@@ -78,7 +78,7 @@ public class BossBar : MonoBehaviour
         }
     }
 
-    private void HideUI(BossCtrl bossCtrl)
+    private void HideUI(BossController bossCtrl)
     {
         if (hideCoroutine != null) StopCoroutine(hideCoroutine);
         hideCoroutine = StartCoroutine(HideWithScale());
