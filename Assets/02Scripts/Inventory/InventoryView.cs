@@ -11,13 +11,28 @@ public class InventoryView : MonoBehaviour
     public ItemInfoPanelView itemInfoPanelView;
     public InventoryItemPanelView inventoryItemPanelView;
 
+    private bool isOpen = false;
+
     private void Awake()
     {
-        rootPanel.transform.localScale = Vector3.zero;
+        rootPanel.transform.localScale = Vector3.zero; // 시작 시 꺼진 상태
     }
 
-    public void ShowInventory()
+    private void Update()
     {
-        rootPanel.transform.localScale = Vector3.one;
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            ToggleInventory();
+        }
+    }
+
+    public void ToggleInventory()
+    {
+        isOpen = !isOpen;
+
+        if (isOpen)
+            rootPanel.transform.localScale = Vector3.one;
+        else
+            rootPanel.transform.localScale = Vector3.zero;
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AttackRange : MonoBehaviour
+public class AttackRange : PoolObject
 {
     public float radius = 2f;
     public float damage = 10f;

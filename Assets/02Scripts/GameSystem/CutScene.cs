@@ -5,22 +5,24 @@ using System;
 public class CutScene : MonoBehaviour
 {
     [Header("PlayableDirector")]
-    public PlayableDirector cutsceneDirector;
+    [SerializeField] private PlayableDirector cutsceneDirector;
 
     [Header("Option")]
-    public bool playOnce = true;
+    [SerializeField] private bool playOnce = true;
+
+    [SerializeField] private GameObject gate;
+
     private bool hasPlayed = false;
 
-    private PlayerCtrl playerController;
+    private PlayerInputManager playerInputManager;
 
     public event Action OnCutsceneFinishedEvent;
 
     private void OnCutsceneFinishedHandler(PlayableDirector director)
     {
-        if (playerController != null)
+        if (playerInputManager != null)
         {
-            playerController.enabled = true;
-            playerController.SetMove(true);
+            playerInputManager.enabled = true;
         }
 
         cutsceneDirector.stopped -= OnCutsceneFinishedHandler;
@@ -34,12 +36,13 @@ public class CutScene : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            playerController = other.GetComponent<PlayerCtrl>();
-            if (playerController != null)
+            playerInputManager = other.GetComponent<PlayerInputManager>();
+            if (playerInputManager != null)
             {
-                playerController.enabled = false;
-                playerController.SetMove(false);
+                playerInputManager.enabled = true;
             }
+
+            gate.SetActive(false);
 
             cutsceneDirector.Play();
             cutsceneDirector.stopped += OnCutsceneFinishedHandler;

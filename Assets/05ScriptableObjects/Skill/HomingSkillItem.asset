@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Homing Skill
   description: This is Homing Skill
-  icon: {fileID: 21300000, guid: 03e6f50b7a998ed46a4c3f9f8cb0855e, type: 3}
+  icon: {fileID: 21300000, guid: bbe833a9207e7fa41bbd3ce71ad09605, type: 3}
   itemType: 1
   skillPrefab: {fileID: 961066255068618716, guid: 7a4ca339c0d7a234aad12cf0e08fddd9, type: 3}

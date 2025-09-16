@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BossController : MonoBehaviour, IDamageable
+public class BossController : PoolObject, IDamageable
 {
     public enum BossStage { Idle, Stage1, Stage2, Dead }
 

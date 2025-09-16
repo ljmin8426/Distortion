@@ -1,10 +1,18 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
     [SerializeField] private List<DungeonRoom> roomList;
+
+    [Header("BossSetting")]
+    [SerializeField] private string bossName;
+    [SerializeField] private Transform point;
+
     private int currentRoomIndex = 0;
+
+    public static event Action<BossController> OnAllClear;
 
     private void Start()
     {
@@ -14,7 +22,6 @@ public class DungeonManager : MonoBehaviour
             room.OnRoomCleared += HandleRoomCleared;
         }
 
-        // 첫 방 활성화 + 몬스터 스폰
         if (roomList.Count > 0)
         {
             roomList[0].gameObject.SetActive(true);
@@ -34,7 +41,11 @@ public class DungeonManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("던전 클리어!");
+            PoolObject obj = PoolManager.Instance.SpawnFromPool(bossName, point.position, point.rotation);
+
+            BossController boss = obj.GetComponent<BossController>();
+
+            OnAllClear?.Invoke(boss);
         }
     }
 }

@@ -23,7 +23,8 @@ public class BossBar : MonoBehaviour
 
     private void Awake()
     {
-        transform.localScale = Vector3.zero; // Ã³À½¿¡´Â ¼û±è
+        transform.localScale = Vector3.zero;
+        DungeonManager.OnAllClear += Initialize;
     }
 
     public void Initialize(BossController newBoss)
@@ -32,6 +33,7 @@ public class BossBar : MonoBehaviour
         boss.OnFightReady += ShowUI;
         boss.OnBossHpChanged += UpdateHP;
         boss.OnBossDie += HideUI;
+        
     }
 
     private void OnDisable()
@@ -42,6 +44,7 @@ public class BossBar : MonoBehaviour
             boss.OnBossHpChanged -= UpdateHP;
             boss.OnBossDie -= HideUI;
         }
+        DungeonManager.OnAllClear -= Initialize;
     }
 
     private void ShowUI(BossController bossCtrl)

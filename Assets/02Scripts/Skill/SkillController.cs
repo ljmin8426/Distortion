@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class SkillController : BaseSkillManager
 {
+    private void Start()
+    {
+        InitializeSkills();
+    }
+
     private void OnEnable()
     {
         PlayerInputManager.OnSkillQ += HandleQSkill;
@@ -22,9 +27,5 @@ public class SkillController : BaseSkillManager
     private void HandleESkill()
     {
         UseSkill(1);
-    }
-    protected override void InitializeSkills()
-    {
-        
     }
 }

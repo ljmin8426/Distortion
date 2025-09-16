@@ -7,7 +7,7 @@ public class DungeonRoom : MonoBehaviour
     public event Action<DungeonRoom> OnRoomCleared;
 
     [SerializeField] private ColliderTrigger colliderTrigger;
-    [SerializeField] private SpawnPoint[] enemySpawnPoints; // º¯°æµÊ!
+    [SerializeField] private SpawnPoint[] enemySpawnPoints;
     [SerializeField] private GameObject entryDoor;
     [SerializeField] private GameObject exitDoor;
 

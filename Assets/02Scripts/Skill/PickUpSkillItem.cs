@@ -13,7 +13,6 @@ public class PickUpSkillItem : MonoBehaviour
 
         if (ItemData == null || ItemData.skillPrefab == null || skillManager == null) return;
 
-        // 이미 같은 타입의 스킬이 존재하는지 검사
         var existing = other.GetComponentsInChildren<SkillBase>();
 
         foreach (var e in existing)
@@ -26,7 +25,6 @@ public class PickUpSkillItem : MonoBehaviour
             }
         }
 
-        // 스킬 생성 및 추가
         var skillObj = Instantiate(ItemData.skillPrefab, other.transform);
         var skill = skillObj.GetComponent<SkillBase>();
 

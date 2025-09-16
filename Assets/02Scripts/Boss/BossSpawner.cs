@@ -19,8 +19,7 @@ public class BossSpawner : MonoBehaviour
     private IEnumerator TestBoss()
     {
         yield return null;
-        BossController newBoss = Instantiate(bossPrefab, point.position, Quaternion.identity);
-
+        BossController newBoss = Instantiate(bossPrefab, point.position, point.rotation);
         bossBar.Initialize(newBoss);
     }
 }

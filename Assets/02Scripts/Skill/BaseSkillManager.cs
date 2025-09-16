@@ -8,12 +8,15 @@ public abstract class BaseSkillManager : MonoBehaviour
 
     public static event Action<SkillBase> OnSkillEquipped;
 
-    protected void Awake()
-    {
-        InitializeSkills();
-    }
+    [SerializeField] private SkillBase[] skillBase;
 
-    protected abstract void InitializeSkills();
+    protected virtual void InitializeSkills()
+    {
+        for (int i = 0; i < skillBase.Length; i++)
+        {
+            SetEquipmentSkill(skillBase[i]);
+        }
+    }
 
     public virtual void UseSkill(int index)
     {

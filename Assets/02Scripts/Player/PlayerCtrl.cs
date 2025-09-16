@@ -21,7 +21,6 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] private AudioClip dashSound;
 
     private float verticalVelocity;
-    private bool isStop;
 
     private CharacterController controller;
     private Animator animator;
@@ -133,11 +132,6 @@ public class PlayerCtrl : MonoBehaviour
 
     private void OnDashInput()
     {
-        if (isStop) return;
-
-
-
-        // 이동속도가 없으면 대시 불가
         if (MoveInput.magnitude <= 0.1f) return;
 
         StateMachine.ChangeState(PLAYER_STATE.Dash);
@@ -145,17 +139,8 @@ public class PlayerCtrl : MonoBehaviour
 
     private void OnAttackInput()
     {
-        if (isStop) return;
-
         Animator.SetTrigger("isAttack");
 
         stateMachine.ChangeState(PLAYER_STATE.Attack);
-    }
-
-    public void SetMove(bool canMove)
-    {
-        isStop = canMove;
-        if (!isStop) 
-            animator.SetFloat("moveSpeed", 0f);
     }
 }
