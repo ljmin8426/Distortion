@@ -74,7 +74,7 @@ public class InventoryPresenter
         RefreshUI();
     }
 
-    public void OnItemUnequip(ITEM_TYPE itemType)
+    public void OnItemUnequip(Item_Type itemType)
     {
         if (!model.equippedItems.TryGetValue(itemType, out var item))
             return;

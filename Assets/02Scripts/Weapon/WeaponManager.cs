@@ -16,7 +16,7 @@ public class WeaponManager : MonoBehaviour
     private PlayerCtrl playerCtrl;
 
     public BaseWeapon CurWeapon { get; private set; }
-    public WEAPON_TYPE CurrentWeaponType { get; private set; }
+    public Weapon_Type CurrentWeaponType { get; private set; }
 
 
     private void Awake()
@@ -35,16 +35,16 @@ public class WeaponManager : MonoBehaviour
 
         weapon.gameObject.SetActive(false);
 
-        EquipWeapon(WEAPON_TYPE.Melee);
+        EquipWeapon(Weapon_Type.Melee);
     }
 
-    public void EquipWeapon(WEAPON_TYPE type)
+    public void EquipWeapon(Weapon_Type type)
     {
         CurrentWeaponType = type;
 
         switch (type)
         {
-            case WEAPON_TYPE.Melee:
+            case Weapon_Type.Melee:
                 weapon.gameObject.SetActive(true);
                 CurWeapon = weapon;
                 playerCtrl.Animator.runtimeAnimatorController = CurWeapon.WeaponAnimator;

@@ -32,7 +32,7 @@ public class InventoryItemSlotView : MonoBehaviour, IBeginDragHandler, IDragHand
         }
         else
         {
-            backgroundImage.sprite = ItemRaritySpriteUtility.GetBackgroundSprite(ITEM_RARITY.Common);
+            backgroundImage.sprite = ItemRaritySpriteUtility.GetBackgroundSprite(Item_Rarity.Common);
         }
     }
 
@@ -49,7 +49,7 @@ public class InventoryItemSlotView : MonoBehaviour, IBeginDragHandler, IDragHand
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (Item.itemType == ITEM_TYPE.Consumable)
+            if (Item.itemType == Item_Type.Consumable)
             {
                 PlayerStatManager stat = PlayerStatManager.Instance;
                 if (Item is PotionItem potion)

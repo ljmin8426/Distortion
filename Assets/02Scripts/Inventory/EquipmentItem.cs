@@ -6,7 +6,7 @@ public class EquipmentItem : ItemDataSO
 {
     public List<ItemStat> statList = new();
 
-    public ITEM_RARITY rarity;
+    public Item_Rarity rarity;
 
     /// <summary>
     /// 등급 보정이 반영된 스탯 리스트 반환
@@ -29,10 +29,10 @@ public class EquipmentItem : ItemDataSO
     {
         return rarity switch
         {
-            ITEM_RARITY.Common => 1f,
-            ITEM_RARITY.Rare => 1.1f,
-            ITEM_RARITY.Epic => 1.25f,
-            ITEM_RARITY.Legendary => 1.5f,
+            Item_Rarity.Common => 1f,
+            Item_Rarity.Rare => 1.1f,
+            Item_Rarity.Epic => 1.25f,
+            Item_Rarity.Legendary => 1.5f,
             _ => 1f
         };
     }

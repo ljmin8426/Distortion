@@ -3,21 +3,21 @@ using System.Collections.Generic;
 public class InventoryModel
 {
     public List<ItemDataSO> ownedItems = new();
-    public Dictionary<ITEM_TYPE, ItemDataSO> equippedItems = new();
+    public Dictionary<Item_Type, ItemDataSO> equippedItems = new();
     public ItemDataSO selectedItem;
 
     public void SelectItem(ItemDataSO item) => selectedItem = item;
 
     public void EquipItem(ItemDataSO item)
     {
-        if (item.itemType == ITEM_TYPE.Equipment || item.itemType == ITEM_TYPE.Skill)
+        if (item.itemType == Item_Type.Equipment || item.itemType == Item_Type.Skill)
         {
             equippedItems[item.itemType] = item;
             ownedItems.Remove(item);
         }
     }
 
-    public void UnequipItem(ITEM_TYPE itemType)
+    public void UnequipItem(Item_Type itemType)
     {
         if (equippedItems.TryGetValue(itemType, out var item))
         {

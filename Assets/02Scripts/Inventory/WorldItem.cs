@@ -26,14 +26,14 @@ public class WorldItem : MonoBehaviour
         Destroy(transform.parent.gameObject);
     }
 
-    private ITEM_RARITY GetRandomRarity()
+    private Item_Rarity GetRandomRarity()
     {
         // 원하는 확률로 설정
         float rand = Random.value;
 
-        if (rand < 0.5f) return ITEM_RARITY.Common;      // 50%
-        if (rand < 0.8f) return ITEM_RARITY.Rare;        // 30%
-        if (rand < 0.95f) return ITEM_RARITY.Epic;       // 15%
-        return ITEM_RARITY.Legendary;                    // 5%
+        if (rand < 0.5f) return Item_Rarity.Common;      // 50%
+        if (rand < 0.8f) return Item_Rarity.Rare;        // 30%
+        if (rand < 0.95f) return Item_Rarity.Epic;       // 15%
+        return Item_Rarity.Legendary;                    // 5%
     }
 }

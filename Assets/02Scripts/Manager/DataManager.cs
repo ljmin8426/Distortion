@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,43 +10,37 @@ public enum BossId
 
 public class DataManager : Singleton<DataManager>
 {
-    public bool LoadData { get; private set; }
+    private bool isReady = false;
+    public bool IsReady => isReady;
 
-    private GameData_SO originTable;
+    private MonsterData_SO monsterData;
 
-    private Dictionary<int, ItemData> dicItemData = new Dictionary<int, ItemData>();
     private Dictionary<int, MonsterData> dicMonsterData = new Dictionary<int, MonsterData>();
     private Dictionary<int, BossData> dicBossData = new Dictionary<int, BossData>();
+
+    public event Action OnDataReady;
 
     protected override void Awake()
     {
         base.Awake();
-        if(!LoadData)
+        if(!isReady)
         {
-            originTable = Resources.Load<GameData_SO>("GameData");
+            monsterData = Resources.Load<MonsterData_SO>("MonsterData");
 
-            for(int i = 0; i < originTable.weaponData.Count; i++)
+            for (int i = 0; i < monsterData.monsterData.Count; i++)
             {
-                dicItemData.Add(originTable.weaponData[i].itemId, originTable.weaponData[i]);
+                dicMonsterData.Add(monsterData.monsterData[i].monsterId, monsterData.monsterData[i]);
             }
 
-            for (int i = 0; i < originTable.monsterData.Count; i++)
+            for (int i = 0; i < monsterData.bossData.Count; i++)
             {
-                dicMonsterData.Add(originTable.monsterData[i].monsterId, originTable.monsterData[i]);
+                dicBossData.Add(monsterData.bossData[i].bossId, monsterData.bossData[i]);
             }
 
-            for (int i = 0; i < originTable.bossData.Count; i++)
-            {
-                dicBossData.Add(originTable.bossData[i].bossId, originTable.bossData[i]);
-            }
+            isReady = true;
 
-            LoadData = true;
+            OnDataReady?.Invoke();
         }
-    }
-
-    public bool GetItemData(int keyId, out ItemData itemData)
-    {
-        return dicItemData.TryGetValue(keyId, out itemData);
     }
 
     public bool GetMonsterData(int keyId, out MonsterData monsterData)

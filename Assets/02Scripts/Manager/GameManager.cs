@@ -15,8 +15,6 @@ public class PlayerData
 
     public int fragment;
     public int uidCounter;
-
-    // 인벤토리, 스탯, 특전 연결
 }
 
 public enum SCENE_NAME

@@ -12,7 +12,7 @@ public class EquipmentPanelView : MonoBehaviour
         if (slot != null) slot.SetItem(item);
     }
 
-    public void ClearEquippedItem(ITEM_TYPE itemType)
+    public void ClearEquippedItem(Item_Type itemType)
     {
         var slot = equipSlots.FirstOrDefault(s => s.itemType == itemType);
         if (slot != null) slot.Clear();

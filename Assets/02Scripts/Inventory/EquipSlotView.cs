@@ -6,7 +6,7 @@ using TMPro;
 public class EquipSlotView : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
     [Header("슬롯 타입")]
-    public ITEM_TYPE itemType;
+    public Item_Type itemType;
 
     [Header("UI 요소")]
     [SerializeField] private Image icon;

@@ -27,7 +27,7 @@ public class PlayerCtrl : MonoBehaviour
     private Transform mainCamera;
     private PlayerInputManager input;
     private WeaponManager weaponManager;
-    private StateMachine<PLAYER_STATE, PlayerCtrl> stateMachine;
+    private StateMachine<Player_State, PlayerCtrl> stateMachine;
 
     private Mouse mouse;
 
@@ -36,7 +36,7 @@ public class PlayerCtrl : MonoBehaviour
     public Animator Animator => animator;
     public Transform MainCamera => mainCamera;
 
-    public StateMachine<PLAYER_STATE, PlayerCtrl> StateMachine => stateMachine;
+    public StateMachine<Player_State, PlayerCtrl> StateMachine => stateMachine;
     public WeaponManager WeaponManager => weaponManager;
 
     public Vector2 MoveInput => input.MoveInput;
@@ -94,9 +94,9 @@ public class PlayerCtrl : MonoBehaviour
 
     private void InitPlayerState()
     {
-        stateMachine = new StateMachine<PLAYER_STATE, PlayerCtrl>(PLAYER_STATE.Move, new MoveState(this));
-        stateMachine.AddState(PLAYER_STATE.Attack, new AttackState(this));
-        stateMachine.AddState(PLAYER_STATE.Dash, new DashState(this));
+        stateMachine = new StateMachine<Player_State, PlayerCtrl>(Player_State.Move, new MoveState(this));
+        stateMachine.AddState(Player_State.Attack, new AttackState(this));
+        stateMachine.AddState(Player_State.Dash, new DashState(this));
     }
 
     private void ApplyGravity()
@@ -134,13 +134,13 @@ public class PlayerCtrl : MonoBehaviour
     {
         if (MoveInput.magnitude <= 0.1f) return;
 
-        StateMachine.ChangeState(PLAYER_STATE.Dash);
+        StateMachine.ChangeState(Player_State.Dash);
     }
 
     private void OnAttackInput()
     {
         Animator.SetTrigger("isAttack");
 
-        stateMachine.ChangeState(PLAYER_STATE.Attack);
+        stateMachine.ChangeState(Player_State.Attack);
     }
 }

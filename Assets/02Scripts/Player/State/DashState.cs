@@ -12,15 +12,13 @@ public class DashState : BaseState<PlayerCtrl>
 
     public override bool CanEnter()
     {
-        if (!PlayerStatManager.Instance.UseDash())
-            return false; // 대시 없음
-
-        // 공격 중이면 대시 불가
         if (owner.StateMachine.CurrentState is AttackState)
             return false;
 
-        // 플레이어가 이동 중일 때만 대시 가능
         if (owner.MoveInput.magnitude <= 0.1f)
+            return false;
+
+        if (!PlayerStatManager.Instance.UseDash())
             return false;
 
         return true;
@@ -57,7 +55,7 @@ public class DashState : BaseState<PlayerCtrl>
 
         if (dashTimer <= 0f)
         {
-            owner.StateMachine.ChangeState(PLAYER_STATE.Move);
+            owner.StateMachine.ChangeState(Player_State.Move);
         }
 
         if (dashDirection.sqrMagnitude > 0.01f)

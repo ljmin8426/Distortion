@@ -21,14 +21,14 @@ public class PlayerAnimationEvents : MonoBehaviour
 
     public void FinishiMotion()
     {
-        ctrl.StateMachine.ChangeState(PLAYER_STATE.Move);
+        ctrl.StateMachine.ChangeState(Player_State.Move);
     }
 
     public void OnDashEnd()
     {
         if (ctrl.StateMachine.CurrentState is DashState)
         {
-             ctrl.StateMachine.ChangeState(PLAYER_STATE.Move);
+             ctrl.StateMachine.ChangeState(Player_State.Move);
         }
     }
 }

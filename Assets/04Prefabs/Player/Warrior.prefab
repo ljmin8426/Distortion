@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3879453641494217623}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: WeaponHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1142427931232699697}
   - component: {fileID: 124948058053625461}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: head1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1092758091671776257}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Hand_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3308554690395716048}
   - component: {fileID: 8910232622450967065}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 8098456687862634331}
   - component: {fileID: 6979176885002190675}
   - component: {fileID: 2656922718136141933}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Polyart_Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -322,7 +322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5934596601622654700}
   - component: {fileID: 7808585961642494333}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Arm1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5352345206015702991}
   - component: {fileID: 8902579037787482067}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Backpack1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2257466154786540103}
   - component: {fileID: 4025088901306640732}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Body1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -725,6 +725,10 @@ PrefabInstance:
       value: 'Player/LeftMouse[/Mouse/leftButton]'
       objectReference: {fileID: 0}
     - target: {fileID: 2534179767905325024, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      propertyPath: bonusAtk
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534179767905325024, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       propertyPath: blockSound
       value: 
       objectReference: {fileID: 8300000, guid: b7b5a6156961bac44a67504d42ce6fcf, type: 3}
@@ -748,6 +752,18 @@ PrefabInstance:
       propertyPath: groundedGravity
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 4871095105131907219, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      propertyPath: skillBase.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4871095105131907219, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      propertyPath: 'skillBase.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6969922118024274244}
+    - target: {fileID: 4871095105131907219, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      propertyPath: 'skillBase.Array.data[1]'
+      value: 
+      objectReference: {fileID: 4255219969626632135}
     - target: {fileID: 5820977053007963986, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       propertyPath: weaponObj
       value: 
@@ -818,6 +834,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7125308187309734796, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4299174095119697948}
+    - targetCorrespondingSourceObject: {fileID: 7125308187309734796, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6969922118024274244}
+    - targetCorrespondingSourceObject: {fileID: 7125308187309734796, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4255219969626632135}
+    - targetCorrespondingSourceObject: {fileID: 7125308187309734796, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6605657433008663519}
   m_SourcePrefab: {fileID: 100100000, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
 --- !u!1 &754770639707351320 stripped
 GameObject:
@@ -873,10 +898,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 1
   outlineColor: {r: 0, g: 0, b: 1, a: 1}
-  outlineWidth: 2
+  outlineWidth: 0
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &6969922118024274244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754770639707351320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b09ff09c57ee743bf27f9a58b6bca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillType: 0
+  cooldown: 0
+  manaCost: 25
+  icon: {fileID: 21300000, guid: f6b8b85cbdc82ce439a41ae3d56d57ee, type: 3}
+  missileCount: 3
+  missileSpreadAngle: 15
+  missileSpawnInterval: 0.1
+  effectPrefab: {fileID: 0}
+--- !u!114 &4255219969626632135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754770639707351320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257f111e26204e546be0720fccc8ef33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillType: 0
+  cooldown: 0
+  manaCost: 50
+  icon: {fileID: 21300000, guid: bbe833a9207e7fa41bbd3ce71ad09605, type: 3}
+  shieldDuration: 4
+  shieldAmount: 100
+  effectPrefab: {fileID: 0}
+  shieldSound: {fileID: 0}
+--- !u!114 &6605657433008663519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754770639707351320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 570ca86d789f801418ff44d2e8cc2c74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4385072423439532245 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6071342458423759425, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}

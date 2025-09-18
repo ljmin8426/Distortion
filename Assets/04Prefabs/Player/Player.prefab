@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3304512216678563154}
   - component: {fileID: 842373764546799512}
   - component: {fileID: 2237584561606547196}
-  - component: {fileID: 3825734174987369963}
   - component: {fileID: 2534179767905325024}
   - component: {fileID: 5820977053007963986}
   - component: {fileID: 4871095105131907219}
@@ -107,23 +106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32023c1f6e9d1f4f8a301cb16c65160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3825734174987369963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7125308187309734796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e69aa8ea15aac42ac545b20e750210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 8
-  rotationSpeed: 10
-  gravity: -9.81
-  terminalVelocity: -53
-  groundedGravity: -2
 --- !u!114 &2534179767905325024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0229a725fd7614c46a87880407a0a0c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageSound: {fileID: 0}
+  blockSound: {fileID: 0}
   defaultStat: {fileID: 11400000, guid: d0acd8a5d51e37141af72a61ee69e56f, type: 2}
   expTable: {fileID: 11400000, guid: 84971792a78bd804f82353169707a2b1, type: 2}
   level: 0
@@ -150,6 +134,9 @@ MonoBehaviour:
   bonusMaxEP: 0
   bonusAtk: 0
   bonusAg: 0
+  maxDash: 5
+  dashAmount: 0
+  dashRecoverTime: 2
 --- !u!114 &5820977053007963986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHolder: {fileID: 0}
-  meleeWeaponPrefab: {fileID: 1466260392983395848, guid: cb12220899f40444693de3f0c8fbb426, type: 3}
+  weaponObj: {fileID: 0}
 --- !u!114 &4871095105131907219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b45fb852d41d645b1ccbda211b3467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillBase: []
 --- !u!1 &7135261482778364835
 GameObject:
   m_ObjectHideFlags: 0

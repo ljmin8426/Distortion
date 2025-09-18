@@ -42,7 +42,7 @@ public class ShieldSkill : SkillBase
 
     private IEnumerator ShieldDurationRoutine(Shield shield)
     {
-        yield return YieldInstructionCache.WaitForSeconds(shieldDuration);
+        yield return YieldCache.WaitForSeconds(shieldDuration);
 
         shield.DisableShield();
 

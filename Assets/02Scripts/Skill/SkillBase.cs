@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class SkillBase : MonoBehaviour, IActiveSkill
 {
     [Header("Skill Setting")]
-    [SerializeField] protected SKILL_TYPE skillType;
+    [SerializeField] protected Skill_Type skillType;
     [SerializeField] protected int cooldown;
     [SerializeField] protected int manaCost;
     [SerializeField] protected Sprite icon;
@@ -18,7 +18,7 @@ public abstract class SkillBase : MonoBehaviour, IActiveSkill
     public int ManaCost => manaCost;
     public int Cooldown => cooldown;
     public Sprite Icon => icon;
-    public SKILL_TYPE SkillType => skillType;
+    public Skill_Type SkillType => skillType;
 
     public abstract void Activate(GameObject attacker);
     
@@ -44,7 +44,7 @@ public abstract class SkillBase : MonoBehaviour, IActiveSkill
         isCooldown = true;
         OnCooldownStart?.Invoke(cooldown);
 
-        yield return YieldInstructionCache.WaitForSeconds(cooldown);
+        yield return YieldCache.WaitForSeconds(cooldown);
         isCooldown = false;
     }
 

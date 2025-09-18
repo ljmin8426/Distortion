@@ -28,7 +28,7 @@ public class DungeonRoom : MonoBehaviour
     {
         if (!isCleared && isActive)
         {
-            Debug.Log("플레이어가 방에 들어옴, 문 닫힘!");
+            Debug.Log("문 닫힘");
             if (entryDoor != null) entryDoor.SetActive(true);
             colliderTrigger.OnPlayerEnterTrigger -= OnPlayerEnter;
         }
@@ -38,7 +38,6 @@ public class DungeonRoom : MonoBehaviour
     {
         foreach (SpawnPoint spawnPoint in enemySpawnPoints)
         {
-            // 각 스폰포인트에서 원하는 몬스터 이름으로 소환
             PoolObject obj = PoolManager.Instance.SpawnFromPool(
                 spawnPoint.Monster_Type.ToString(),
                 spawnPoint.transform.position,

@@ -8,7 +8,7 @@ public class DungeonManager : MonoBehaviour
 
     [Header("BossSetting")]
     [SerializeField] private string bossName;
-    [SerializeField] private Transform point;
+    [SerializeField] private Transform bossSpawnPoint;
 
     private int currentRoomIndex = 0;
 
@@ -41,7 +41,7 @@ public class DungeonManager : MonoBehaviour
         }
         else
         {
-            PoolObject obj = PoolManager.Instance.SpawnFromPool(bossName, point.position, point.rotation);
+            PoolObject obj = PoolManager.Instance.SpawnFromPool(bossName, bossSpawnPoint.position, bossSpawnPoint.rotation);
 
             BossController boss = obj.GetComponent<BossController>();
 
