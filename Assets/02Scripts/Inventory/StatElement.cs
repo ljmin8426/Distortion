@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class StatElement : MonoBehaviour
 {
-    public TextMeshProUGUI statNameText;
-    public TextMeshProUGUI statValueText;
+    [SerializeField] private TextMeshProUGUI statNameText;
+    [SerializeField] private TextMeshProUGUI statValueText;
 
     public void Set(string name, string value)
     {
         if (statNameText == null || statValueText == null)
         {
-            Debug.LogError("StatElement: Text components are not assigned!");
+            Debug.LogError("StatElement null");
             return;
         }
 

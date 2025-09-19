@@ -1,6 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class ItemStat
+{
+    public ItemStat_Type statType;
+    public int value;
+
+    public ItemStat(ItemStat_Type type, int value)
+    {
+        this.statType = type;
+        this.value = value;
+    }
+}
+
+public enum ItemStat_Type
+{
+    MaxHP,
+    MaxEP,
+    Attack,
+    MoveSpeed,
+    AttackSpeed
+}
+
 [CreateAssetMenu(menuName = "Inventory/Equipment Item")]
 public class EquipmentItem : ItemDataSO
 {
@@ -8,9 +30,6 @@ public class EquipmentItem : ItemDataSO
 
     public Item_Rarity rarity;
 
-    /// <summary>
-    /// 등급 보정이 반영된 스탯 리스트 반환
-    /// </summary>
     public List<ItemStat> GetModifiedStats()
     {
         float multiplier = GetRarityMultiplier();
@@ -36,26 +55,4 @@ public class EquipmentItem : ItemDataSO
             _ => 1f
         };
     }
-}
-
-[System.Serializable]
-public class ItemStat
-{
-    public ITEM_STAT_TYPE statType;
-    public int value;
-
-    public ItemStat(ITEM_STAT_TYPE type, int value)
-    {
-        this.statType = type;
-        this.value = value;
-    }
-}
-
-public enum ITEM_STAT_TYPE
-{
-    MaxHP,
-    MaxEP,
-    Attack,
-    MoveSpeed,
-    AttackSpeed
 }

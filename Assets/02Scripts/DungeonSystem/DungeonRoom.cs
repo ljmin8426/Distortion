@@ -28,7 +28,6 @@ public class DungeonRoom : MonoBehaviour
     {
         if (!isCleared && isActive)
         {
-            Debug.Log("¹® ´ÝÈû");
             if (entryDoor != null) entryDoor.SetActive(true);
             colliderTrigger.OnPlayerEnterTrigger -= OnPlayerEnter;
         }
@@ -69,7 +68,6 @@ public class DungeonRoom : MonoBehaviour
 
     private void EndBattle()
     {
-        Debug.Log(name + " Cleared!");
         isCleared = true;
 
         if (exitDoor != null) exitDoor.SetActive(false);

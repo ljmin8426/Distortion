@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class InventoryItemPanelView : MonoBehaviour
 {
-    public Transform slotParent;
-    public GameObject itemSlotPrefab;
+    [SerializeField] private GameObject itemSlotPrefab;
 
     private List<InventoryItemSlotView> slotViews = new();
 
@@ -20,7 +19,7 @@ public class InventoryItemPanelView : MonoBehaviour
 
     public void AddItemSlot(ItemDataSO item)
     {
-        var obj = Instantiate(itemSlotPrefab, slotParent);
+        var obj = Instantiate(itemSlotPrefab, gameObject.transform);
         var slotView = obj.GetComponent<InventoryItemSlotView>();
         slotView.Set(item);
         slotViews.Add(slotView);

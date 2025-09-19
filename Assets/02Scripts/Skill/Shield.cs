@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    private float shieldHp = 0;
+    [SerializeField] private float shieldHp = 0;
     private bool isActive = false;
 
     public void EnableShield(int amount)
@@ -31,7 +32,7 @@ public class Shield : MonoBehaviour
             DisableShield();
         }
 
-        return Mathf.Max(-shieldHp, 0); // 남은 데미지 반환
+        return Mathf.Max(-shieldHp, 0);
     }
 
     public bool IsShieldActive()

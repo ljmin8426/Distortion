@@ -13,10 +13,11 @@ public class DataManager : Singleton<DataManager>
     private bool isReady = false;
     public bool IsReady => isReady;
 
-    private MonsterData_SO monsterData;
+    private GameData_SO gameData;
 
     private Dictionary<int, MonsterData> dicMonsterData = new Dictionary<int, MonsterData>();
     private Dictionary<int, BossData> dicBossData = new Dictionary<int, BossData>();
+    private Dictionary<string, SpriteData> dicSpriteData = new Dictionary<string, SpriteData>();
 
     public event Action OnDataReady;
 
@@ -25,21 +26,34 @@ public class DataManager : Singleton<DataManager>
         base.Awake();
         if(!isReady)
         {
-            monsterData = Resources.Load<MonsterData_SO>("MonsterData");
+            gameData = Resources.Load<GameData_SO>("GameData");
 
-            for (int i = 0; i < monsterData.monsterData.Count; i++)
-            {
-                dicMonsterData.Add(monsterData.monsterData[i].monsterId, monsterData.monsterData[i]);
-            }
-
-            for (int i = 0; i < monsterData.bossData.Count; i++)
-            {
-                dicBossData.Add(monsterData.bossData[i].bossId, monsterData.bossData[i]);
-            }
+            SetMonsterData();
+            SetSpriteData();
 
             isReady = true;
-
             OnDataReady?.Invoke();
+        }
+    }
+
+    private void SetMonsterData()
+    {
+        for (int i = 0; i < gameData.monsterData.Count; i++)
+        {
+            dicMonsterData.Add(gameData.monsterData[i].monsterId, gameData.monsterData[i]);
+        }
+
+        for (int i = 0; i < gameData.bossData.Count; i++)
+        {
+            dicBossData.Add(gameData.bossData[i].bossId, gameData.bossData[i]);
+        }
+    }
+
+    private void SetSpriteData()
+    {
+        for(int i = 0; i < gameData.spriteData.Count;i++)
+        {
+            dicSpriteData.Add(gameData.spriteData[i].spriteName, gameData.spriteData[i]);
         }
     }
 
@@ -51,5 +65,10 @@ public class DataManager : Singleton<DataManager>
     public bool GetBossData(int keyId, out BossData bossData)
     {
         return dicBossData.TryGetValue(keyId, out bossData);
+    }
+
+    public bool GetSprite(string keyId, out SpriteData spriteData)
+    {
+        return dicSpriteData.TryGetValue(keyId, out spriteData);
     }
 }

@@ -226,10 +226,10 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
         {
             switch (stat.statType)
             {
-                case ITEM_STAT_TYPE.MaxHP: bonusMaxHP += stat.value; break;
-                case ITEM_STAT_TYPE.MaxEP: bonusMaxEP += stat.value; break;
-                case ITEM_STAT_TYPE.Attack: bonusAtk += stat.value; break;
-                case ITEM_STAT_TYPE.AttackSpeed: bonusAg += stat.value; break;
+                case ItemStat_Type.MaxHP: bonusMaxHP += stat.value; break;
+                case ItemStat_Type.MaxEP: bonusMaxEP += stat.value; break;
+                case ItemStat_Type.Attack: bonusAtk += stat.value; break;
+                case ItemStat_Type.AttackSpeed: bonusAg += stat.value; break;
             }
         }
         ClampCurrentStat();
@@ -242,10 +242,10 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
         {
             switch (stat.statType)
             {
-                case ITEM_STAT_TYPE.MaxHP: bonusMaxHP -= stat.value; break;
-                case ITEM_STAT_TYPE.MaxEP: bonusMaxEP -= stat.value; break;
-                case ITEM_STAT_TYPE.Attack: bonusAtk -= stat.value; break;
-                case ITEM_STAT_TYPE.AttackSpeed: bonusAg -= stat.value; break;
+                case ItemStat_Type.MaxHP: bonusMaxHP -= stat.value; break;
+                case ItemStat_Type.MaxEP: bonusMaxEP -= stat.value; break;
+                case ItemStat_Type.Attack: bonusAtk -= stat.value; break;
+                case ItemStat_Type.AttackSpeed: bonusAg -= stat.value; break;
             }
         }
         ClampCurrentStat();

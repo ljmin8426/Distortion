@@ -19,7 +19,7 @@ public class Projectile : PoolObject
     {
         base.OnSpawn();
         spawnTime = Time.time;
-        rb.linearVelocity = Vector3.zero; // 초기화
+        rb.linearVelocity = Vector3.zero;
     }
 
     private void Update()
@@ -34,10 +34,7 @@ public class Projectile : PoolObject
     {
         speed = speedOverride;
 
-        // 발사 순간에만 방향 지정
         rb.linearVelocity = direction.normalized * speed;
-
-        // 회전은 건드리지 않음
         spawnTime = Time.time;
     }
 

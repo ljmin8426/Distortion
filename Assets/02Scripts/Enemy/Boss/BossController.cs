@@ -191,16 +191,15 @@ public class BossController : PoolObject, IDamageable
         }
 
         if (curHP <= 0)
-            StartCoroutine(Die());
+            Die();
     }
 
-    private IEnumerator Die()
+    private void Die()
     {
         currentStage = BossStage.Dead;
         isDead = true;
         animator.SetTrigger("isDie");
         AudioManager.Instance.PlaySoundFXClip(deathSound, transform, 1f);
-        yield return new WaitForSeconds(3f);
         OnBossDie?.Invoke(this);
     }
     #endregion

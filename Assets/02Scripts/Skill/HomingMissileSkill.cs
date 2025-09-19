@@ -19,8 +19,6 @@ public class HomingMissileSkill : SkillBase
             return;
         }
 
-        PlayerStatManager.Instance.ConsumeEP(manaCost);
-
         if (!TryUseSkill())
             return;
 

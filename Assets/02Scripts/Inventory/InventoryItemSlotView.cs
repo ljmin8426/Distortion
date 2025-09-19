@@ -26,14 +26,20 @@ public class InventoryItemSlotView : MonoBehaviour, IBeginDragHandler, IDragHand
         itemImage.sprite = item.icon;
         itemImage.enabled = true;
 
+        Sprite sprite = backgroundImage.sprite;
+
+        SpriteData data = new SpriteData();
+
         if (item is EquipmentItem equipment)
         {
-            backgroundImage.sprite = ItemRaritySpriteUtility.GetBackgroundSprite(equipment.rarity);
+            DataManager.Instance.GetSprite("ItemRank", out data);
+            sprite = data.rankSprite[(int)equipment.rarity];
         }
         else
         {
-            backgroundImage.sprite = ItemRaritySpriteUtility.GetBackgroundSprite(Item_Rarity.Common);
-        }
+            DataManager.Instance.GetSprite("ItemRank", out data);
+            sprite = data.rankSprite[2];
+        }   
     }
 
     public void Highlight(bool isOn)
@@ -60,7 +66,6 @@ public class InventoryItemSlotView : MonoBehaviour, IBeginDragHandler, IDragHand
                         stat.RecoverEP(potion.restoreAmount);
                 }
 
-                // 아이템 사용 후 인벤토리에서 제거
                 InventoryEvents.OnUseItem?.Invoke(Item);
             }
         }

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class InventoryPresenter
 {
     private readonly InventoryModel model;

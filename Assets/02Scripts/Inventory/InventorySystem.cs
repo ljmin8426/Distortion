@@ -39,8 +39,9 @@ public class InventorySystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            bool isOpen = !inventoryView.rootPanel.activeSelf;
-            if (isOpen) presenter.RefreshUI();
+            bool isOpen = !inventoryView.gameObject.activeSelf;
+            if (isOpen) 
+                presenter.RefreshUI();
         }
     }
 }

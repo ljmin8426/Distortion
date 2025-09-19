@@ -21,7 +21,7 @@ public class InventoryModel
     {
         if (equippedItems.TryGetValue(itemType, out var item))
         {
-            AddItem(item); // 다시 인벤토리에 추가
+            AddItem(item);
             equippedItems.Remove(itemType);
         }
     }

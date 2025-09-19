@@ -29,5 +29,13 @@ public class BossData
     public int maxHP;
 }
 
+[System.Serializable]
+public class SpriteData
+{
+    [Header("Rank")]
+    public string spriteName;
+    public Sprite[] rankSprite;
+}
+
 
 

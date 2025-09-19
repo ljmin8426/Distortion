@@ -31,8 +31,6 @@ public class DungeonManager : MonoBehaviour
 
     private void HandleRoomCleared(DungeonRoom clearedRoom)
     {
-        Debug.Log($"{clearedRoom.name} Cleared!");
-
         currentRoomIndex++;
         if (currentRoomIndex < roomList.Count)
         {

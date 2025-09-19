@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class StatPanelView : MonoBehaviour
 {
-    public StatElement hpStat;
-    public StatElement epStat;
-    public StatElement atkStat;
-    public StatElement agStat;
+    [SerializeField] private StatElement hpStat;
+    [SerializeField] private StatElement epStat;
+    [SerializeField] private StatElement atkStat;
+    [SerializeField] private StatElement agStat;
 
     public void Bind(PlayerStatManager statManager)
     {
@@ -15,13 +15,12 @@ public class StatPanelView : MonoBehaviour
         atkStat.Set("ATK", statManager.ATK.ToString());
         agStat.Set("AG", statManager.AG.ToString());
 
-        PlayerStatManager.OnHpChange += (cur, max) =>
-            hpStat.Set("HP", $"{cur} / {max}");
-        PlayerStatManager.OnEpChange += (cur, max) =>
-            epStat.Set("EP", $"{cur} / {max}");
-        PlayerStatManager.OnAtkChange += (atk) =>
-            atkStat.Set("ATK", atk.ToString());
-        PlayerStatManager.OnAgChange += (ag) =>
-            agStat.Set("AG", ag.ToString());
+        PlayerStatManager.OnHpChange += (cur, max) => hpStat.Set("HP", $"{cur} / {max}");
+
+        PlayerStatManager.OnEpChange += (cur, max) => epStat.Set("EP", $"{cur} / {max}");
+
+        PlayerStatManager.OnAtkChange += (atk) => atkStat.Set("ATK", atk.ToString());
+
+        PlayerStatManager.OnAgChange += (ag) => agStat.Set("AG", ag.ToString());
     }
 }

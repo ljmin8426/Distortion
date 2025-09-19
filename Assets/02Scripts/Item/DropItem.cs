@@ -10,7 +10,7 @@ public class DropItem : MonoBehaviour
     private Rigidbody rb;
     private Transform itemModel;
 
-    private Vector3 pos; // Spawn Position
+    private Vector3 pos;
 
     private bool isDrop;
     private float dropPosY;

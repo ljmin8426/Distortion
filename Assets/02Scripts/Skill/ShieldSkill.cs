@@ -11,16 +11,17 @@ public class ShieldSkill : SkillBase
 
     private GameObject activeEffect;
 
+    private Shield shield;
+
     public override void Activate(GameObject attacker)
     {
         if (!TryUseSkill()) return;
 
-        var shield = attacker.GetComponent<Shield>();
-
-        AudioManager.Instance.PlaySoundFXClip(shieldSound, transform, 1f);
-    
+        shield = attacker.GetComponent<Shield>();
         if (shield == null)
             shield = attacker.gameObject.AddComponent<Shield>();
+
+        AudioManager.Instance.PlaySoundFXClip(shieldSound, transform, 1f);
 
         if (shield.IsShieldActive())
         {
@@ -37,7 +38,7 @@ public class ShieldSkill : SkillBase
         }
 
         StartCoroutine(ShieldDurationRoutine(shield));
-        StartCoroutine(base.CooldownRoutine()); // base 호출로 이벤트 호출 권한 유지
+        StartCoroutine(base.CooldownRoutine());
     }
 
     private IEnumerator ShieldDurationRoutine(Shield shield)
@@ -51,5 +52,10 @@ public class ShieldSkill : SkillBase
             Destroy(activeEffect);
             activeEffect = null;
         }
+    }
+
+    private void CrashShield()
+    {
+        Destroy(activeEffect);
     }
 }

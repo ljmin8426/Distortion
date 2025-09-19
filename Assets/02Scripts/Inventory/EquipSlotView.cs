@@ -10,14 +10,10 @@ public class EquipSlotView : MonoBehaviour, IDropHandler, IPointerClickHandler
 
     [Header("UI 요소")]
     [SerializeField] private Image icon;
-    [SerializeField] private TextMeshProUGUI itemName;
 
     public ItemDataSO CurItem { get; private set; }
     public GameObject SpawnedSkillObj { get; private set; }
 
-    /// <summary>
-    /// 아이템 장착
-    /// </summary>
     public void SetItem(ItemDataSO item)
     {
         CurItem = item;
@@ -27,14 +23,8 @@ public class EquipSlotView : MonoBehaviour, IDropHandler, IPointerClickHandler
             icon.sprite = item.icon;
             icon.enabled = true;
         }
-
-        if (itemName != null)
-            itemName.text = item.itemName;
     }
 
-    /// <summary>
-    /// 슬롯 초기화 (스킬 오브젝트 포함)
-    /// </summary>
     public void Clear()
     {
         CurItem = null;
@@ -45,9 +35,6 @@ public class EquipSlotView : MonoBehaviour, IDropHandler, IPointerClickHandler
             icon.enabled = false;
         }
 
-        if (itemName != null)
-            itemName.text = "";
-
         if (SpawnedSkillObj != null)
         {
             Destroy(SpawnedSkillObj);
@@ -55,9 +42,6 @@ public class EquipSlotView : MonoBehaviour, IDropHandler, IPointerClickHandler
         }
     }
 
-    /// <summary>
-    /// 아이템 드래그 드롭 처리
-    /// </summary>
     public void OnDrop(PointerEventData eventData)
     {
         var draggedSlot = eventData.pointerDrag?.GetComponent<InventoryItemSlotView>();
@@ -75,9 +59,6 @@ public class EquipSlotView : MonoBehaviour, IDropHandler, IPointerClickHandler
         InventoryEvents.OnEquipItem?.Invoke(droppedItem, this);
     }
 
-    /// <summary>
-    /// 우클릭 해제 처리
-    /// </summary>
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right && CurItem != null)
@@ -86,9 +67,6 @@ public class EquipSlotView : MonoBehaviour, IDropHandler, IPointerClickHandler
         }
     }
 
-    /// <summary>
-    /// 스폰된 스킬 오브젝트 저장 (외부에서 할당)
-    /// </summary>
     public void SetSpawnedSkill(GameObject skillGO)
     {
         if (SpawnedSkillObj != null)

@@ -18,4 +18,9 @@ public class BossEvents : MonoBehaviour
     {
         bossCtrl.FireConeMissiles();
     }
+
+    public void Dead()
+    {
+        bossCtrl.ReturnToPool();
+    }
 }

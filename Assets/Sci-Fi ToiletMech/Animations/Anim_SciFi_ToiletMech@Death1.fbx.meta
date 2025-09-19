@@ -62,8 +62,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.87266064
-        functionName: OnDead
+      - time: 0.9571051
+        functionName: Dead
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
