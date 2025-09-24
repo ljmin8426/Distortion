@@ -8,7 +8,6 @@ public class AttackRange : PoolObject
 
     private void Start()
     {
-        // duration 후 데미지 적용 및 오브젝트 삭제
         Invoke(nameof(DealDamageAndDestroy), duration);
     }
 
@@ -24,7 +23,7 @@ public class AttackRange : PoolObject
             }
         }
 
-        Destroy(gameObject);
+        ReturnToPool();
     }
 
     private void OnDrawGizmosSelected()

@@ -27,9 +27,9 @@ public class WorldItem : MonoBehaviour
     {
         float rand = Random.value;
 
-        if (rand < 0.5f) return Item_Rarity.Common;    
-        if (rand < 0.8f) return Item_Rarity.Rare;      
-        if (rand < 0.95f) return Item_Rarity.Epic;     
-        return Item_Rarity.Legendary;                  
+        if (rand < 0.5f) return Item_Rarity.Common;
+        if (rand < 0.8f) return Item_Rarity.Rare;
+        if (rand < 0.95f) return Item_Rarity.Epic;
+        return Item_Rarity.Legendary;
     }
 }

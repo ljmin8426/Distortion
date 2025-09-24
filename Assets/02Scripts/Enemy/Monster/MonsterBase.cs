@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -26,6 +27,12 @@ public class MonsterBase : PoolObject, IDamageable
 
     [Header("HitState")]
     [SerializeField] private float stunTime = 1;
+
+    [Header("Item Drop")]
+    [SerializeField] private GameObject[] equipmentItems; // 장비 아이템 프리팹
+    [SerializeField] private GameObject[] recoveryItems;  // 회복 아이템 프리팹
+    [SerializeField, Range(0, 1)] private float dropChance = 0.5f; // 50% 확률
+
 
     private bool isDead;
 
@@ -142,11 +149,43 @@ public class MonsterBase : PoolObject, IDamageable
 
             isDead = true;
             OnMonsterDie?.Invoke(this);
+            TryDropItem();  
             ChangeState(Enemy_State.Die);
         }
         else
         {
             ChangeState(Enemy_State.Hit);
+        }
+    }
+
+    public void TryDropItem()
+    {
+        StartCoroutine(DropItemAfterDelay(1f));
+    }
+
+    private IEnumerator DropItemAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // 50% 확률 체크
+        if (UnityEngine.Random.value <= dropChance)
+        {
+            GameObject itemToDrop = null;
+
+            // 장비 또는 회복 아이템 랜덤 선택
+            if (UnityEngine.Random.value < 0.5f) // 50% 확률로 장비/회복 선택
+            {
+                if (equipmentItems.Length > 0)
+                    itemToDrop = equipmentItems[UnityEngine.Random.Range(0, equipmentItems.Length)];
+            }
+            else
+            {
+                if (recoveryItems.Length > 0)
+                    itemToDrop = recoveryItems[UnityEngine.Random.Range(0, recoveryItems.Length)];
+            }
+
+            if (itemToDrop != null)
+                Instantiate(itemToDrop, transform.position, Quaternion.identity);
         }
     }
 

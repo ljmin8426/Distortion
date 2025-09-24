@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -57.99488
+      value: -60.055542
       objectReference: {fileID: 0}
     - target: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       propertyPath: m_LocalPosition.y
@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 163.28172
+      value: 165.77501
       objectReference: {fileID: 0}
     - target: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       propertyPath: m_LocalRotation.w
@@ -213,8 +213,6 @@ MonoBehaviour:
   phase2HPThreshold: 0.66
   jumpHeight: 15
   jumpDuration: 2
-  landingWarningPrefab: {fileID: 4849681648837321060, guid: bda838dcb4a44014688fa819d648b12a, type: 3}
-  warningDuration: 2
   attackRangePrefab: {fileID: 4849681648837321060, guid: bda838dcb4a44014688fa819d648b12a, type: 3}
   attackRangeDuration: 1
   attackDamage: 10
@@ -306,7 +304,7 @@ PrefabInstance:
       addedObject: {fileID: 1875401119691071616}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b9871c02e8d6df54b812a906657f671f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2516946718533994483}
+      addedObject: {fileID: 2159997491378053613}
   m_SourcePrefab: {fileID: 100100000, guid: b9871c02e8d6df54b812a906657f671f, type: 3}
 --- !u!4 &5875174849184621070 stripped
 Transform:
@@ -340,7 +338,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2516946718533994483
+--- !u!114 &2159997491378053613
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

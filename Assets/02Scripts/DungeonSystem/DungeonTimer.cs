@@ -5,19 +5,19 @@ using System;
 public class DungeonTimer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private float limitTime = 600f; // 10분
+    [SerializeField] private float limitTime = 600f;
 
     private bool timerRunning = false;
     private float currentTime;
     private int lastDisplayedSeconds = -1;
 
-    // 타이머 변경 이벤트 (UI가 구독해서 업데이트)
     public event Action<float> OnTimeChanged;
+    public static event Action OnTimeOut;
 
     private void OnEnable()
     {
         DungeonDoor.OnDoorOpened += StartTimer;
-        OnTimeChanged += UpdateTimerUI; // UI 구독
+        OnTimeChanged += UpdateTimerUI;
     }
 
     private void OnDisable()
@@ -42,8 +42,7 @@ public class DungeonTimer : MonoBehaviour
         if (currentTime <= 0f)
         {
             timerRunning = false;
-            Debug.Log("던전 실패! 제한 시간 초과");
-            // 실패 로직 처리
+            OnTimeOut?.Invoke();   
         }
     }
 

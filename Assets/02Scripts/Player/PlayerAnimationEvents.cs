@@ -19,16 +19,8 @@ public class PlayerAnimationEvents : MonoBehaviour
         ctrl.WeaponManager.CurWeapon.AttackEnd();
     }
 
-    public void FinishiMotion()
+    public void CanMove()
     {
         ctrl.StateMachine.ChangeState(Player_State.Move);
-    }
-
-    public void OnDashEnd()
-    {
-        if (ctrl.StateMachine.CurrentState is DashState)
-        {
-             ctrl.StateMachine.ChangeState(Player_State.Move);
-        }
     }
 }

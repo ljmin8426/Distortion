@@ -2,14 +2,11 @@ using UnityEngine;
 
 public class HomingMissile : MonoBehaviour
 {
-    // 데미지
     private int damage = 100;
 
-    // 상승
     private float riseHeight = 40f;
     private float riseDuration = 0.5f;
 
-    // 추적
     private float homingSpeed = 30f;
     private float rotationSpeed = 10f;
     private float maxLifetime = 5f;
@@ -50,7 +47,6 @@ public class HomingMissile : MonoBehaviour
             return;
         }
 
-        // 타겟이 없거나 죽었으면 재탐색
         if ( target == null )
         {
             target = FindPriorityTarget(transform.position, 20f);
@@ -63,7 +59,6 @@ public class HomingMissile : MonoBehaviour
 
         if (!isHoming)
         {
-            // 상승 중
             transform.position = Vector3.MoveTowards(transform.position, riseTargetPos, riseHeight / riseDuration * Time.deltaTime);
             transform.forward = Vector3.Lerp(transform.forward, Vector3.up, Time.deltaTime * rotationSpeed);
 
@@ -74,7 +69,6 @@ public class HomingMissile : MonoBehaviour
         }
         else
         {
-            // 유도 중
             Vector3 dir = (target.position - transform.position).normalized;
             transform.position += dir * homingSpeed * Time.deltaTime;
             transform.forward = Vector3.Lerp(transform.forward, dir, Time.deltaTime * rotationSpeed);
@@ -92,7 +86,6 @@ public class HomingMissile : MonoBehaviour
 
         foreach (var col in colliders)
         {
-            // Boss 우선 찾기
             if (col.CompareTag("Boss"))
             {
                 float dist = Vector3.Distance(position, col.transform.position);
@@ -102,7 +95,6 @@ public class HomingMissile : MonoBehaviour
                     bossTarget = col.transform;
                 }
             }
-            // 그 다음 Enemy 찾기
             else if (col.CompareTag("EnemyHead"))
             {
                 float dist = Vector3.Distance(position, col.transform.position);

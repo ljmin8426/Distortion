@@ -24,3 +24,4 @@ public class StatPanelView : MonoBehaviour
         PlayerStatManager.OnAgChange += (ag) => agStat.Set("AG", ag.ToString());
     }
 }
+

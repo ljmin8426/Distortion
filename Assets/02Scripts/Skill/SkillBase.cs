@@ -8,14 +8,14 @@ public abstract class SkillBase : MonoBehaviour, IActiveSkill
     [Header("Skill Setting")]
     [SerializeField] protected Skill_Type skillType;
     [SerializeField] protected int cooldown;
-    [SerializeField] protected int manaCost;
+    [SerializeField] protected int epCost;
     [SerializeField] protected Sprite icon;
 
     protected bool isCooldown = false;
 
     public event Action<float> OnCooldownStart;
 
-    public int ManaCost => manaCost;
+    public int EPCost => epCost;
     public int Cooldown => cooldown;
     public Sprite Icon => icon;
     public Skill_Type SkillType => skillType;
@@ -28,11 +28,11 @@ public abstract class SkillBase : MonoBehaviour, IActiveSkill
 
         if (PlayerStatManager.Instance == null) return false;
 
-        if( PlayerStatManager.Instance.CurrentEP < manaCost) return false;
+        if( PlayerStatManager.Instance.CurrentEP < epCost) return false;
 
-        if(PlayerStatManager.Instance.CurrentEP >= manaCost)
+        if(PlayerStatManager.Instance.CurrentEP >= epCost)
         {
-            PlayerStatManager.Instance.ConsumeEP(manaCost);
+            PlayerStatManager.Instance.ConsumeEP(epCost);
             return true;
         }
 

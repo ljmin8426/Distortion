@@ -33,7 +33,6 @@ public class BossBar : MonoBehaviour
         boss.OnFightReady += ShowUI;
         boss.OnBossHpChanged += UpdateHP;
         boss.OnBossDie += HideUI;
-        
     }
 
     private void OnDisable()

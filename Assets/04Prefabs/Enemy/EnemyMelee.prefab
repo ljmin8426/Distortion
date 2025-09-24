@@ -157,6 +157,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: HP_Effect
       objectReference: {fileID: 0}
+    - target: {fileID: 2846695713552429308, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2846695713552429308, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545151401644227367, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545151401644227367, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4954470891656417397, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       propertyPath: m_Acceleration
       value: 10
@@ -305,6 +321,11 @@ MonoBehaviour:
   attackRange: 2
   detectionRange: 10
   stunTime: 1
+  equipmentItems:
+  - {fileID: 7877963401273516132, guid: adb1521f944ddb94eb2cd5bc4eb71fde, type: 3}
+  recoveryItems:
+  - {fileID: 2681364714344259938, guid: 668bf5726fd4a454e8817a3e6bb7beac, type: 3}
+  dropChance: 0.5
 --- !u!114 &1935762436160180109
 MonoBehaviour:
   m_ObjectHideFlags: 0

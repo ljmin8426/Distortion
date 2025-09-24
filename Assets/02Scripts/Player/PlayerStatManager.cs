@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageable
 {
-    [Header("Sound")]
+    [Header("Sound Clips")]
     [SerializeField] private AudioClip damageSound;
     [SerializeField] private AudioClip blockSound;
 
-    [Header("Defaullt Stat")]
+    [Header("Scriptable Objects")]
     [SerializeField] private PlayerStatSO defaultStat;
-
-    [Header("Exp Table")]
     [SerializeField] private ExpTableSO expTable;
 
     [Header("Current Stat")]
@@ -35,7 +33,7 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
     [Header("Dash")]
     [SerializeField] private int maxDash = 5;
     [SerializeField] private int dashAmount;
-    [SerializeField] private float dashRecoverTime = 2f; // 2초마다 1개 회복
+    [SerializeField] private float dashRecoverTime = 2f;
 
     private bool isDead;
 
@@ -176,7 +174,6 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
         isDead = true;
 
         OnDiePlayer?.Invoke();
-        // killer 정보 넘길거면: OnDiePlayer?.Invoke(killer);
     }
 
     private IEnumerator RecoverHPEP()

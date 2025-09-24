@@ -33,10 +33,6 @@ public class BossController : PoolObject, IDamageable
     [SerializeField] private float jumpHeight = 5f;
     [SerializeField] private float jumpDuration = 1f;
 
-    [Header("Landing Warning")]
-    [SerializeField] private GameObject landingWarningPrefab;
-    [SerializeField] private float warningDuration = 1f;
-
     [Header("Attack Range Settings")]
     [SerializeField] private GameObject attackRangePrefab;
     [SerializeField] private float attackRangeDuration = 1f;
@@ -190,7 +186,7 @@ public class BossController : PoolObject, IDamageable
             StartPhase2();
         }
 
-        if (curHP <= 0)
+        if(curHP <= 0)
             Die();
     }
 
@@ -218,14 +214,11 @@ public class BossController : PoolObject, IDamageable
 
         while (!isDead && currentStage == BossStage.Stage2)
         {
-            // 1. 점프
             yield return StartCoroutine(JumpToTargetPredictive(jumpHeight, jumpDuration, true));
             FireConeMissiles();
 
-            // 2. 착지 후 idle 2초
             yield return StartCoroutine(WaitIdle(2f));
 
-            // 3. 근접 공격 루프
             float trackTime = 20f;
             float elapsed = 0f;
             hasAttacked = false;
@@ -248,7 +241,6 @@ public class BossController : PoolObject, IDamageable
                 yield return null;
             }
 
-            // 4. 재대기 후 다음 점프
             yield return new WaitForSeconds(1f);
         }
     }
@@ -276,10 +268,9 @@ public class BossController : PoolObject, IDamageable
         OnHit();
         animator.SetTrigger("isAttack");
 
-        StartCoroutine(ResetAttackFlagAfterDelay(3f)); // 공격 후 3초 동안 멈춤
+        StartCoroutine(ResetAttackFlagAfterDelay(3f));
     }
 
-    // 애니메이션 이벤트
     public void OnHit()
     {
         if (attackRangePrefab == null) return;
@@ -350,7 +341,6 @@ public class BossController : PoolObject, IDamageable
         Vector3 predictedPos = target.position;
         if (playerRb != null) predictedPos += playerRb.linearVelocity * duration;
 
-        ShowLandingWarning(predictedPos);
         agent.enabled = false;
 
         float elapsed = 0f;
@@ -367,13 +357,6 @@ public class BossController : PoolObject, IDamageable
         transform.position = predictedPos;
         agent.Warp(transform.position);
         agent.enabled = true;
-    }
-
-    private void ShowLandingWarning(Vector3 landingPos)
-    {
-        if (landingWarningPrefab == null) return;
-        GameObject warning = Instantiate(landingWarningPrefab, landingPos, Quaternion.identity);
-        Destroy(warning, warningDuration);
     }
     #endregion
 }

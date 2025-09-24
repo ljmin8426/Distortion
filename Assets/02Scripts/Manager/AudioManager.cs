@@ -1,35 +1,24 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    [SerializeField] private AudioSource soundFXObject;
-
     public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume)
     {
-        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+        PoolObject obj = PoolManager.Instance.SpawnFromPool("SoundObject", spawnTransform.position, Quaternion.identity);
+        AudioSource audioSource = obj.GetComponent<AudioSource>();
 
         audioSource.clip = audioClip;
         audioSource.volume = volume;
         audioSource.Play();
 
-        float clipLength = audioSource.clip.length;
-
-        Destroy(audioSource.gameObject, clipLength);
+        StartCoroutine(ReturnWhenFinished(audioSource, obj));
     }
 
-    public void PlayRandomSoundFXClip(AudioClip[] audioClip, Transform spawnTransform, float volume)
+    private IEnumerator ReturnWhenFinished(AudioSource source, PoolObject obj)
     {
-        int rand = Random.Range(0, audioClip.Length);
-
-        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
-
-        audioSource.clip = audioClip[rand];
-        audioSource.volume = volume;
-        audioSource.Play();
-
-        float clipLength = audioSource.clip.length;
-
-        Destroy(audioSource.gameObject, clipLength);
+        yield return new WaitForSeconds(source.clip.length);
+        PoolManager.Instance.ReturnToPool(obj);
     }
 }
