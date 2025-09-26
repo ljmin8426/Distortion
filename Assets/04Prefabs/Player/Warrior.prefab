@@ -248,8 +248,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8098456687862634331}
-  - component: {fileID: 6979176885002190675}
-  - component: {fileID: 2656922718136141933}
   m_Layer: 14
   m_Name: Polyart_Mesh
   m_TagString: Untagged
@@ -278,40 +276,6 @@ Transform:
   - {fileID: 3308554690395716048}
   m_Father: {fileID: 4385072423439532245}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &6979176885002190675
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2445352346182678353}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 860793eb3324391468f1c120a75ec049, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 0
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2656922718136141933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2445352346182678353}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d790d0b6013bc4d4fb6fbd8feb594c2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2516201000664249043
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,7 +690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2534179767905325024, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       propertyPath: bonusAtk
-      value: 1000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2534179767905325024, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       propertyPath: blockSound
@@ -817,7 +781,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 3825734174987369963, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+    - {fileID: 0}
     - {fileID: 842373764546799512, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -825,6 +789,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8098456687862634331}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7125308187309734796, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 8629784224838198112}
     - targetCorrespondingSourceObject: {fileID: 7125308187309734796, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       insertIndex: 3
       addedObject: {fileID: 8272339142854189354}
@@ -843,12 +810,37 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7125308187309734796, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6605657433008663519}
+    - targetCorrespondingSourceObject: {fileID: 7125308187309734796, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8350113859695115999}
   m_SourcePrefab: {fileID: 100100000, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
 --- !u!1 &754770639707351320 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7125308187309734796, guid: 364a4ae7abaa6164db7201223f41d01b, type: 3}
   m_PrefabInstance: {fileID: 7537712884732777108}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &8629784224838198112
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754770639707351320}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 860793eb3324391468f1c120a75ec049, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 0
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &8272339142854189354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -914,14 +906,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b09ff09c57ee743bf27f9a58b6bca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillType: 0
-  cooldown: 0
-  manaCost: 25
-  icon: {fileID: 21300000, guid: f6b8b85cbdc82ce439a41ae3d56d57ee, type: 3}
-  missileCount: 3
+  skillType: 1
+  cooldown: 15
+  epCost: 50
+  icon: {fileID: 21300000, guid: bbe833a9207e7fa41bbd3ce71ad09605, type: 3}
+  missileCount: 5
   missileSpreadAngle: 15
   missileSpawnInterval: 0.1
-  effectPrefab: {fileID: 0}
+  effectPrefab: {fileID: 205382452572279358, guid: 1c014e10366e52c46bfab38722ecd957, type: 3}
 --- !u!114 &4255219969626632135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -935,13 +927,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillType: 0
-  cooldown: 0
-  manaCost: 50
-  icon: {fileID: 21300000, guid: bbe833a9207e7fa41bbd3ce71ad09605, type: 3}
-  shieldDuration: 4
+  cooldown: 10
+  epCost: 25
+  icon: {fileID: 21300000, guid: f6b8b85cbdc82ce439a41ae3d56d57ee, type: 3}
+  shieldDuration: 5
   shieldAmount: 100
-  effectPrefab: {fileID: 0}
-  shieldSound: {fileID: 0}
+  effectPrefab: {fileID: 13945152674232655, guid: d858307c3c986124c9a2b5c40f371473, type: 3}
+  shieldSound: {fileID: 8300000, guid: 00e4eb96f4f6cc249a632e4027644cad, type: 3}
 --- !u!114 &6605657433008663519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -952,6 +944,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 570ca86d789f801418ff44d2e8cc2c74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldHp: 0
+--- !u!114 &8350113859695115999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754770639707351320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d790d0b6013bc4d4fb6fbd8feb594c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &4385072423439532245 stripped

@@ -5,7 +5,13 @@ using UnityEngine.AI;
 
 public class BossController : PoolObject, IDamageable
 {
-    public enum BossStage { Idle, Stage1, Stage2, Dead }
+    public enum BossStage
+    { 
+        Idle, 
+        Stage1, 
+        Stage2, 
+        Dead 
+    }
 
     [SerializeField] private BossId id;
 
@@ -57,6 +63,14 @@ public class BossController : PoolObject, IDamageable
     private Coroutine stage1Coroutine;
     private Coroutine stage2Coroutine;
 
+    private int isGround = Animator.StringToHash("isGround");
+    private int isAttack = Animator.StringToHash("isAttack");
+    private int isJump = Animator.StringToHash("isJump");
+    private int isWakeUp = Animator.StringToHash("isWakeUp");
+    private int isRoar = Animator.StringToHash("isRoar");
+    private int isDie = Animator.StringToHash("isDie");
+    private int moveX = Animator.StringToHash("moveX");
+    private int moveY = Animator.StringToHash("moveY");
     public float JumpHeight => jumpHeight;
     public float JumpDuration => jumpDuration;
 
@@ -65,7 +79,7 @@ public class BossController : PoolObject, IDamageable
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -76,7 +90,7 @@ public class BossController : PoolObject, IDamageable
     private void Update()
     {
         if (isDead) return;
-        animator.SetBool("isGround", agent.isOnNavMesh && Mathf.Abs(agent.velocity.y) < 0.01f);
+        animator.SetBool(isGround, agent.isOnNavMesh && Mathf.Abs(agent.velocity.y) < 0.01f);
     }
 
     #region Initialization
@@ -100,9 +114,9 @@ public class BossController : PoolObject, IDamageable
         {
             if (target != null && Vector3.Distance(transform.position, target.position) <= detectionRange)
             {
-                animator.SetTrigger("isWakeUp");
+                animator.SetTrigger(isWakeUp);
                 currentStage = BossStage.Stage1;
-                yield return new WaitForSeconds(wakeUpDuration);
+                yield return YieldCache.WaitForSeconds(wakeUpDuration);
                 StartFight();
                 yield break;
             }
@@ -129,8 +143,8 @@ public class BossController : PoolObject, IDamageable
     {
         while (currentStage == BossStage.Stage1 && !isDead)
         {
-            animator.SetTrigger("isRoar");
-            yield return new WaitForSeconds(volleyInterval);
+            animator.SetTrigger(isRoar);
+            yield return YieldCache.WaitForSeconds(volleyInterval);
         }
     }
 
@@ -179,6 +193,7 @@ public class BossController : PoolObject, IDamageable
 
         PoolManager.Instance?.SpawnFromPool("HitEffect", transform.position, Quaternion.identity);
         AudioManager.Instance.PlaySoundFXClip(hitSound, transform, 1f);
+        DamagePopUpGenerator.Instance.CreatePopUp(transform.position, amount.ToString(), Color.red);
 
         if (!isPhase2 && curHP <= bossData.maxHP * phase2HPThreshold)
         {
@@ -194,7 +209,7 @@ public class BossController : PoolObject, IDamageable
     {
         currentStage = BossStage.Dead;
         isDead = true;
-        animator.SetTrigger("isDie");
+        animator.SetTrigger(isDie);
         AudioManager.Instance.PlaySoundFXClip(deathSound, transform, 1f);
         OnBossDie?.Invoke(this);
     }
@@ -241,7 +256,7 @@ public class BossController : PoolObject, IDamageable
                 yield return null;
             }
 
-            yield return new WaitForSeconds(1f);
+            yield return YieldCache.WaitForSeconds(1f);
         }
     }
 
@@ -250,8 +265,8 @@ public class BossController : PoolObject, IDamageable
         float elapsed = 0f;
         while (elapsed < time && !isDead)
         {
-            animator.SetFloat("moveX", 0f);
-            animator.SetFloat("moveY", 0f);
+            animator.SetFloat(moveX, 0f);
+            animator.SetFloat(moveY, 0f);
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -262,11 +277,11 @@ public class BossController : PoolObject, IDamageable
         if (target == null) return;
         LookAtTarget(target);
 
-        animator.SetFloat("moveX", 0f);
-        animator.SetFloat("moveY", 0f);
+        animator.SetFloat(moveX, 0f);
+        animator.SetFloat(moveY, 0f);
 
         OnHit();
-        animator.SetTrigger("isAttack");
+        animator.SetTrigger(isAttack);
 
         StartCoroutine(ResetAttackFlagAfterDelay(3f));
     }
@@ -289,7 +304,7 @@ public class BossController : PoolObject, IDamageable
 
     private IEnumerator ResetAttackFlagAfterDelay(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return YieldCache.WaitForSeconds(delay);
         hasAttacked = false;
     }
 
@@ -301,8 +316,8 @@ public class BossController : PoolObject, IDamageable
         dir.y = 0f;
         if (dir.sqrMagnitude < 0.01f)
         {
-            animator.SetFloat("moveX", 0f);
-            animator.SetFloat("moveY", 0f);
+            animator.SetFloat(moveX, 0f);
+            animator.SetFloat(moveY, 0f);
             return;
         }
 
@@ -311,8 +326,8 @@ public class BossController : PoolObject, IDamageable
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), Time.deltaTime * 5f);
 
         Vector3 localMove = transform.InverseTransformDirection(moveDir);
-        animator.SetFloat("moveX", localMove.x);
-        animator.SetFloat("moveY", localMove.z);
+        animator.SetFloat(moveX, localMove.x);
+        animator.SetFloat(moveY, localMove.z);
     }
     #endregion
 
@@ -332,7 +347,7 @@ public class BossController : PoolObject, IDamageable
     {
         if (target == null) yield break;
 
-        animator.SetTrigger("isJump");
+        animator.SetTrigger(isJump);
         Vector3 startPos = transform.position;
 
         if (lookBeforeJump) LookAtTarget(target);

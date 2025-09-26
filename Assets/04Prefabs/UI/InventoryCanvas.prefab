@@ -444,7 +444,7 @@ RectTransform:
   m_GameObject: {fileID: 1312767293226203411}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3559666136419067555}
@@ -452,10 +452,10 @@ RectTransform:
   - {fileID: 7030169357948421422}
   m_Father: {fileID: 8202327047999797717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -300, y: -280}
+  m_SizeDelta: {x: 1620, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4116034389099185769
 CanvasRenderer:
@@ -533,12 +533,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec6ab568bbd00f4a873a49ab4a96cc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryRoot: {fileID: 1312767293226203411}
   statPanelView: {fileID: 4813120404570459523}
   equipmentPanelView: {fileID: 53386120052368255}
   itemInfoPanelView: {fileID: 3406570468287612983}
   inventoryItemPanelView: {fileID: 5497764542104666140}
-  rt: {fileID: 0}
 --- !u!114 &5755064191246827229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,7 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 386bc5909bf890948a788b4dd5cd745f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryView: {fileID: 0}
+  inventoryView: {fileID: 573514465791404167}
   statPanelView: {fileID: 4813120404570459523}
 --- !u!1 &1466680608868901200
 GameObject:
@@ -2002,7 +2000,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2593caa6d74b02c42a42638b2e2ba924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotParent: {fileID: 7030169357948421422}
   itemSlotPrefab: {fileID: 5569438305312781694, guid: 659a422e0b0c6d74d960181a500896c3, type: 3}
 --- !u!1 &4257872669030996139
 GameObject:

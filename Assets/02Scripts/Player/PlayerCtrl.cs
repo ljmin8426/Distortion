@@ -27,6 +27,14 @@ public class PlayerCtrl : MonoBehaviour
 
     private Mouse mouse;
 
+    #region Anim Hash
+    private int isAttack = Animator.StringToHash("isAttack");
+
+    private int speed = Animator.StringToHash("moveSpeed");
+    public int IsMove => IsMove;
+    public int Speed => speed;
+    #endregion
+
     public AudioClip DashSound => dashSound;
     public CharacterController Controller => controller;
     public Animator Animator => animator;
@@ -47,8 +55,8 @@ public class PlayerCtrl : MonoBehaviour
         controller = GetComponent<CharacterController>();
         weaponManager = GetComponent<WeaponManager>();
         input = GetComponent<PlayerInputManager>();
-        animator = GetComponentInChildren<Animator>();
-
+        animator = GetComponent<Animator>();
+            
         if (Camera.main != null)
             mainCamera = Camera.main.transform;
 
@@ -135,7 +143,7 @@ public class PlayerCtrl : MonoBehaviour
                 
     private void OnAttackInput()
     {
-        Animator.SetTrigger("isAttack");
+        Animator.SetTrigger(isAttack);
         stateMachine.ChangeState(Player_State.Attack);
     }
 }

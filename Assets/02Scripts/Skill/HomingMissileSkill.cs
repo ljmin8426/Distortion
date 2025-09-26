@@ -89,7 +89,7 @@ public class HomingMissileSkill : SkillBase
             }
 
             if (missileSpawnInterval > 0f)
-                yield return new WaitForSeconds(missileSpawnInterval);
+                yield return YieldCache.WaitForSeconds(missileSpawnInterval);
         }
     }
 

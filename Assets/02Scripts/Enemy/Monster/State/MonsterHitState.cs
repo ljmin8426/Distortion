@@ -12,7 +12,7 @@ public class MonsterHitState : BaseState<MonsterBase>
         owner.Agent.isStopped = true;
         owner.Agent.ResetPath();
 
-        owner.Animator.SetTrigger("isHit");
+        owner.Animator.SetTrigger(owner.AnimHash_Hit);
         owner.StartCoroutine(HitStunCoroutine());
     }
 
@@ -27,7 +27,7 @@ public class MonsterHitState : BaseState<MonsterBase>
 
     private IEnumerator HitStunCoroutine()
     {
-        yield return new WaitForSeconds(owner.StunTime);
+        yield return YieldCache.WaitForSeconds(owner.StunTime);
 
         owner.ChangeState(Enemy_State.Idle);
     }

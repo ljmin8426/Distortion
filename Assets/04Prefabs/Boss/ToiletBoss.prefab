@@ -43,6 +43,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ToiletBoss
       objectReference: {fileID: 0}
+    - target: {fileID: 5956833440897579088, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: b9871c02e8d6df54b812a906657f671f, type: 3}
     - target: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       propertyPath: m_LocalPosition.x
       value: -60.055542
@@ -83,8 +87,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5956833440897579088, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8882077751604593459, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
@@ -106,6 +109,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3261593887658606135, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3478915776803181197}
+    - targetCorrespondingSourceObject: {fileID: 3261593887658606135, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4895255534923197114}
   m_SourcePrefab: {fileID: 100100000, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
 --- !u!1 &4294760755518841896 stripped
 GameObject:
@@ -210,13 +216,25 @@ MonoBehaviour:
   spreadAngle: 360
   missileSpeed: 15
   missilePoolTag: Missile
-  phase2HPThreshold: 0.66
-  jumpHeight: 15
+  phase2HPThreshold: 0.5
+  jumpHeight: 10
   jumpDuration: 2
   attackRangePrefab: {fileID: 4849681648837321060, guid: bda838dcb4a44014688fa819d648b12a, type: 3}
   attackRangeDuration: 1
-  attackDamage: 10
-  attackRangeRadius: 3
+  attackDamage: 50
+  attackRangeRadius: 4
+--- !u!114 &4895255534923197114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4294760755518841896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67a4274f28d77a47b645e92cc9b2ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7555772341608088485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9080086510325291450, guid: 2ce1bb9cd3cbdcc43a862f8b8a103038, type: 3}
@@ -295,58 +313,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sci-Fi ToiletMech Skin 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: b9871c02e8d6df54b812a906657f671f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b9871c02e8d6df54b812a906657f671f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1875401119691071616}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b9871c02e8d6df54b812a906657f671f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2159997491378053613}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9871c02e8d6df54b812a906657f671f, type: 3}
 --- !u!4 &5875174849184621070 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b9871c02e8d6df54b812a906657f671f, type: 3}
   m_PrefabInstance: {fileID: 6197631592375518693}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6540071947903252660 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b9871c02e8d6df54b812a906657f671f, type: 3}
-  m_PrefabInstance: {fileID: 6197631592375518693}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1875401119691071616
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6540071947903252660}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b9871c02e8d6df54b812a906657f671f, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4681b52d33a688b48b01c79b0c1526b6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2159997491378053613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6540071947903252660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f67a4274f28d77a47b645e92cc9b2ee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

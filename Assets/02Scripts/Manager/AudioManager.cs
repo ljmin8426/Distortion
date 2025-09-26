@@ -18,7 +18,7 @@ public class AudioManager : Singleton<AudioManager>
 
     private IEnumerator ReturnWhenFinished(AudioSource source, PoolObject obj)
     {
-        yield return new WaitForSeconds(source.clip.length);
+        yield return YieldCache.WaitForSeconds(source.clip.length);
         PoolManager.Instance.ReturnToPool(obj);
     }
 }

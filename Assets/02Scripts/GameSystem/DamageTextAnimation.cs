@@ -24,7 +24,6 @@ public class DamageTextAnimation : PoolObject
 
         time += Time.deltaTime;
 
-        // 애니메이션 끝나면 풀로 반환
         if (time >= 1f)
         {
             ReturnToPool();

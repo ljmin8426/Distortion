@@ -16,6 +16,9 @@ public class AttackRange : PoolObject
         Collider[] hits = Physics.OverlapSphere(transform.position, radius);
         foreach (var hit in hits)
         {
+            if (hit.CompareTag("Boss"))
+                continue;
+
             IDamageable dmg = hit.GetComponent<IDamageable>();
             if (dmg != null)
             {
@@ -25,7 +28,6 @@ public class AttackRange : PoolObject
 
         ReturnToPool();
     }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

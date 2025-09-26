@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 public class EnemyHPBar : MonoBehaviour
 {
-    [SerializeField] private Slider hpSlider;      // 빨간 HP (실제)
-    [SerializeField] private Slider delaySlider;   // 흰색 HP (잔상)
-    [SerializeField] private float lerpSpeed = 2f; // 잔상 줄어드는 속도
+    [SerializeField] private Slider hpSlider;      
+    [SerializeField] private Slider delaySlider;   
+    [SerializeField] private float lerpSpeed = 2f; 
 
     private Camera mainCamera;
 
@@ -13,7 +13,7 @@ public class EnemyHPBar : MonoBehaviour
     {
         if (hpSlider == null || delaySlider == null)
         {
-            Debug.LogError("hpSlider / delaySlider 할당 필요!");
+            Debug.LogError("hpSlider / delaySlider 할당 필요");
         }
         mainCamera = Camera.main;
     }
@@ -22,10 +22,8 @@ public class EnemyHPBar : MonoBehaviour
     {
         if (mainCamera == null) return;
 
-        // HP바가 항상 카메라를 바라보도록
         transform.forward = mainCamera.transform.forward;
 
-        // 흰색 잔상바가 빨간바를 천천히 따라오도록
         if (delaySlider.value > hpSlider.value)
         {
             delaySlider.value = Mathf.Lerp(
@@ -36,21 +34,17 @@ public class EnemyHPBar : MonoBehaviour
         }
         else
         {
-            delaySlider.value = hpSlider.value; // 체력 회복 시 즉시 맞춰줌
+            delaySlider.value = hpSlider.value; 
         }
     }
 
-    /// <summary>
-    /// HP 업데이트 (0~1로 정규화된 값 전달)
-    /// </summary>
     public void UpdateHPBar(float normalizedHp)
     {
         normalizedHp = Mathf.Clamp01(normalizedHp);
 
         if (hpSlider != null)
         {
-            hpSlider.value = normalizedHp; // 빨간바는 즉시 반영
+            hpSlider.value = normalizedHp;
         }
-        // delaySlider는 LateUpdate에서 천천히 따라감
     }
 }

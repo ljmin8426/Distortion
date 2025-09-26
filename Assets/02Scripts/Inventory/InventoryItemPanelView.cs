@@ -9,6 +9,11 @@ public class InventoryItemPanelView : MonoBehaviour
 
     public void ClearAllSlots()
     {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         foreach (var slot in slotViews)
         {
             Destroy(slot.gameObject);

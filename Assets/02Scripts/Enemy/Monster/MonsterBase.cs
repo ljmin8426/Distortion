@@ -40,6 +40,14 @@ public class MonsterBase : PoolObject, IDamageable
     private float maxHP;
 
     private int animHash_Move = Animator.StringToHash("moveSpeed");
+    private int animHash_Hit = Animator.StringToHash("isHit");
+    private int animHash_Die = Animator.StringToHash("isDie");
+    private int animHash_Attack = Animator.StringToHash("isAttack");
+
+    public int AnimHash_Move => animHash_Move;
+    public int AnimHash_Hit => animHash_Hit;
+    public int AnimHash_Die => animHash_Die;
+    public int AnimHash_Attack => animHash_Attack;
 
     private Animator animator;
 
@@ -165,15 +173,13 @@ public class MonsterBase : PoolObject, IDamageable
 
     private IEnumerator DropItemAfterDelay(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return YieldCache.WaitForSeconds(delay);
 
-        // 50% 확률 체크
         if (UnityEngine.Random.value <= dropChance)
         {
             GameObject itemToDrop = null;
 
-            // 장비 또는 회복 아이템 랜덤 선택
-            if (UnityEngine.Random.value < 0.5f) // 50% 확률로 장비/회복 선택
+            if (UnityEngine.Random.value < 0.5f)
             {
                 if (equipmentItems.Length > 0)
                     itemToDrop = equipmentItems[UnityEngine.Random.Range(0, equipmentItems.Length)];

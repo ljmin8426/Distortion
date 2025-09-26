@@ -41,7 +41,7 @@ public class MoveState : BaseState<PlayerCtrl>
         move.y = owner.VerticalVelocity;
         owner.Controller.Move(move * Time.deltaTime);
 
-        owner.Animator.SetFloat("moveSpeed", input.magnitude);
+        owner.Animator.SetFloat(owner.Speed, input.magnitude);
     }
 
     public override void OnFixedUpdateState() { }

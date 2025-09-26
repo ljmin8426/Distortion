@@ -11,7 +11,6 @@ public class InventoryPresenter
 
     public void RefreshUI()
     {
-        // 1. 인벤토리 슬롯 갱신
         view.inventoryItemPanelView.ClearAllSlots();
 
         foreach (var item in model.ownedItems)
@@ -19,7 +18,6 @@ public class InventoryPresenter
             view.inventoryItemPanelView.AddItemSlot(item);
         }
 
-        // 2. 장비 슬롯 갱신
         foreach (var slot in view.equipmentPanelView.equipSlots)
         {
             if (model.equippedItems.TryGetValue(slot.itemType, out var equipped))
@@ -28,7 +26,6 @@ public class InventoryPresenter
                 slot.Clear();
         }
 
-        // 3. 아이템 정보 갱신
         if (model.selectedItem != null)
         {
             view.itemInfoPanelView.ShowItemInfo(model.selectedItem);
@@ -43,7 +40,6 @@ public class InventoryPresenter
     {
         model.SelectItem(item);
         view.itemInfoPanelView.ShowItemInfo(item);
-        slotView.Highlight(true);
     }
 
     public void OnPickupItem(ItemDataSO item)

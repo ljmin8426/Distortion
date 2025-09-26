@@ -30,7 +30,7 @@ public class MonsterChaseState : BaseState<MonsterBase>
 
             // 이동 애니메이션 반영
             if (owner.Animator != null)
-                owner.Animator.SetFloat("moveSpeed", owner.Agent.velocity.magnitude);
+                owner.Animator.SetFloat(owner.AnimHash_Move, owner.Agent.velocity.magnitude);
         }
     }
 

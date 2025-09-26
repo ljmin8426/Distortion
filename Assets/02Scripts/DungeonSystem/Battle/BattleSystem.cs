@@ -13,8 +13,8 @@ public class BattleSystem : MonoBehaviour
 
     [SerializeField] private ColliderTrigger colliderTrigger;
     [SerializeField] private Wave[] waveArray;
-    [SerializeField] private GameObject doorToOpen; // 전투 끝나면 열릴 문
-    [SerializeField] private GameObject doorToClose; // 전투 시작할 때 닫힐 문 (입구문)
+    [SerializeField] private GameObject doorToOpen;
+    [SerializeField] private GameObject doorToClose; 
 
     private State state;
 
@@ -33,7 +33,7 @@ public class BattleSystem : MonoBehaviour
         if (state == State.Idle)
         {
             StartBattle();
-            colliderTrigger.OnPlayerEnterTrigger -= OnPlayerEnter; // 중복 발동 방지
+            colliderTrigger.OnPlayerEnterTrigger -= OnPlayerEnter;
         }
     }
 

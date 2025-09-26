@@ -12,7 +12,7 @@ public class MonsterIdleState : BaseState<MonsterBase>
 
         // Idle 애니메이션
         if (owner.Animator != null)
-            owner.Animator.SetFloat("moveSpeed", 0f);
+            owner.Animator.SetFloat(owner.AnimHash_Move, 0f);
     }
 
     public override void OnUpdateState()

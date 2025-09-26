@@ -6,6 +6,8 @@ public class Shield : MonoBehaviour
     [SerializeField] private float shieldHp = 0;
     private bool isActive = false;
 
+    public event Action OnCrash;
+
     public void EnableShield(int amount)
     {
         shieldHp = amount;
@@ -16,6 +18,7 @@ public class Shield : MonoBehaviour
     {
         isActive = false;
         shieldHp = 0;
+        OnCrash?.Invoke();
     }
 
     public float AbsorbDamage(float damage)

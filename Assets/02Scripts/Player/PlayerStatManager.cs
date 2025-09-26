@@ -138,6 +138,11 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
     private void LevelUp()
     {
         level++;
+
+        defaultMaxHP += 50;
+        defaultMaxEP += 50;
+        defaultAtk += 20;
+
         currentHP = MaxHP;
         currentEP = MaxEP;
 
@@ -154,7 +159,8 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
         {
             AudioManager.Instance.PlaySoundFXClip(blockSound, transform, 1f);
             float remaining = shield.AbsorbDamage(damage);
-            if (remaining <= 0f) return;
+            if (remaining <= 0f) 
+                return;
             damage = remaining;
         }
 
@@ -178,24 +184,21 @@ public class PlayerStatManager : SingletonDestroy<PlayerStatManager>, IDamageabl
 
     private IEnumerator RecoverHPEP()
     {
-        float interval = 1f;
-        WaitForSeconds wait = new WaitForSeconds(interval);
-
         while (true)
         {
             if (currentHP < MaxHP)
             {
-                currentHP = Mathf.Min(currentHP + 1 * interval, MaxHP);
+                currentHP = Mathf.Min(currentHP + 1 * 1, MaxHP);
                 OnHpChange?.Invoke(currentHP, MaxHP);
             }
 
             if (currentEP < MaxEP)
             {
-                currentEP = Mathf.Min(currentEP + 1 * interval, MaxEP);
+                currentEP = Mathf.Min(currentEP + 1 * 1, MaxEP);
                 OnEpChange?.Invoke(currentEP, MaxEP);
             }
 
-            yield return wait;
+            yield return YieldCache.WaitForSeconds(1f);
         }
     }
 

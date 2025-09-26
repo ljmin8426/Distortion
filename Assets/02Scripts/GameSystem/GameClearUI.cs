@@ -30,7 +30,7 @@ public class GameClearUI : MonoBehaviour
 
     private IEnumerator ReturnToLobbyAfterDelay()
     {
-        yield return new WaitForSeconds(2f);
+        yield return YieldCache.WaitForSeconds(2f);
         gameClearUI.transform.localScale = Vector3.one;
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(timeToRobby);

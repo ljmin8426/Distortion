@@ -1,17 +1,25 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class ShieldSkill : SkillBase
 {
     [Header("Shield Setting")]
-    [SerializeField] private float shieldDuration = 4f;
-    [SerializeField] private int shieldAmount = 100;
+    [SerializeField] private float shieldDuration = 6f;
+    [SerializeField] private int shieldAmount = 400;
     [SerializeField] private GameObject effectPrefab;
     [SerializeField] private AudioClip shieldSound;
 
     private GameObject activeEffect;
 
     private Shield shield;
+
+
+    private void CrashShield()
+    {
+        Destroy(activeEffect);
+        shield.OnCrash -= CrashShield;
+    }
 
     public override void Activate(GameObject attacker)
     {
@@ -20,6 +28,8 @@ public class ShieldSkill : SkillBase
         shield = attacker.GetComponent<Shield>();
         if (shield == null)
             shield = attacker.gameObject.AddComponent<Shield>();
+
+        shield.OnCrash += CrashShield;
 
         AudioManager.Instance.PlaySoundFXClip(shieldSound, transform, 1f);
 
@@ -50,12 +60,8 @@ public class ShieldSkill : SkillBase
         if (activeEffect != null)
         {
             Destroy(activeEffect);
+            shield.OnCrash -= CrashShield;
             activeEffect = null;
         }
-    }
-
-    private void CrashShield()
-    {
-        Destroy(activeEffect);
     }
 }

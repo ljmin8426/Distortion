@@ -14,7 +14,7 @@ public class MonsterDieState : BaseState<MonsterBase>
         if (!isDieTriggered)
         {
             isDieTriggered = true;
-            owner.Animator.SetTrigger("isDie");
+            owner.Animator.SetTrigger(owner.AnimHash_Die);
             AudioManager.Instance.PlaySoundFXClip(owner.DeathSoundClip, owner.transform, 1f);
             PlayerStatManager.Instance.GetExp(owner.MonsterData.EXP);
         }

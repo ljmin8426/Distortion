@@ -6,7 +6,7 @@ public class InventoryItemSlotView : MonoBehaviour, IBeginDragHandler, IDragHand
 {
     [SerializeField] private Image itemImage;
     [SerializeField] private Image backgroundImage;
-    [SerializeField] private GameObject selectHighlight;
+    [SerializeField] private Sprite selectHighlight;
 
     public ItemDataSO Item { get; private set; }
 
@@ -27,24 +27,6 @@ public class InventoryItemSlotView : MonoBehaviour, IBeginDragHandler, IDragHand
         itemImage.enabled = true;
 
         Sprite sprite = backgroundImage.sprite;
-
-        SpriteData data = new SpriteData();
-
-        if (item is EquipmentItem equipment)
-        {
-            DataManager.Instance.GetSprite("ItemRank", out data);
-            sprite = data.rankSprite[(int)equipment.rarity];
-        }
-        else
-        {
-            DataManager.Instance.GetSprite("ItemRank", out data);
-            sprite = data.rankSprite[2];
-        }   
-    }
-
-    public void Highlight(bool isOn)
-    {
-        selectHighlight.SetActive(isOn);
     }
 
     public void OnPointerClick(PointerEventData eventData)

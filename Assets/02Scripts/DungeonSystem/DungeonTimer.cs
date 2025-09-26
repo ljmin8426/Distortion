@@ -5,7 +5,7 @@ using System;
 public class DungeonTimer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private float limitTime = 600f;
+    [SerializeField] private float limitTime = 360f;
 
     private bool timerRunning = false;
     private float currentTime;

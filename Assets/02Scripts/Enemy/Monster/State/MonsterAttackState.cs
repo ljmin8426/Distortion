@@ -3,7 +3,7 @@ using UnityEngine;
 public class MonsterAttackState : BaseState<MonsterBase>
 {
     private float lastAttackTime;
-    private bool isAttacking; // 공격 모션이 끝날 때까지 상태 유지
+    private bool isAttacking;
 
     public MonsterAttackState(MonsterBase owner) : base(owner) { }
 
@@ -62,7 +62,7 @@ public class MonsterAttackState : BaseState<MonsterBase>
                 owner.transform.rotation = Quaternion.LookRotation(direction);
             }
         }
-        owner.Animator.SetTrigger("isAttack");
+        owner.Animator.SetTrigger(owner.AnimHash_Attack);
     }
 
     // 애니메이션 중간 이벤트 (데미지 판정)

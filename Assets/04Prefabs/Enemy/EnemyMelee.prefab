@@ -255,7 +255,7 @@ PrefabInstance:
       addedObject: {fileID: 2342477434897735907}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 699105463901480250, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
-      insertIndex: 3
+      insertIndex: 1
       addedObject: {fileID: 6510660388515822427}
     - targetCorrespondingSourceObject: {fileID: 699105463901480250, guid: da100d2f48bc6774ea3bc1422049d10e, type: 3}
       insertIndex: -1
