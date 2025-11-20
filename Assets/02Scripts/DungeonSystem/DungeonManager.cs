@@ -27,7 +27,7 @@ public class DungeonManager : MonoBehaviour
             roomList[0].gameObject.SetActive(true);
             roomList[0].ActivateRoom();
         }
-    }
+    
 
     private void HandleRoomCleared(DungeonRoom clearedRoom)
     {
